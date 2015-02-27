@@ -68,7 +68,10 @@ solicit_etiq = cliente.service.solicitaEtiquetas(sgpkey['tipo_destinatario'],
                                                  sgpkey['quant_etiquetas'],
                                                  sgpkey['usuario'],
                                                  sgpkey['senha'])
-# dem_etiquetas = cliente.service.solicitaEtiquetas(,2, usuario, senha)
-# cod_administrativo =
+
+etiquetas = solicit_etiq.split(',')
+gera_digito = cliente.service.geraDigitoVerificadorEtiquetas(etiquetas,
+                                                             sgpkey['usuario'],
+                                                             sgpkey['senha'])
 
 print 'Consulta finalizada'
