@@ -19,11 +19,11 @@ sgpkey = {
     'contrato': '9912208555',
     'cartao': '0057018901',
     'numero_servico': '40215',
-    'cep_origem': '70002900',
-    'cep_destino': '81350120',
+    'cep_origem': '37503130',
+    'cep_destino': '37503130',
     'tipo_destinatario': 'C',
-    'cnpj': '00000000000000',
-    'quant_etiquetas': 1,
+    'cnpj': '34028316000103',
+    'quant_etiquetas': int(1),
 }
 
 # Verifica disponibilidade de servico
@@ -40,14 +40,17 @@ busca_cliente = cliente.service.buscaCliente(sgpkey['contrato'],
                                              sgpkey['cartao'],
                                              sgpkey['usuario'],
                                              sgpkey['senha'])
-sgpkey['id_servico'] = 104265
+sgpkey['id_servico'] = long(104707)
+cliente_cnpj = busca_cliente.cnpj
+year = busca_cliente.dataAtualizacao.year
+contrato_list = busca_cliente.contratos
+cod_client = contrato_list[0].codigoCliente
 
-# servico_id = busca_cliente.
 
 # Consulta CEP
 # consultaCEP(string cep)
 cep = cliente.service.consultaCEP(sgpkey['cep_destino'])
-bairro = cep.bairro
+# bairro = cep.bairro
 
 # Verificando status do cartao
 # getStatusCartaoPostagem(string numeroCartaoPostagem, string usuario,
@@ -59,12 +62,12 @@ status = cliente.service.getStatusCartaoPostagem(sgpkey['cartao'],
 # Solicitar etiquetas por demanda
 # solicitaEtiquetas(string tipoDestinatario, string identificador,
 # long idServico, int qtdEtiquetas, string usuario, string senha)
-# solicit_etiq = cliente.service.solicitaEtiquetas(sgpkey['tipo_destinatario'],
-#                                                  sgpkey['cnpj'],
-#                                                  sgpkey['id_servico'],
-#                                                  sgpkey['quant_etiquetas'],
-#                                                  sgpkey['usuario'],
-#                                                  sgpkey['senha'])
+solicit_etiq = cliente.service.solicitaEtiquetas(sgpkey['tipo_destinatario'],
+                                                 sgpkey['cnpj'],
+                                                 sgpkey['id_servico'],
+                                                 sgpkey['quant_etiquetas'],
+                                                 sgpkey['usuario'],
+                                                 sgpkey['senha'])
 # dem_etiquetas = cliente.service.solicitaEtiquetas(,2, usuario, senha)
 # cod_administrativo =
 
