@@ -26,6 +26,8 @@ sgpkey = {
     'quant_etiquetas': int(1),
 }
 
+# Inicialização
+
 # Verifica disponibilidade de servico
 # verificaDisponibilidadeServico(codAdministrativo, numeroServico, cepOrigem, 
 # cepDestino, usuario, senha)
@@ -69,9 +71,18 @@ solicit_etiq = cliente.service.solicitaEtiquetas(sgpkey['tipo_destinatario'],
                                                  sgpkey['usuario'],
                                                  sgpkey['senha'])
 
-etiquetas = solicit_etiq.split(',')
-gera_digito = cliente.service.geraDigitoVerificadorEtiquetas(etiquetas,
-                                                             sgpkey['usuario'],
-                                                             sgpkey['senha'])
+etiquetas_sem_dig = solicit_etiq.split(',')
+digito_verificador = cliente.service.geraDigitoVerificadorEtiquetas(
+    etiquetas_sem_dig, sgpkey['usuario'], sgpkey['senha'])
+
+etiqueta_com_digito = []
+
+# Adiciona digito verificador no espaco em branco da etiqueta
+for i in range(0, len(etiquetas_sem_dig)):
+    aux = etiquetas_sem_dig[i].replace(' ', str(digito_verificador[i]))
+    etiqueta_com_digito.append(aux)
+
+print etiqueta_com_digito
+
 
 print 'Consulta finalizada'
