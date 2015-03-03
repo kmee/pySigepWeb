@@ -95,8 +95,11 @@ for i in range(0, len(etiquetas_sem_dig)):
 
 xml = plp_xml_string.get_xml(busca_cliente, cep)
 
-print 'Validando xml'
-print plp_xml_string.validate_XML(xml)
+print '[INFO] Validando xml'
+if plp_xml_string.validate_XML(xml):
+    print '[INFO] XML validado com sucesso!'
+else:
+    print '[ERROR] XML nao validou com sucesso!'
 
 
 # Definindo url
@@ -120,6 +123,6 @@ ret = webservice_calc.service.CalcPrecoPrazo(
     sgpkey['cep_origem'], sgpkey['cep_destino'], '1', 1, 100, 20, 20, 20,
     'S', 10, 'S')
 
-print ret
+# print ret
 
 print 'Consulta finalizada'
