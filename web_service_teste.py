@@ -1,11 +1,13 @@
 # -*- coding: utf-8 -*-
 from suds import client
+import plp_xml_string
 
 # Definindo url
 url = "https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService" \
       "/AtendeCliente?wsdl"
 
 print 'Conectando...'
+
 # Instanciando um cliente
 cliente = client.Client(url)
 
@@ -48,11 +50,18 @@ year = busca_cliente.dataAtualizacao.year
 contrato_list = busca_cliente.contratos
 cod_client = contrato_list[0].codigoCliente
 
+print busca_cliente.contratos[0].contratoPK.numero
+print busca_cliente.contratos[0].cartoesPostagem[0].codigoAdministrativo
+print busca_cliente.contratos[0].cartoesPostagem[0].numero
+print busca_cliente.nome
+
 
 # Consulta CEP
 # consultaCEP(string cep)
 cep = cliente.service.consultaCEP(sgpkey['cep_destino'])
 # bairro = cep.bairro
+
+#print cep
 
 # Verificando status do cartao
 # getStatusCartaoPostagem(string numeroCartaoPostagem, string usuario,
@@ -82,7 +91,35 @@ for i in range(0, len(etiquetas_sem_dig)):
     aux = etiquetas_sem_dig[i].replace(' ', str(digito_verificador[i]))
     etiqueta_com_digito.append(aux)
 
-print etiqueta_com_digito
+# print etiqueta_com_digito
 
+xml = plp_xml_string.get_xml(busca_cliente, cep)
+
+print 'Validando xml'
+print plp_xml_string.validate_XML(xml)
+
+
+# Definindo url
+url_calc = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL'
+
+print 'Conectando webservice consulta prazo e preco'
+
+# Instanciando um cliente
+webservice_calc = client.Client(url_calc)
+
+# print webservice_calc
+
+# CalcPrecoPrazo(string nCdEmpresa, string sDsSenha, string nCdServico,
+# string sCepOrigem, string sCepDestino, string nVlPeso, int nCdFormato,
+# decimal nVlComprimento, decimal nVlAltura, decimal nVlLargura,
+# decimal nVlDiametro, string sCdMaoPropria, decimal nVlValorDeclarado,
+# string sCdAvisoRecebimento)
+
+ret = webservice_calc.service.CalcPrecoPrazo(
+    sgpkey['cod_admin'], sgpkey['senha'], sgpkey['numero_servico'],
+    sgpkey['cep_origem'], sgpkey['cep_destino'], '1', 1, 100, 20, 20, 20,
+    'S', 10, 'S')
+
+print ret
 
 print 'Consulta finalizada'
