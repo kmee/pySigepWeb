@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
-import lxml
 from lxml import etree
-from xml.etree.ElementTree import XML, fromstring, tostring
 
-def get_xml(cliente, endereco):
+
+def get_xml(cliente, endereco, etiquetas):
     xml = u'<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>'
     xml += u'<correioslog>'
     xml += u'<tipo_arquivo>Postagem</tipo_arquivo>'
@@ -44,9 +43,11 @@ def get_xml(cliente, endereco):
     xml += u'<telefone_remetente><![CDATA[6112345008]]></telefone_remetente>'
     xml += u'<fax_remetente><![CDATA[]]></fax_remetente>'
     xml += u'<email_remetente> <![CDATA[cli@mail.com.br]]> </email_remetente>'
-    xml += u'</remetente>' \
-           u'<forma_pagamento/>' \
-           u'<objeto_postal>'
+    xml += u'</remetente>'
+
+    xml += u'<forma_pagamento/>'
+
+    xml += u'<objeto_postal>'
     xml += u'<numero_etiqueta>PH185560916BR</numero_etiqueta>'
     xml += u'<codigo_objeto_cliente/>'
     xml += u'<codigo_servico_postagem>41068</codigo_servico_postagem>'
@@ -54,6 +55,7 @@ def get_xml(cliente, endereco):
     xml += u'<peso>200</peso>'
     xml += u'<rt1/>' \
            u'<rt2/>'
+
     xml += u'<destinatario>'
     xml += u'<nome_destinatario><![CDATA[Destino Ltda]]></nome_destinatario>'
     xml += u'<telefone_destinatario><![CDATA[6212349644]]>' \

@@ -2,14 +2,11 @@
 from suds import client
 import plp_xml_string
 
-# Definindo url
-url = "https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService" \
-      "/AtendeCliente?wsdl"
-
 print 'Conectando...'
 
 # Instanciando um cliente
-cliente = client.Client(url)
+cliente = client.Client("https://apphom.correios.com.br/SigepMasterJPA"
+                        "/AtendeClienteService/AtendeCliente?wsdl")
 
 # Listar os metodos que o webservice utiliza
 # print cliente
@@ -25,7 +22,7 @@ sgpkey = {
     'cep_destino': '37503130',
     'tipo_destinatario': 'C',
     'cnpj': '34028316000103',
-    'quant_etiquetas': int(1),
+    'quant_etiquetas': 3,
 }
 
 # Inicialização
@@ -73,27 +70,37 @@ status = cliente.service.getStatusCartaoPostagem(sgpkey['cartao'],
 # Solicitar etiquetas por demanda
 # solicitaEtiquetas(string tipoDestinatario, string identificador,
 # long idServico, int qtdEtiquetas, string usuario, string senha)
-solicit_etiq = cliente.service.solicitaEtiquetas(sgpkey['tipo_destinatario'],
-                                                 sgpkey['cnpj'],
-                                                 sgpkey['id_servico'],
-                                                 sgpkey['quant_etiquetas'],
-                                                 sgpkey['usuario'],
-                                                 sgpkey['senha'])
+range_etiquetas = cliente.service.solicitaEtiquetas(sgpkey['tipo_destinatario'],
+                                                    sgpkey['cnpj'],
+                                                    sgpkey['id_servico'],
+                                                    sgpkey['quant_etiquetas'],
+                                                    sgpkey['usuario'],
+                                                    sgpkey['senha'])
 
-etiquetas_sem_dig = solicit_etiq.split(',')
-digito_verificador = cliente.service.geraDigitoVerificadorEtiquetas(
+
+etiq_inicial = range_etiquetas.split(',')[0].replace('S').replace(' BR')
+
+etiquetas_sem_dig = range_etiquetas.split(',')[0]
+
+
+# Caso seja apenas um etiqueta o segundo valos do intervalo sera
+# como o primeiro, por isso o removemos
+if etiquetas_sem_dig[0] == etiquetas_sem_dig[1]:
+    etiquetas_sem_dig = etiquetas_sem_dig[:1]
+
+dig_verif_list = cliente.service.geraDigitoVerificadorEtiquetas(
     etiquetas_sem_dig, sgpkey['usuario'], sgpkey['senha'])
 
-etiqueta_com_digito = []
+etiqueta_com_dig = []
 
 # Adiciona digito verificador no espaco em branco da etiqueta
-for i in range(0, len(etiquetas_sem_dig)):
-    aux = etiquetas_sem_dig[i].replace(' ', str(digito_verificador[i]))
-    etiqueta_com_digito.append(aux)
+for i in range(0, sgpkey['quant_etiquetas']):
+    aux = etiquetas_sem_dig[i].replace(' ', str(dig_verif_list[i]))
+    etiqueta_com_dig.append(aux)
 
 # print etiqueta_com_digito
 
-xml = plp_xml_string.get_xml(busca_cliente, cep)
+xml = plp_xml_string.get_xml(busca_cliente, cep, etiqueta_com_dig)
 
 print '[INFO] Validando xml'
 if plp_xml_string.validate_XML(xml):
@@ -102,10 +109,16 @@ else:
     print '[ERROR] XML nao validou com sucesso!'
 
 
+# fechaPlp(string xml, long idPlpCliente, string cartaoPostagem,
+# string faixaEtiquetas, string usuario, string senha)
+# fechaPlpVariosServicos(string xml, long idPlpCliente, string cartaoPostagem,
+# string[] listaEtiquetas, string usuario, string senha)
+
+
 # Definindo url
 url_calc = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL'
 
-print 'Conectando webservice consulta prazo e preco'
+print '[INFO] Conectando webservice consulta prazo e preco'
 
 # Instanciando um cliente
 webservice_calc = client.Client(url_calc)
