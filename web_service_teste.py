@@ -77,16 +77,20 @@ range_etiquetas = cliente.service.solicitaEtiquetas(sgpkey['tipo_destinatario'],
                                                     sgpkey['usuario'],
                                                     sgpkey['senha'])
 
+print range_etiquetas
+# etiq_inicial = range_etiquetas.split(',')[0].replace('S').replace(' BR')
 
-etiq_inicial = range_etiquetas.split(',')[0].replace('S').replace(' BR')
-
-etiquetas_sem_dig = range_etiquetas.split(',')[0]
-
+etiqueta_inicial = range_etiquetas.split(',')[0]
+etiqueta_inicial = etiqueta_inicial.replace('SO', '')
+etiqueta_inicial = int(etiqueta_inicial.replace(' BR', ''))
 
 # Caso seja apenas um etiqueta o segundo valos do intervalo sera
 # como o primeiro, por isso o removemos
-if etiquetas_sem_dig[0] == etiquetas_sem_dig[1]:
-    etiquetas_sem_dig = etiquetas_sem_dig[:1]
+
+etiquetas_sem_dig = []
+
+for i in range(0, sgpkey['quant_etiquetas']):
+    etiquetas_sem_dig.append('SO' + str(etiqueta_inicial + i) + ' BR')
 
 dig_verif_list = cliente.service.geraDigitoVerificadorEtiquetas(
     etiquetas_sem_dig, sgpkey['usuario'], sgpkey['senha'])
