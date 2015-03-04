@@ -3,15 +3,17 @@ from lxml import etree
 
 
 def get_xml(cliente, endereco, etiquetas):
+
     xml = u'<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>'
     xml += u'<correioslog>'
     xml += u'<tipo_arquivo>Postagem</tipo_arquivo>'
     xml += u'<versao_arquivo>2.3</versao_arquivo>'
-    xml += u'<plp>' \
-           u'<id_plp/>' \
-           u'<valor_global/>'
-    xml += u'<mcu_unidade_postagem/>' \
-           u'<nome_unidade_postagem/>'
+
+    xml += u'<plp>'
+    xml += u'<id_plp>123</id_plp>'
+    xml += u'<valor_global></valor_global>'
+    xml += u'<mcu_unidade_postagem></mcu_unidade_postagem>'
+    xml += u'<nome_unidade_postagem></nome_unidade_postagem>'
     xml += u'<cartao_postagem>%s</cartao_postagem>' % \
            cliente.contratos[0].cartoesPostagem[0].numero.replace(' ', '')
     xml += u'</plp>'
@@ -45,16 +47,17 @@ def get_xml(cliente, endereco, etiquetas):
     xml += u'<email_remetente> <![CDATA[cli@mail.com.br]]> </email_remetente>'
     xml += u'</remetente>'
 
-    xml += u'<forma_pagamento/>'
+    xml += u'<forma_pagamento></forma_pagamento>'
 
     xml += u'<objeto_postal>'
-    xml += u'<numero_etiqueta>PH185560916BR</numero_etiqueta>'
-    xml += u'<codigo_objeto_cliente/>'
-    xml += u'<codigo_servico_postagem>41068</codigo_servico_postagem>'
+
+    xml += u'<numero_etiqueta>%s</numero_etiqueta>' % etiquetas[0]
+    xml += u'<codigo_objeto_cliente></codigo_objeto_cliente>'
+    xml += u'<codigo_servico_postagem>40215</codigo_servico_postagem>'
     xml += u'<cubagem>0,0000</cubagem>'
     xml += u'<peso>200</peso>'
-    xml += u'<rt1/>' \
-           u'<rt2/>'
+    xml += u'<rt1></rt1>'
+    xml += u'<rt2></rt2>'
 
     xml += u'<destinatario>'
     xml += u'<nome_destinatario><![CDATA[Destino Ltda]]></nome_destinatario>'
@@ -78,12 +81,12 @@ def get_xml(cliente, endereco, etiquetas):
     xml += u'<cidade_destinatario><![CDATA[Goiânia]]></cidade_destinatario>'
     xml += u'<uf_destinatario>GO</uf_destinatario>'
     xml += u'<cep_destinatario> <![CDATA[74000100]]></cep_destinatario>'
-    xml += u'<codigo_usuario_postal/>'
-    xml += u'<centro_custo_cliente/>'
+    xml += u'<codigo_usuario_postal></codigo_usuario_postal>'
+    xml += u'<centro_custo_cliente></centro_custo_cliente>'
     xml += u'<numero_nota_fiscal>102030</numero_nota_fiscal>'
-    xml += u'<serie_nota_fiscal/>' \
-           u'<valor_nota_fiscal/>' \
-           u'<natureza_nota_fiscal/>'
+    xml += u'<serie_nota_fiscal></serie_nota_fiscal>'
+    xml += u'<valor_nota_fiscal></valor_nota_fiscal>'
+    xml += u'<natureza_nota_fiscal></natureza_nota_fiscal>'
     xml += u'<descricao_objeto><![CDATA[]]></descricao_objeto>'
     xml += u'<valor_a_cobrar>0,0</valor_a_cobrar>'
     xml += u'</nacional>'
@@ -95,6 +98,7 @@ def get_xml(cliente, endereco, etiquetas):
     xml += u'<codigo_servico_adicional>019</codigo_servico_adicional>'
     xml += u'<valor_declarado>99,00</valor_declarado>'
     xml += u'</servico_adicional>'
+
     xml += u'<dimensao_objeto>'
     xml += u'<tipo_objeto>002</tipo_objeto>'
     xml += u'<dimensao_altura>20</dimensao_altura>'
@@ -102,12 +106,13 @@ def get_xml(cliente, endereco, etiquetas):
     xml += u'<dimensao_comprimento>38</dimensao_comprimento>'
     xml += u'<dimensao_diametro>0</dimensao_diametro>'
     xml += u'</dimensao_objeto>'
-    xml += u'<data_postagem_sara/>'
+
+    xml += u'<data_postagem_sara></data_postagem_sara>'
     xml += u'<status_processamento>0</status_processamento>'
-    xml += u'<numero_comprovante_postagem/>'
-    xml += u'<valor_cobrado/>'
-    xml += u'</objeto_postal>' \
-           u'</correioslog>'
+    xml += u'<numero_comprovante_postagem></numero_comprovante_postagem>'
+    xml += u'<valor_cobrado></valor_cobrado>'
+    xml += u'</objeto_postal>'
+    xml += u'</correioslog>'
 
     return xml
 
@@ -692,7 +697,7 @@ elementFormDefault="qualified">
             </xs:restriction>
         </xs:simpleType>
     </xs:element>
-</xs:schema>"""
+</xs:schema>""".replace('\n', '')
 
 XSI = "http://www.w3.org/2001/XMLSchema-instance"
 XS = '{http://www.w3.org/2001/XMLSchema}'
@@ -708,10 +713,10 @@ def validate_XML(xml):
     # xml = unicode(xml.decode('utf-8'))
         tree = etree.fromstring(xml.encode('utf8'))
 
-        xsd_r = xsd.replace('\n', '')
+        # xsd_r = xsd.replace('\n', '')
         # tree = etree.XML(unicode(xml.decode('utf-8')))
         # schema_tree = etree.XML(xsd)
-        schema_tree = etree.fromstring(xsd_r)
+        schema_tree = etree.fromstring(xsd)
 
         xmlschema = etree.XMLSchema(schema_tree)
         xmlschema.assertValid(tree)

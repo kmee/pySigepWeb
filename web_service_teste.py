@@ -84,9 +84,6 @@ etiqueta_inicial = range_etiquetas.split(',')[0]
 etiqueta_inicial = etiqueta_inicial.replace('SO', '')
 etiqueta_inicial = int(etiqueta_inicial.replace(' BR', ''))
 
-# Caso seja apenas um etiqueta o segundo valos do intervalo sera
-# como o primeiro, por isso o removemos
-
 etiquetas_sem_dig = []
 
 for i in range(0, sgpkey['quant_etiquetas']):
@@ -118,6 +115,8 @@ else:
 # fechaPlpVariosServicos(string xml, long idPlpCliente, string cartaoPostagem,
 # string[] listaEtiquetas, string usuario, string senha)
 
+plps = cliente.service.fechaPlpVariosServicos(xml, long(123), sgpkey[
+    'cartao'], etiquetas_sem_dig, sgpkey['usuario'], sgpkey['senha'])
 
 # Definindo url
 url_calc = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL'
