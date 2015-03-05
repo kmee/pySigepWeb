@@ -7,10 +7,7 @@
         <valor_global/>
         <mcu_unidade_postagem/>
         <nome_unidade_postagem/>
-        <cartao_postagem>********</cartao_postagem>EMPRESA BRASILEIRA DE
-        CORREIOS E TELÃ‰GRAFOS â€“ ECT
-        SIGEP Web - Manual de ImplementaÃ§Ã£o do Web Service
-        20/74
+        <cartao_postagem>********</cartao_postagem>
     </plp>
     <remetente>
         <numero_contrato>********</numero_contrato>
@@ -20,17 +17,17 @@
         <logradouro_remetente><![CDATA[Avenida Central]]></logradouro_remetente>
         <numero_remetente>2370</numero_remetente>
         <complemento_remetente>
-            <![CDATA[sala 1205,12Â° andar]]></complemento_remetente>
+            <![CDATA[sala 1205,12° andar]]></complemento_remetente>
         <bairro_remetente><![CDATA[Centro]]></bairro_remetente>
         <cep_remetente><![CDATA[70002900]]></cep_remetente>
-        <cidade_remetente><![CDATA[BrasÃ­lia]]></cidade_remetente>
+        <cidade_remetente><![CDATA[Brasília]]></cidade_remetente>
         <uf_remetente>PR</uf_remetente>
         <telefone_remetente><![CDATA[6112345008]]></telefone_remetente>
         <fax_remetente><![CDATA[]]></fax_remetente>
         <email_remetente> <![CDATA[cli@mail.com.br]]> </email_remetente>
     </remetente>
     <forma_pagamento/>
-    <!-- Se a lista contem mais de um objeto, a tag <objeto_postal> deverÃ¡ ser repetida -->
+    <!-- Se a lista contem mais de um objeto, a tag <objeto_postal> deverá ser repetida -->
     <objeto_postal>
         <numero_etiqueta>PH185560916BR</numero_etiqueta>
         <codigo_objeto_cliente/>
@@ -54,7 +51,7 @@
         <nacional>
             <bairro_destinatario>
                 <![CDATA[Setor Industrial]]></bairro_destinatario>
-            <cidade_destinatario><![CDATA[GoiÃ¢nia]]></cidade_destinatario>
+            <cidade_destinatario><![CDATA[Goiânia]]></cidade_destinatario>
             <uf_destinatario>GO</uf_destinatario>
             <cep_destinatario> <![CDATA[74000100]]></cep_destinatario>
             <codigo_usuario_postal/>
@@ -67,7 +64,7 @@
             <valor_a_cobrar>0,0</valor_a_cobrar>
         </nacional>
         <servico_adicional>
-            <!-- O serviÃ§o adicional 025 sempre deverÃ¡ ser informado.-->
+            <!-- O serviço adicional 025 sempre deverá ser informado.-->
             <codigo_servico_adicional>025</codigo_servico_adicional>
             <codigo_servico_adicional>001</codigo_servico_adicional>
             <codigo_servico_adicional>019</codigo_servico_adicional>

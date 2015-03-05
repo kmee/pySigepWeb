@@ -15,22 +15,22 @@ def get_xml(cliente, endereco, etiquetas):
     xml += u'<mcu_unidade_postagem></mcu_unidade_postagem>'
     xml += u'<nome_unidade_postagem></nome_unidade_postagem>'
     xml += u'<cartao_postagem>%s</cartao_postagem>' % \
-           cliente.contratos[0].cartoesPostagem[0].numero.replace(' ', '')
+           cliente.contratos[0].cartoesPostagem[0].numero.zfill(10)
     xml += u'</plp>'
 
     xml += u'<remetente>'
     xml += u'<numero_contrato>%s</numero_contrato>' % \
            cliente.contratos[0].contratoPK.numero.replace(' ', '')
 
-    xml += u'<numero_diretoria>%s</numero_diretoria>' % \
-           cliente.contratos[0].codigoDiretoria
+    xml += u'<numero_diretoria>%d</numero_diretoria>' % \
+           int(cliente.contratos[0].codigoDiretoria)
 
     xml += u'<codigo_administrativo>%s</codigo_administrativo>' % \
            cliente.contratos[0].cartoesPostagem[0].codigoAdministrativo.replace(' ', '')
 
     xml += u'<nome_remetente><![CDATA[%s]]></nome_remetente>' % cliente.nome
-    xml += u'<logradouro_remetente><![CDATA[%s]]> ' \
-           u'</logradouro_remetente>' % endereco.end
+    xml += u'<logradouro_remetente><![CDATA[Avenida Central]]> ' \
+           u'</logradouro_remetente>'
 
     xml += u'<numero_remetente>2370</numero_remetente>'
     xml += u'<complemento_remetente><![CDATA[%s]]></complemento_remetente>' % \
@@ -44,7 +44,7 @@ def get_xml(cliente, endereco, etiquetas):
     xml += u'<uf_remetente>%s</uf_remetente>' % endereco.uf
     xml += u'<telefone_remetente><![CDATA[6112345008]]></telefone_remetente>'
     xml += u'<fax_remetente><![CDATA[]]></fax_remetente>'
-    xml += u'<email_remetente> <![CDATA[cli@mail.com.br]]> </email_remetente>'
+    xml += u'<email_remetente><![CDATA[cli@mail.com.br]]></email_remetente>'
     xml += u'</remetente>'
 
     xml += u'<forma_pagamento></forma_pagamento>'
@@ -54,24 +54,21 @@ def get_xml(cliente, endereco, etiquetas):
     xml += u'<numero_etiqueta>%s</numero_etiqueta>' % etiquetas[0]
     xml += u'<codigo_objeto_cliente></codigo_objeto_cliente>'
     xml += u'<codigo_servico_postagem>40215</codigo_servico_postagem>'
-    xml += u'<cubagem>0,0000</cubagem>'
+    xml += u'<cubagem></cubagem>'
     xml += u'<peso>200</peso>'
     xml += u'<rt1></rt1>'
     xml += u'<rt2></rt2>'
 
     xml += u'<destinatario>'
     xml += u'<nome_destinatario><![CDATA[Destino Ltda]]></nome_destinatario>'
-    xml += u'<telefone_destinatario><![CDATA[6212349644]]>' \
+    xml += u'<telefone_destinatario><![CDATA[]]>' \
            u'</telefone_destinatario>'
-
     xml += u'<celular_destinatario><![CDATA[]]></celular_destinatario>'
     xml += u'<email_destinatario><![CDATA[]]></email_destinatario>'
     xml += u'<logradouro_destinatario><![CDATA[Avenida Central]]>' \
            u'</logradouro_destinatario>'
-
     xml += u'<complemento_destinatario><![CDATA[Qd: 102 A Lt: 04]]>' \
            u'</complemento_destinatario>'
-
     xml += u'<numero_end_destinatario>1065</numero_end_destinatario>'
     xml += u'</destinatario>'
 
@@ -80,12 +77,12 @@ def get_xml(cliente, endereco, etiquetas):
            u'</bairro_destinatario>'
     xml += u'<cidade_destinatario><![CDATA[Goiânia]]></cidade_destinatario>'
     xml += u'<uf_destinatario>GO</uf_destinatario>'
-    xml += u'<cep_destinatario> <![CDATA[74000100]]></cep_destinatario>'
+    xml += u'<cep_destinatario><![CDATA[74000100]]></cep_destinatario>'
     xml += u'<codigo_usuario_postal></codigo_usuario_postal>'
     xml += u'<centro_custo_cliente></centro_custo_cliente>'
     xml += u'<numero_nota_fiscal>102030</numero_nota_fiscal>'
-    xml += u'<serie_nota_fiscal></serie_nota_fiscal>'
-    xml += u'<valor_nota_fiscal></valor_nota_fiscal>'
+    xml += u'<serie_nota_fiscal>1</serie_nota_fiscal>'
+    xml += u'<valor_nota_fiscal>99,0</valor_nota_fiscal>'
     xml += u'<natureza_nota_fiscal></natureza_nota_fiscal>'
     xml += u'<descricao_objeto><![CDATA[]]></descricao_objeto>'
     xml += u'<valor_a_cobrar>0,0</valor_a_cobrar>'
