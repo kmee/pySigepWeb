@@ -116,7 +116,7 @@ else:
 etq_sem_espaco = []
 
 for etq in etiquetas_sem_dig:
-    etq_sem_espaco.append(etq.replace(' ',''))
+    etq_sem_espaco.append(etq.replace(' ', ''))
 
 # fechaPlp(string xml, long idPlpCliente, string cartaoPostagem,
 # string faixaEtiquetas, string usuario, string senha)
