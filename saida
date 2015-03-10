@@ -33,8 +33,7 @@ Service ( AtendeClienteService ) tns="http://cliente.bean.master.sigep.bsb.corre
             solicitarPostagemScol(int codAdministrativo, string xml, string usuario, string senha)
             validaEtiquetaPLP(string numeroEtiqueta, long idPlp, string usuario, string senha)
             validaPlp(long cliente, string numero, long diretoria, string cartao, string unidadePostagem, long servico, string[] servicosAdicionais, string usuario, string senha)
-            validarPostagemReversa(int codAdministrativo, int
-            codigoServico, string cepDestinatario, coletaReversaTO coleta, xs:string usuario, xs:string senha)
+            validarPostagemReversa(int codAdministrativo, int  codigoServico, string cepDestinatario, coletaReversaTO coleta, xs:string usuario, xs:string senha)
             validarPostagemSimultanea(xs:int codAdministrativo, xs:int codigoServico, xs:string cepDestinatario, coletaSimultaneaTO coleta, xs:string usuario, xs:string senha)
             verificaDisponibilidadeServico(xs:int codAdministrativo, xs:string numeroServico, xs:string cepOrigem, xs:string cepDestino, xs:string usuario, xs:string senha)
          Types (103):
