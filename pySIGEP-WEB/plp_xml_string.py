@@ -595,7 +595,7 @@ def validate_xml(xml):
     """
     try:
         tree = etree.fromstring(xml.encode('utf8'))
-        schema_tree = etree.fromstring(xsd)
+        schema_tree = etree(xsd)
         xmlschema = etree.XMLSchema(schema_tree)
         xmlschema.assertValid(tree)
 

@@ -1,13 +1,22 @@
 # -*- coding: utf-8 -*-
 from suds import client
 import plp_xml_string
+import urllib2
 
 print 'Conectando...'
 
 url = 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService' \
       '/AtendeCliente?wsdl'
-# Instanciando um cliente
-cliente = client.Client(url, cache=None)
+
+try:
+    # Instanciando um cliente
+    cliente = client.Client(url, cache=None)
+except client.TransportError as exp:
+    print exp.message
+    exit(-1)
+# except urllib2.URLError as exp:
+#     print exp.message
+#     exit(exp.message)
 
 # Listar os metodos que o webservice utiliza
 # print cliente
@@ -18,7 +27,7 @@ sgpkey = {
     'cod_admin': '08082650',
     'contrato': '9912208555',
     'cartao': '0057018901',
-    'numero_servico': '40215',
+    'numero_servico': '40216',
     'cep_origem': '70002900',
     'cep_destino': '74000100',
     'tipo_destinatario': 'C',
@@ -31,9 +40,9 @@ sgpkey = {
 # Verifica disponibilidade de servico
 # verificaDisponibilidadeServico(codAdministrativo, numeroServico, cepOrigem, 
 # cepDestino, usuario, senha)
-# disponibilidade = cliente.service.verificaDisponibilidadeServico(
-#     sgpkey['cod_admin'], sgpkey['numero_servico'],	sgpkey['cep_origem'],
-#     sgpkey['cep_destino'], sgpkey['usuario'], sgpkey['senha'])
+disponibilidade = cliente.service.verificaDisponibilidadeServico(
+    sgpkey['cod_admin'], sgpkey['numero_servico'], sgpkey['cep_origem'],
+    sgpkey['cep_destino'], sgpkey['usuario'], sgpkey['senha'])
 
 # Solicitar dados do contrato/cartao
 # buscaCliente(string idContrato, string idCartaoPostagem, string usuario,

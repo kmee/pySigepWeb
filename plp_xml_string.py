@@ -713,7 +713,7 @@ def validate_XML(xml):
         # xsd_r = xsd.replace('\n', '')
         # tree = etree.XML(unicode(xml.decode('utf-8')))
         # schema_tree = etree.XML(xsd)
-        schema_tree = etree.fromstring(xsd)
+        schema_tree = etree.XML(xsd)
 
         xmlschema = etree.XMLSchema(schema_tree)
         xmlschema.assertValid(tree)

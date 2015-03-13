@@ -25,22 +25,17 @@ class PlpXML():
         self.xml += u'<remetente>'
         self.xml += u'<numero_contrato>%s</numero_contrato>' % \
                     cliente.contratos[0].contratoPK.numero.replace(' ', '')
-
         self.xml += u'<numero_diretoria>%d</numero_diretoria>' % \
                     int(cliente.contratos[0].codigoDiretoria)
-
         self.xml += u'<codigo_administrativo>%s</codigo_administrativo>' % \
                     cliente.contratos[0].cartoesPostagem[
                     0].codigoAdministrativo.replace(' ', '')
-
         self.xml += u'<nome_remetente><![CDATA[%s]]></nome_remetente>' % cliente.nome
         self.xml += u'<logradouro_remetente><![CDATA[Avenida Central]]> ' \
                     u'</logradouro_remetente>'
-
         self.xml += u'<numero_remetente>2370</numero_remetente>'
         self.xml += u'<complemento_remetente><![CDATA[%s]]> ' \
                     u'</complemento_remetente>' % endereco.complemento
-
         self.xml += u'<bairro_remetente><![CDATA[%s]]></bairro_remetente>' % \
                endereco.bairro
         self.xml += u'<cep_remetente><![CDATA[%s]]> </cep_remetente>' % \

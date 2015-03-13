@@ -1,44 +1,29 @@
 # -*- coding: utf-8 -*-
 
-
-class BasePLP(object):
-
-    def __init__(self):
-        self._valor = None
-
-    def xml(self):
-        pass
-
-    @property
-    def valor(self):
-        return self._valor
-
-    @valor.setter
-    def valor(self, valor):
-        self._valor = valor
+from base_xml import BaseXML
 
 
-class IdPLP(BasePLP):
+class IdPLP(BaseXML):
     def xml(self):
         return '<id_plp>%d</id_plp>' % self._valor
 
 
-class ValorGlobal(BasePLP):
+class ValorGlobal(BaseXML):
     def xml(self):
         return '<valor_global>%d</valor_global>' % self._valor
 
 
-class McuUnidadePostagem(BasePLP):
+class McuUnidadePostagem(BaseXML):
     def xml(self):
         return '<mcu_unidade_postagem>%d</mcu_unidade_postagem>' % self._valor
 
 
-class NomeUnidadePostagem(BasePLP):
+class NomeUnidadePostagem(BaseXML):
     def xml(self):
         return '<nome_unidade_postagem>%s</nome_unidade_postagem>' % self._valor
 
 
-class CartaoPostagem(BasePLP):
+class CartaoPostagem(BaseXML):
     def xml(self):
         return '<cartao_postagem>%d</cartao_postagem>' % self._valor
 
