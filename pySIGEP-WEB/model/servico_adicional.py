@@ -1,19 +1,53 @@
 # -*- coding: utf-8 -*-
 
 
+class TipoServicoAdicional(object):
+
+    _CODIGO = '000'
+
+    def __init__(self, codigo, valor_declarado=0.0):
+        self._CODIGO = codigo
+
+        if not isinstance(valor_declarado, float):
+            raise TypeError
+        self.valor_declarado = valor_declarado
+
+    @property
+    def codigo(self):
+        return self._CODIGO
+
+
+class AvisoRecebimento(TipoServicoAdicional):
+    def __init__(self, valor_declarado=0.0):
+        super(AvisoRecebimento, self).__init__('001', valor_declarado)
+
+
+class MaoPropria(TipoServicoAdicional):
+    def __init__(self, valor_declarado=0.0):
+        super(AvisoRecebimento, self).__init__('002', valor_declarado)
+
+
+class ValorDeclarado(TipoServicoAdicional):
+    def __init__(self, valor_declarado):
+        super(AvisoRecebimento, self).__init__('019', valor_declarado)
+
+
+class Registro(TipoServicoAdicional):
+    def __init__(self, valor_declarado=0.0):
+        super(AvisoRecebimento, self).__init__('025', valor_declarado)
+
+
 class ServicoAdicional(object):
 
-    AVISO_RECEBIMENTO = 1
-    MAO_PROPRIA_NACIONAL = 2
-    VALOR_DECLARADO_NACIONAL = 19
-    REGISTRO_NACIONAL = 25
-    AVISO_DE_RECEBIMENTO_DIGITAL = 37
-    DEVOLUCAO_DE_NOTA_FISCAL_SEDEX = 49
-    TAXA_DE_ENTREGA_DE_ENCOMENDA_DESPADRONIZADA = 57
-    LOGISTICA_REVERSA_SIMULTANEA_DOMICILIARIA = 67
-    LOGISTICA_REVERSA_SIMULTANEA_EM_AGENCIA = 69
+    def __init__(self, tipo_servico_adicional):
+        if not isinstance(tipo_servico_adicional, TipoServicoAdicional):
+            raise TypeError
+        self.tipo_servico_adicional = tipo_servico_adicional
 
-    def __init__(self, codigo):
-        self.codigo = codigo
+    @property
+    def codigo(self):
+        return self.tipo_servico_adicional.codigo
 
-
+    @property
+    def valor_declarado(self):
+        return self.tipo_servico_adicional.valor_declarado
