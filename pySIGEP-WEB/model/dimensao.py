@@ -7,30 +7,14 @@ class TipoObjeto(object):
 
     def __init__(self, codigo):
         self._CODIGO = codigo
-        self._altura = 0
-        self._largura = 0
-        self._comprimento = 0
-        self._diametro = 0
+        self.altura = 0
+        self.largura = 0
+        self.comprimento = 0
+        self.diametro = 0
 
     @property
     def codigo(self):
         return self._CODIGO
-
-    @property
-    def altura(self):
-        return self._altura
-
-    @property
-    def largura(self):
-        return self._largura
-
-    @property
-    def comprimento(self):
-        return self._comprimento
-
-    @property
-    def diametro(self):
-        return self._diametro
 
 
 class Envelope(TipoObjeto):
@@ -62,7 +46,7 @@ class Dimensao(object):
         self.tipo_objeto = tipo_objeto
 
         if not isinstance(self.tipo_objeto, TipoObjeto):
-            print 'tipo_objeto nao e instancia de TipoObjeto'
+            raise TypeError(str(tipo_objeto) + ' não é instancia de TipoObjeto')
 
     @property
     def codigo(self):
