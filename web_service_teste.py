@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from suds import client
+from suds import client, WebFault
 import plp_xml_string
 import urllib2
 
@@ -7,10 +7,11 @@ print 'Conectando...'
 
 url = 'https://apphom.correios.com.br/SigepMasterJPA/AtendeClienteService' \
       '/AtendeCliente?wsdl'
+# url = 'http://www.apple.com/404'
 
 try:
     # Instanciando um cliente
-    cliente = client.Client(url, cache=None)
+    cliente = client.Client(url)
 except client.TransportError as exp:
     print exp.message
     exit(-1)
@@ -40,9 +41,15 @@ sgpkey = {
 # Verifica disponibilidade de servico
 # verificaDisponibilidadeServico(codAdministrativo, numeroServico, cepOrigem, 
 # cepDestino, usuario, senha)
-disponibilidade = cliente.service.verificaDisponibilidadeServico(
-    sgpkey['cod_admin'], sgpkey['numero_servico'], sgpkey['cep_origem'],
-    sgpkey['cep_destino'], sgpkey['usuario'], sgpkey['senha'])
+try:
+    disponibilidade = cliente.service.verificaDisponibilidadeServico(
+        sgpkey['cod_admin'], sgpkey['numero_servico'], sgpkey['cep_origem'],
+        sgpkey['cep_destino'], sgpkey['usuario'], sgpkey['senha'])
+except WebFault as exp:
+    print exp.args
+    print exp.fault
+    print exp.message
+
 
 # Solicitar dados do contrato/cartao
 # buscaCliente(string idContrato, string idCartaoPostagem, string usuario,
