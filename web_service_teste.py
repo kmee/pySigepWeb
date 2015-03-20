@@ -43,12 +43,14 @@ sgpkey = {
 # cepDestino, usuario, senha)
 try:
     disponibilidade = cliente.service.verificaDisponibilidadeServico(
-        sgpkey['cod_admin'], sgpkey['numero_servico'], sgpkey['cep_origem'],
+        sgpkey['cod_admin'], '40216,40096,40215,41106', sgpkey['cep_origem'],
         sgpkey['cep_destino'], sgpkey['usuario'], sgpkey['senha'])
 except WebFault as exp:
     print exp.args
     print exp.fault
     print exp.message
+
+print disponibilidade
 
 
 # Solicitar dados do contrato/cartao
