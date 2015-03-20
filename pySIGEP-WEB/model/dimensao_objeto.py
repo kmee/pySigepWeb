@@ -40,13 +40,14 @@ class Cilindro(TipoObjeto):
         self._diametro = diametro
 
 
-class Dimensao(object):
+class DimensaoObjeto(object):
 
     def __init__(self, tipo_objeto):
         self.tipo_objeto = tipo_objeto
 
         if not isinstance(self.tipo_objeto, TipoObjeto):
-            raise TypeError(str(tipo_objeto) + ' não é instancia de TipoObjeto')
+            raise TypeError(str(tipo_objeto) + u' não é instancia de '
+                                               u'TipoObjeto')
 
     @property
     def codigo(self):
