@@ -10,7 +10,7 @@ class InterfaceServico(object):
 
         print 'Conectando...'
         try:
-            self.cliente = client.Client(url)
+            self.servico = client.Client(url).service
         except client.TransportError as exp:
             print exp.message
             exit(-1)

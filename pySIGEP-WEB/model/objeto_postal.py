@@ -49,13 +49,13 @@ class ObjetoPostal(object):
         self.status_processamento = ''
         self.valor_cobrado = 0.0
 
-    @staticmethod
-    def obj_validate(obj, obj_class):
-        if not isinstance(obj, obj_class):
-            raise TypeError
-
     def add_etiqueta(self, etq):
         if not isinstance(etq, Etiqueta):
             raise TypeError
         self.etiquetas.append(etq)
+
+    def remove_etiqueta(self, etq):
+        if not isinstance(etq, Etiqueta):
+            raise TypeError
+        self.etiquetas.remove(etq)
 
