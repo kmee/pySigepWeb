@@ -5,7 +5,7 @@ from interface_servico import InterfaceServico
 
 class ServicoAtendeCliente(InterfaceServico):
 
-    def __init__(self):
+    def __init__(self, ambiente):
         url = 'https://apphom.correios.com.br/SigepMasterJPA' \
               '/AtendeClienteService/AtendeCliente?wsdl'
         super(ServicoAtendeCliente, self).__init__(url)
