@@ -1,11 +1,14 @@
 # -*- coding: utf-8 -*-
 from suds import WebFault
+from interface_servico import InterfaceServico
 
 
-class ServicoAtendeCliente(object):
+class ServicoAtendeCliente(InterfaceServico):
 
     def __init__(self):
-        super(ServicoAtendeCliente, self).__init__()
+        url = 'https://apphom.correios.com.br/SigepMasterJPA' \
+              '/AtendeClienteService/AtendeCliente?wsdl'
+        super(ServicoAtendeCliente, self).__init__(url)
 
     def verifica_disponibilidade_servicos(self, lista_codigo_servicos,
                                           cep_origem, cep_destino, obj_usuario):
@@ -24,26 +27,6 @@ class ServicoAtendeCliente(object):
                 print exp.message
 
         return res
-
-    def verifica_disponibilidade_servico(self, codigo_servico, cep_origem,
-                                         cep_destino, obj_usuario):
-
-        if not isinstance(codigo_servico, str):
-            raise TypeError
-
-        try:
-            res = self.servico.verificaDisponibilidadeServico(
-                obj_usuario.codigo_admin, codigo_servico, cep_origem,
-                cep_destino, obj_usuario.nome, obj_usuario.senha)
-        except WebFault as exp:
-            print exp.message
-
-        return res
-
-
-
-
-
 
 
 

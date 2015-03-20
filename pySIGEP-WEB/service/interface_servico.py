@@ -6,7 +6,6 @@ class InterfaceServico(object):
 
     def __init__(self, url):
         self.url = url
-        self.client = None
 
         print 'Conectando...'
         try:
