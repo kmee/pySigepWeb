@@ -77,7 +77,7 @@ print busca_cliente.nome
 cep = cliente.service.consultaCEP(sgpkey['cep_origem'])
 # bairro = cep.bairro
 
-#print cep
+print cep
 
 # Verificando status do cartao
 # getStatusCartaoPostagem(string numeroCartaoPostagem, string usuario,

@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-import sys
-from service.servico_atende_cliente import ServicoAtendeCliente
+from model.servico_atende_cliente import ServicoAtendeCliente
 from model.usuario import Usuario
 from model.servico_postagem import ServicoPostagem
+from model.ambiente import AmbienteHomologacao
 
 sgpkey = {
     'usuario': 'sigep',
@@ -18,6 +18,7 @@ sgpkey = {
     'quant_etiquetas': 1,
 }
 
+
 def main():
     print 'Iniciando'
     usr = Usuario('sigep', 'n5f9t8', '34028316000103', '08082650',
@@ -26,13 +27,16 @@ def main():
     print usr.nome
     print usr.cartao_postagem
 
-    l = [ServicoPostagem.SERVICO_CARTA_COMERCIAL_A_FATURAR,ServicoPostagem.SERVICO_PAC_41068]
+    l = [ServicoPostagem.SERVICO_CARTA_COMERCIAL_A_FATURAR,
+         ServicoPostagem.SERVICO_PAC_41068]
 
-    sv = ServicoAtendeCliente()
-    disponibilidade = sv.verifica_disponibilidade_servicos(
-        l, '70002900', '74000100', usr)
+    sv = ServicoAtendeCliente(ServicoAtendeCliente.AMBIENTE_HOMOLOGACAO)
 
-    print disponibilidade
+    disp = sv.verifica_disponibilidade_servicos(l, '70002900', '74000100', usr)
+
+    print disp
+
+    print sv.consulta_cep('37503130').bairro
 
 if __name__ == '__main__':
     main()

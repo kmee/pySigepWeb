@@ -70,11 +70,11 @@ class Diretoria(object):
 
     @property
     def descricao(self):
-        return self._diretorias[self.codigo][0]
+        return Diretoria._diretorias[self.codigo][0]
 
     @property
     def sigla(self):
-        return self._diretorias[self.codigo][1]
+        return Diretoria._diretorias[self.codigo][1]
 
     @property
     def codigo(self):
@@ -82,7 +82,7 @@ class Diretoria(object):
 
     @codigo.setter
     def codigo(self, valor):
-        if valor in self._diretorias:
+        if valor in Diretoria._diretorias:
             raise KeyError
         self.codigo = valor
 
