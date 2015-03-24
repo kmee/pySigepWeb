@@ -66,7 +66,7 @@ class ServicoAtendeCliente(InterfaceServico):
             return None
 
     def solicita_etiquetas(self, servico_id, qtd_etiquetas=1,
-                           tipo_destinatario='C'):
+                           tipo_destinatario="C"):
 
         try:
             faixa_etiquetas = self._service.solicitaEtiquetas(
@@ -74,6 +74,7 @@ class ServicoAtendeCliente(InterfaceServico):
                 qtd_etiquetas, self.obj_usuario.nome, self.obj_usuario.senha)
 
         except WebFault as exp:
+            print exp.fault
             print '[ERRO] Em solicita_etiquetas(). ' + exp.message
             return None
 
@@ -93,13 +94,15 @@ class ServicoAtendeCliente(InterfaceServico):
                 etiqueta_sufixo
             etiquetas.append(etq)
 
+        return etiquetas
+
     def gera_digito_verificador_etiquetas(self, lista_etiquetas,
                                           gerador=GERADOR_ONLINE):
 
         if gerador == ServicoAtendeCliente.GERADOR_ONLINE:
             return self._gerador_online(lista_etiquetas)
         elif gerador == ServicoAtendeCliente.GERADOR_OFFLINE:
-            return self._gerador_online(lista_etiquetas)
+            return self._gerador_offline(lista_etiquetas)
         else:
             print u'[ERRO] Opção de gerador inválida!'
             return []
@@ -129,7 +132,7 @@ class ServicoAtendeCliente(InterfaceServico):
 
         for i in range(len(lista_etiquetas)):
             dv = GeradorDigitoVerificador.gera_digito_verificador(
-                lista_etiquetas[i].etiqueta_sem_dig_verif)
+                lista_etiquetas[i].etiqueta_sem_dig_verif[2:10])
             dig_verif_list.append(dv)
 
         return dig_verif_list

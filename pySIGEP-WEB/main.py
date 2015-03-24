@@ -36,8 +36,12 @@ def main():
     print sv.consulta_cep('37503130').bairro
     print sv.consulta_status_cartao_postagem()
 
-    print sv.solicita_etiquetas(ServicoPostagem.SERVICO_PAC_41068,
-                                qtd_etiquetas=3)
+    sv_postagem = ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)
+    etiquetas = sv.solicita_etiquetas(sv_postagem.servico_postagem_id,
+                                      qtd_etiquetas=3)
+
+    for etq in etiquetas:
+        print etq.etiqueta_sem_dig_verif
 
 
 if __name__ == '__main__':

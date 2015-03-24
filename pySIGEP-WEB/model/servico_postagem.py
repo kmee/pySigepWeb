@@ -48,24 +48,26 @@ class ServicoPostagem(object):
     }
 
     def __init__(self, codigo):
-        self.codigo = codigo
-        self.nome = self._servicos[codigo][0]
-        self.servico_postagem_id = self._servicos[codigo][0]
+        self._codigo = codigo
+        self._nome = self._servicos[self.codigo][0]
+        self._servico_postagem_id = self._servicos[self.codigo][1]
 
     @property
     def nome(self):
-        return self._diretorias[self.codigo][0]
+        return self._nome
 
     @property
-    def id_servico_postagem(self):
-        return self._diretorias[self.codigo][1]
+    def servico_postagem_id(self):
+        return self._servico_postagem_id
 
     @property
     def codigo(self):
-        return self.codigo
+        return self._codigo
 
     @codigo.setter
     def codigo(self, valor):
-        if valor in self._diretorias:
+        if valor not in self._servicos:
             raise KeyError
-        self.codigo = valor
+        self._codigo = valor
+        self._nome = self._servicos[self.codigo][0]
+        self._servico_postagem_id = self._servicos[self.codigo][1]
