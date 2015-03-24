@@ -109,14 +109,15 @@ class ServicoAtendeCliente(InterfaceServico):
 
     def _gerador_online(self, lista_etiquetas):
 
-        etq_str = ''
+        etiquetas_sem_digito = []
 
         for etq in lista_etiquetas:
-            etq_str += etq + ','
+            etiquetas_sem_digito.append(etq.etiqueta_sem_dig_verif)
 
         try:
             dig_verif_list = self._service.geraDigitoVerificadorEtiquetas(
-                etq_str, self.obj_usuario.nome, self.obj_usuario.senha)
+                etiquetas_sem_digito, self.obj_usuario.nome,
+                self.obj_usuario.senha)
         except WebFault as exp:
             print exp.message
             return []

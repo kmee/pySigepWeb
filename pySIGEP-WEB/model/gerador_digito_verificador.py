@@ -25,6 +25,6 @@ class GeradorDigitoVerificador(object):
             else:
                 dv = str(11 - resto)
 
-            numero_etiqueta += dv
+            # numero_etiqueta += dv
 
-        return numero_etiqueta
+        return dv
