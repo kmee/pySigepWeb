@@ -5,11 +5,10 @@ from suds import client
 class InterfaceServico(object):
 
     def __init__(self, url):
-        self.url = url
-
+        self._url = url
         print 'Conectando...'
         try:
-            self.servico = client.Client(url).service
+            self._service = client.Client(url).service
         except client.TransportError as exp:
             print exp.message
-            exit(-1)
+            exit(exp.message)
