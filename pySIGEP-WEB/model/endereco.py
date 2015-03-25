@@ -10,3 +10,4 @@ class Endereco(object):
         self.cep = cep
         self.cidade = cidade
         self.uf = uf
+        self.complemento = ''

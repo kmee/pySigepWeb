@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 from endereco import Endereco
+from base_xml import BaseXML
 
 
-class Destinatario(object):
+class Destinatario(BaseXML):
 
     def __init__(self, nome, endereco):
 

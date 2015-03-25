@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from endereco import Endereco
+from base_xml import BaseXML
 
 
-class Remetente(object):
+class Remetente(BaseXML):
 
-    def __init__(self, nome, num_contrato, codigo_admin, endereco):
+    def __init__(self, nome, num_contrato, codigo_admin, endereco, diretoria):
 
         if not isinstance(endereco, Endereco):
             raise TypeError
@@ -13,6 +14,10 @@ class Remetente(object):
         self.num_contrato = num_contrato
         self.codigo_admin = codigo_admin
         self.endereco = endereco
+        self.diretoria = diretoria
+        self.telefone = 999999999999
+        self.fax = 999999999999
+        self.email = ''
 
     @property
     def logradouro(self):
@@ -61,3 +66,28 @@ class Remetente(object):
     @uf.setter
     def uf(self, valor):
         self.endereco.uf = valor
+
+    def get_xml(self):
+
+        xml = '<remetente>'
+        xml += '<numero_contrato>%s</numero_contrat o>' % self.num_contrato
+        xml += self.diretoria.xml()
+        xml += '<codigo_administrativo>%s</codigo_administrativo>' % \
+               self.codigo_admin
+        xml += '<nome_remetente>%s</nome_remetente>' % self.nome
+        xml += '<logradouro_remetente>%s</logradouro_remetente>' % \
+               self.logradouro
+        xml += '<numero_remetente>%d</numero_remetente>' % self.numero
+        xml += '<complemento_remetente>%s</complemento_remetente>' % \
+               self.endereco.complemento
+        xml += '<bairro_remetente>%s</bairro_remetente>' % self.bairro
+        xml += '<cep_remetente>%s</cep_remetente>' % self.cep
+        xml += '<cidade_remetente>%s</cidade_remetente>' % self.cidade
+        xml += '<uf_remetente>%s</uf_remetente>' % self.uf
+        xml += '<telefone_remetente>%s</telefone_remetente>' % self.telefone
+        xml += '<fax_remetente>%s</fax_remetente>' % self.fax
+        xml += '<email_remetente>%s</email_remetente>' % self.email
+        xml += '</remetente>'
+
+        return xml
+

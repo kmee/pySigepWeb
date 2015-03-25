@@ -1,37 +1,38 @@
 # -*- coding: utf-8 -*-
+from base_xml import BaseXML
 
-DIRETORIA_AC_ADMINISTRACAO_CENTRAL = '00001'
-DIRETORIA_DR_ACRE = '00003'
-DIRETORIA_DR_ALAGOAS = '00004'
-DIRETORIA_DR_AMAZONAS = '00006'
-DIRETORIA_DR_AMAPA = '00005'
-DIRETORIA_DR_BAHIA = '00008'
-DIRETORIA_DR_BRASILIA = '00010'
-DIRETORIA_DR_CEARA = '00012'
-DIRETORIA_DR_ESPIRITO_SANTO = '00014'
-DIRETORIA_DR_GOIAS = '00016'
-DIRETORIA_DR_MARANHAO = '00018'
-DIRETORIA_DR_MINAS_GERAIS = '00020'
-DIRETORIA_DR_MATO_GROSSO_DO_SUL = '00022'
-DIRETORIA_DR_MATO_GROSSO = '00024'
-DIRETORIA_DR_PARA = '00028'
-DIRETORIA_DR_PARAIBA = '00030'
-DIRETORIA_DR_PERNAMBUCO = '00032'
-DIRETORIA_DR_PIAUI = '00034'
-DIRETORIA_DR_PARANA = '00036'
-DIRETORIA_DR_RIO_DE_JANEIRO = '00050'
-DIRETORIA_DR_RIO_GRANDE_DO_NORTE = '00060'
-DIRETORIA_DR_RONDONIA = '00026'
-DIRETORIA_DR_RORAIMA = '00065'
-DIRETORIA_DR_RIO_GRANDE_DO_SUL = '00064'
-DIRETORIA_DR_SANTA_CATARINA = '00068'
-DIRETORIA_DR_SERGIPE = '00070'
-DIRETORIA_DR_SAO_PAULO_INTERIOR = '00074'
-DIRETORIA_DR_SAO_PAULO = '00072'
-DIRETORIA_DR_TOCANTINS = '00075'
+DIRETORIA_AC_ADMINISTRACAO_CENTRAL = '01'
+DIRETORIA_DR_ACRE = '03'
+DIRETORIA_DR_ALAGOAS = '04'
+DIRETORIA_DR_AMAZONAS = '06'
+DIRETORIA_DR_AMAPA = '05'
+DIRETORIA_DR_BAHIA = '08'
+DIRETORIA_DR_BRASILIA = '10'
+DIRETORIA_DR_CEARA = '12'
+DIRETORIA_DR_ESPIRITO_SANTO = '14'
+DIRETORIA_DR_GOIAS = '16'
+DIRETORIA_DR_MARANHAO = '18'
+DIRETORIA_DR_MINAS_GERAIS = '20'
+DIRETORIA_DR_MATO_GROSSO_DO_SUL = '22'
+DIRETORIA_DR_MATO_GROSSO = '24'
+DIRETORIA_DR_PARA = '28'
+DIRETORIA_DR_PARAIBA = '30'
+DIRETORIA_DR_PERNAMBUCO = '32'
+DIRETORIA_DR_PIAUI = '34'
+DIRETORIA_DR_PARANA = '36'
+DIRETORIA_DR_RIO_DE_JANEIRO = '50'
+DIRETORIA_DR_RIO_GRANDE_DO_NORTE = '60'
+DIRETORIA_DR_RONDONIA = '26'
+DIRETORIA_DR_RORAIMA = '65'
+DIRETORIA_DR_RIO_GRANDE_DO_SUL = '64'
+DIRETORIA_DR_SANTA_CATARINA = '68'
+DIRETORIA_DR_SERGIPE = '70'
+DIRETORIA_DR_SAO_PAULO_INTERIOR = '74'
+DIRETORIA_DR_SAO_PAULO = '72'
+DIRETORIA_DR_TOCANTINS = '75'
 
 
-class Diretoria(object):
+class Diretoria(BaseXML):
 
     _diretorias = {
         DIRETORIA_AC_ADMINISTRACAO_CENTRAL: ('AC', u'AC Administraçao Central'),
@@ -66,25 +67,28 @@ class Diretoria(object):
     }
 
     def __init__(self, codigo):
-        self.codigo = codigo
+        self._codigo = codigo
 
     @property
     def descricao(self):
-        return Diretoria._diretorias[self.codigo][0]
+        return Diretoria._diretorias[self._codigo][0]
 
     @property
     def sigla(self):
-        return Diretoria._diretorias[self.codigo][1]
+        return Diretoria._diretorias[self._codigo][1]
 
     @property
     def codigo(self):
-        return self.codigo
+        return self._codigo
 
     @codigo.setter
     def codigo(self, valor):
         if valor in Diretoria._diretorias:
             raise KeyError
-        self.codigo = valor
+        self._codigo = valor
+
+    def get_xml(self):
+        return '<numero_diretoria>%s</numero_diretoria>' % self._codigo
 
 
 

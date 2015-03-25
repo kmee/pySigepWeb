@@ -33,5 +33,3 @@ class ServicoAdicional(BaseXML):
         xml += self.valor_declarado.xml()
         xml += '</servico_adicional>'
         return xml
-
-
