@@ -10,7 +10,7 @@ class GeradorDigitoVerificador(object):
         soma = 0
 
         if len(numero_etiqueta) != 8:
-            numero_etiqueta = 'Erro'
+            dv = 'Erro'
         else:
 
             for i in range(8):
