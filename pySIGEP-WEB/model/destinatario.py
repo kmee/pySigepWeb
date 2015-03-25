@@ -70,15 +70,18 @@ class Destinatario(BaseXML):
     def get_xml(self):
 
         xml = '<destinatario>'
-        xml += '<nome_destinatario>%s</nome_destinatario>' % self.nome
-        xml += '<telefone_destinatario>%s</telefone_destinatario>' % \
+        xml += '<nome_destinatario><![CDATA[%s]]></nome_destinatario>' % \
+               self.nome
+        xml += '<telefone_destinatario><![CDATA[%s]]></telefone_destinatario>' % \
                self.telefone
-        xml += '<celular_destinatario>%s</celular_destinatario>' % self.celular
-        xml += '<email_destinatario>%s</email_destinatario>' % self.email
-        xml += '<logradouro_destinatario>%s</logradouro_destinatario>' % \
-               self.logradouro
-        xml += '<complemento_destinatario>%s<complemento_destinatario>' % \
-               self.complemento
+        xml += '<celular_destinatario><![CDATA[%s]]></celular_destinatario>' \
+               % self.celular
+        xml += '<email_destinatario><![CDATA[%s]]></email_destinatario>' % \
+               self.email
+        xml += '<logradouro_destinatario><![CDATA[' \
+               '%s]]></logradouro_destinatario>' % self.logradouro
+        xml += '<complemento_destinatario><![CDATA[' \
+               '%s]]><complemento_destinatario>' % self.complemento
         xml += '<numero_end_destinatario>%s</numero_end_destinatario>' % \
                self.numero
         xml += '</destinatario>'
