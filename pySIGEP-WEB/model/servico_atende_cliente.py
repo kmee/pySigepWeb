@@ -30,7 +30,6 @@ class ServicoAtendeCliente(InterfaceServico):
             raise TypeError
 
         res = {}
-
         for codigo in lista_codigo_servicos:
             try:
                 res[codigo] = self._service.verificaDisponibilidadeServico(
@@ -42,7 +41,6 @@ class ServicoAtendeCliente(InterfaceServico):
         return res
 
     def consulta_cep(self, cep):
-
         if not isinstance(cep, str):
             raise TypeError
 
@@ -108,7 +106,6 @@ class ServicoAtendeCliente(InterfaceServico):
             return []
 
     def _gerador_online(self, lista_etiquetas):
-
         etiquetas_sem_digito = []
 
         for etq in lista_etiquetas:
@@ -126,7 +123,6 @@ class ServicoAtendeCliente(InterfaceServico):
 
     @staticmethod
     def _gerador_offline(lista_etiquetas):
-
         from gerador_digito_verificador import GeradorDigitoVerificador
 
         dig_verif_list = []
