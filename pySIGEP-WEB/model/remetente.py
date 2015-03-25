@@ -74,19 +74,19 @@ class Remetente(BaseXML):
         xml += self.diretoria.xml()
         xml += '<codigo_administrativo>%s</codigo_administrativo>' % \
                self.codigo_admin
-        xml += '<nome_remetente>%s</nome_remetente>' % self.nome
-        xml += '<logradouro_remetente>%s</logradouro_remetente>' % \
+        xml += '<nome_remetente><![CDATA[%s]]></nome_remetente>' % self.nome
+        xml += '<logradouro_remetente><![CDATA[%s]]></logradouro_remetente>' % \
                self.logradouro
         xml += '<numero_remetente>%d</numero_remetente>' % self.numero
         xml += '<complemento_remetente>%s</complemento_remetente>' % \
                self.endereco.complemento
-        xml += '<bairro_remetente>%s</bairro_remetente>' % self.bairro
-        xml += '<cep_remetente>%s</cep_remetente>' % self.cep
-        xml += '<cidade_remetente>%s</cidade_remetente>' % self.cidade
+        xml += '<bairro_remetente><![CDATA[%s]]></bairro_remetente>' % self.bairro
+        xml += '<cep_remetente><![CDATA[%s]]></cep_remetente>' % self.cep
+        xml += '<cidade_remetente><![CDATA[%s]]></cidade_remetente>' % self.cidade
         xml += '<uf_remetente>%s</uf_remetente>' % self.uf
-        xml += '<telefone_remetente>%s</telefone_remetente>' % self.telefone
-        xml += '<fax_remetente>%s</fax_remetente>' % self.fax
-        xml += '<email_remetente>%s</email_remetente>' % self.email
+        xml += '<telefone_remetente><![CDATA[%s]]></telefone_remetente>' % self.telefone
+        xml += '<fax_remetente><![CDATA[%s]]></fax_remetente>' % self.fax
+        xml += '<email_remetente><![CDATA[%s]]></email_remetente>' % self.email
         xml += '</remetente>'
 
         return xml

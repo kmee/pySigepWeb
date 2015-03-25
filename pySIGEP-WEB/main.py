@@ -2,21 +2,6 @@
 from model.servico_atende_cliente import ServicoAtendeCliente
 from model.usuario import Usuario
 from model.servico_postagem import ServicoPostagem
-from model.gerador_digito_verificador import GeradorDigitoVerificador
-
-# sgpkey = {
-#     'usuario': 'sigep',
-#     'senha': 'n5f9t8',
-#     'cod_admin': '08082650',
-#     'contrato': '9912208555',
-#     'cartao': '0057018901',
-#     'numero_servico': '40216',
-#     'cep_origem': '70002900',
-#     'cep_destino': '74000100',
-#     'tipo_destinatario': 'C',
-#     'cnpj': '34028316000103',
-#     'quant_etiquetas': 1,
-# }
 
 
 def main():

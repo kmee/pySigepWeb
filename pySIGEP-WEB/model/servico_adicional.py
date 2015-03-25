@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from base_xml import BaseXML
 
 
 class TipoServicoAdicional(object):
@@ -37,7 +38,7 @@ class Registro(TipoServicoAdicional):
         super(AvisoRecebimento, self).__init__('025', valor_declarado)
 
 
-class ServicoAdicional(object):
+class ServicoAdicional(BaseXML):
 
     def __init__(self, tipo_servico_adicional):
         if not isinstance(tipo_servico_adicional, TipoServicoAdicional):
@@ -51,3 +52,11 @@ class ServicoAdicional(object):
     @property
     def valor_declarado(self):
         return self.tipo_servico_adicional.valor_declarado
+
+    def get_xml(self):
+
+        xml = '<codigo_servico_adicional>%s</codigo_servico_adicional>' % \
+              self.codigo
+        xml += '<valor_declarado>%s</valor_declarado>' % self.valor_declarado
+        return xml
+

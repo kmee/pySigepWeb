@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from destinatario import Destinatario
-from destino_nacional import DestinoNacional
+from nacional import Nacional
 from dimensao_objeto import DimensaoObjeto
 from etiqueta import Etiqueta
 from servico_postagem import ServicoPostagem
@@ -24,7 +24,7 @@ class ObjetoPostal(object):
 
         self.destino_nacional = obj_destino_nacional
 
-        if not isinstance(obj_destino_nacional, DestinoNacional):
+        if not isinstance(obj_destino_nacional, Nacional):
             raise TypeError
 
         self.dimensao_objeto = obj_dimensao_objeto
