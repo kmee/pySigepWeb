@@ -3,7 +3,7 @@ from suds import WebFault
 
 from interface_servico import InterfaceServico
 from ambiente import FabricaAmbiente
-from consulta_cep_resposta import ConsultaCEPResposta
+from endereco import Endereco
 from usuario import Usuario
 
 
@@ -46,9 +46,8 @@ class ServicoAtendeCliente(InterfaceServico):
 
         try:
             res = self._service.consultaCEP(cep)
-            return ConsultaCEPResposta(res.bairro, res.cep, res.end, res.id,
-                                       res.uf, res.complemento,
-                                       res.complemento2)
+            return Endereco(res.logradouro, res.id, res.bairro, res.cep,
+                            res.end, res.uf, res.complemento)
         except WebFault as exp:
             print exp.message
             return None
