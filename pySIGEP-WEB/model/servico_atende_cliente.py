@@ -132,3 +132,29 @@ class ServicoAtendeCliente(InterfaceServico):
             dig_verif_list.append(dv)
 
         return dig_verif_list
+
+    def fecha_plp_varios_servicos(self, xml, id_plp_cliente, 
+                                  lista_obj_etiquetas):
+
+        etiquetas_sem_digito = []
+        for etq in lista_obj_etiquetas:
+            etiquetas_sem_digito.append(
+                etq.etiqueta_sem_dig_verif.replace(' ', ''))
+
+        import plp_xml_validator
+        if plp_xml_validator.validate_xml(xml):
+
+            try:
+                return self._service.fechaPlpVariosServicos(
+                    xml, id_plp_cliente, etiquetas_sem_digito,
+                    self.obj_usuario.nome, self.obj_usuario.senha)
+            except WebFault as exp:
+                print exp.message
+                return None
+
+
+
+
+
+
+
