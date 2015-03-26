@@ -10,5 +10,6 @@ class InterfaceServico(object):
         try:
             self._service = client.Client(url).service
         except client.TransportError as exp:
+            print self.__init__.__name__
             print exp.message
             exit(exp.message)

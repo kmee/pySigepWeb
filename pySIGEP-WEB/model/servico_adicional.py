@@ -43,7 +43,17 @@ class ServicoAdicional(BaseXML):
     def __init__(self, tipo_servico_adicional):
         if not isinstance(tipo_servico_adicional, TipoServicoAdicional):
             raise TypeError
-        self.tipo_servico_adicional = tipo_servico_adicional
+        self.lista_tipo_servico_adicional = []
+        self.lista_tipo_servico_adicional.append(Registro())
+
+    def add_tipo_servico_adicional(self, tipo_servico_adicional):
+        self.lista_tipo_servico_adicional.append(tipo_servico_adicional)
+
+    def remove_tipo_servico_adicional(self, tipo_servico_adicional):
+        self.lista_tipo_servico_adicional.remove(tipo_servico_adicional)
+
+    def get_tipo_servico_adicional(self, index):
+        return self.lista_tipo_servico_adicional[index]
 
     @property
     def codigo(self):
@@ -54,9 +64,10 @@ class ServicoAdicional(BaseXML):
         return self.tipo_servico_adicional.valor_declarado
 
     def get_xml(self):
-
-        xml = '<codigo_servico_adicional>%s</codigo_servico_adicional>' % \
-              self.codigo
+        xml = ''
+        for sv in self.lista_tipo_servico_adicional:
+            xml += '<codigo_servico_adicional>%s</codigo_servico_adicional>' \
+                   % sv.codigo
         xml += '<valor_declarado>%s</valor_declarado>' % self.valor_declarado
         return xml
 
