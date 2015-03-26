@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 from endereco import Endereco
-from base_xml import BaseXML
+from tag_base import TagBase
 
 
-class TagDestinatario(BaseXML):
+class TagDestinatario(TagBase):
 
     def __init__(self, nome, endereco):
 

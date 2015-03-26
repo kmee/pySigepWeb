@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from base_xml import BaseXML
+from tag_base import TagBase
 
 DIRETORIA_AC_ADMINISTRACAO_CENTRAL = '01'
 DIRETORIA_DR_ACRE = '03'
@@ -32,7 +32,7 @@ DIRETORIA_DR_SAO_PAULO = '72'
 DIRETORIA_DR_TOCANTINS = '75'
 
 
-class Diretoria(BaseXML):
+class Diretoria(TagBase):
 
     _diretorias = {
         DIRETORIA_AC_ADMINISTRACAO_CENTRAL: ('AC', u'AC Administraçao Central'),

@@ -1,24 +1,24 @@
 # -*- coding: utf-8 -*-
-from destinatario import Destinatario
-from nacional import Nacional
+from tag_destinatario import TagDestinatario
+from tag_nacional import TagNacional
 from tag_dimensao_objeto import TagDimensaoObjeto
 from etiqueta import Etiqueta
 from servico_postagem import ServicoPostagem
 from tag_servico_adicional import TagServicoAdicional
-from base_xml import BaseXML
+from tag_base import TagBase
 
 
-class TagObjetoPostal(BaseXML):
+class TagObjetoPostal(TagBase):
 
     def __init__(self, obj_destinatario, obj_destino_nacional,
                  obj_dimensao_objeto, obj_servico_postagem,
                  obj_servico_adicional, ob_etiqueta):
 
-        if not isinstance(obj_destinatario, Destinatario):
+        if not isinstance(obj_destinatario, TagDestinatario):
             raise TypeError
         self.destinatario = obj_destinatario
 
-        if not isinstance(obj_destino_nacional, Nacional):
+        if not isinstance(obj_destino_nacional, TagNacional):
             raise TypeError
         self.destino_nacional = obj_destino_nacional
 

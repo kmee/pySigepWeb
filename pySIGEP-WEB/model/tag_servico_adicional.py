@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from base_xml import BaseXML
+from tag_base import TagBase
 
 
 class TipoServicoAdicional(object):
@@ -38,7 +38,7 @@ class Registro(TipoServicoAdicional):
         super(AvisoRecebimento, self).__init__('025', valor_declarado)
 
 
-class ServicoAdicional(BaseXML):
+class TagServicoAdicional(TagBase):
 
     def __init__(self, tipo_servico_adicional):
         if not isinstance(tipo_servico_adicional, TipoServicoAdicional):

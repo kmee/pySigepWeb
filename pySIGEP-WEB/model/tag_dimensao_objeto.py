@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from base_xml import BaseXML
+from tag_base import TagBase
 
 
 class TipoObjeto(object):
@@ -41,7 +41,7 @@ class Cilindro(TipoObjeto):
         self._diametro = diametro
 
 
-class DimensaoObjeto(BaseXML):
+class TagDimensaoObjeto(TagBase):
 
     def __init__(self, tipo_objeto):
         self.tipo_objeto = tipo_objeto

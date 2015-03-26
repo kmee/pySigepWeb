@@ -2,7 +2,7 @@
 from tag_base import TagBase
 
 
-class Nacional(TagBase):
+class TagNacional(TagBase):
 
     def __init__(self, endereco, numero_nfe, serie_nfe, valor_a_cobrar):
         self.endereco = endereco
