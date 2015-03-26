@@ -69,25 +69,28 @@ class TagRemetente(TagBase):
 
     def get_xml(self):
 
-        xml = '<remetente>'
-        xml += '<numero_contrato>%s</numero_contrat o>' % self.num_contrato
+        xml = u'<remetente>'
+        xml += u'<numero_contrato>%s</numero_contrat o>' % self.num_contrato
         xml += self.diretoria.xml()
-        xml += '<codigo_administrativo>%s</codigo_administrativo>' % \
+        xml += u'<codigo_administrativo>%s</codigo_administrativo>' % \
                self.codigo_admin
-        xml += '<nome_remetente><![CDATA[%s]]></nome_remetente>' % self.nome
-        xml += '<logradouro_remetente><![CDATA[%s]]></logradouro_remetente>' % \
+        xml += u'<nome_remetente><![CDATA[%s]]></nome_remetente>' % self.nome
+        xml += u'<logradouro_remetente><![CDATA[%s]]></logradouro_remetente>' % \
                self.logradouro
-        xml += '<numero_remetente>%d</numero_remetente>' % self.numero
-        xml += '<complemento_remetente>%s</complemento_remetente>' % \
+        xml += u'<numero_remetente>%d</numero_remetente>' % self.numero
+        xml += u'<complemento_remetente>%s</complemento_remetente>' % \
                self.endereco.complemento
-        xml += '<bairro_remetente><![CDATA[%s]]></bairro_remetente>' % self.bairro
-        xml += '<cep_remetente><![CDATA[%s]]></cep_remetente>' % self.cep
-        xml += '<cidade_remetente><![CDATA[%s]]></cidade_remetente>' % self.cidade
-        xml += '<uf_remetente>%s</uf_remetente>' % self.uf
-        xml += '<telefone_remetente><![CDATA[%s]]></telefone_remetente>' % self.telefone
-        xml += '<fax_remetente><![CDATA[%s]]></fax_remetente>' % self.fax
-        xml += '<email_remetente><![CDATA[%s]]></email_remetente>' % self.email
-        xml += '</remetente>'
+        xml += u'<bairro_remetente><![CDATA[%s]]></bairro_remetente>' % \
+               self.bairro
+        xml += u'<cep_remetente><![CDATA[%s]]></cep_remetente>' % self.cep
+        xml += u'<cidade_remetente><![CDATA[%s]]></cidade_remetente>' % \
+               self.cidade
+        xml += u'<uf_remetente>%s</uf_remetente>' % self.uf
+        xml += u'<telefone_remetente><![CDATA[%s]]></telefone_remetente>' % \
+               self.telefone
+        xml += u'<fax_remetente><![CDATA[%s]]></fax_remetente>' % self.fax
+        xml += u'<email_remetente><![CDATA[%s]]></email_remetente>' % self.email
+        xml += u'</remetente>'
 
         return xml
 

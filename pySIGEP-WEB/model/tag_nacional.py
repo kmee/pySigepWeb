@@ -17,25 +17,26 @@ class TagNacional(TagBase):
 
     def get_xml(self):
 
-        xml = '<nacional>'
-        xml += '<bairro_destinatario><![CDATA[%s]]></bairro_destinatario>' % \
+        xml = u'<nacional>'
+        xml += u'<bairro_destinatario><![CDATA[%s]]></bairro_destinatario>' % \
                self.endereco.bairro
-        xml += '<cidade_destinatario><![CDATA[%s]]></cidade_destinatario>' % \
+        xml += u'<cidade_destinatario><![CDATA[%s]]></cidade_destinatario>' % \
                self.endereco.cidade
-        xml += '<uf_destinatario>%s</uf_destinatario>' % self.endereco.uf
-        xml += '<cep_destinatario><![CDATA[%s]]></cep_destinatario>' % \
+        xml += u'<uf_destinatario>%s</uf_destinatario>' % self.endereco.uf
+        xml += u'<cep_destinatario><![CDATA[%s]]></cep_destinatario>' % \
                self.endereco.cep
-        xml += '<codigo_usuario_postal>%s</codigo_usuario_postal>' % \
+        xml += u'<codigo_usuario_postal>%s</codigo_usuario_postal>' % \
                self.codigo_usuario_postal
-        xml += '<centro_custo_cliente>%s</centro_custo_cliente>' % \
+        xml += u'<centro_custo_cliente>%s</centro_custo_cliente>' % \
                self.centro_custo_cliente
-        xml += '<numero_nota_fiscal>%d</numero_nota_fiscal>' % self.num_nfe
-        xml += '<serie_nota_fiscal>%s</serie_nota_fiscal>' % self.serie_nfe
-        xml += '<valor_nota_fiscal>%s</valor_nota_fiscal>' % str(self.valor_nfe)
-        xml += '<natureza_nota_fiscal></natureza_nota_fiscal>'
-        xml += '<descricao_objeto><![CDATA[%s]]></descricao_objeto>' % \
+        xml += u'<numero_nota_fiscal>%d</numero_nota_fiscal>' % self.num_nfe
+        xml += u'<serie_nota_fiscal>%s</serie_nota_fiscal>' % self.serie_nfe
+        xml += u'<valor_nota_fiscal>%s</valor_nota_fiscal>' % str(
+            self.valor_nfe)
+        xml += u'<natureza_nota_fiscal></natureza_nota_fiscal>'
+        xml += u'<descricao_objeto><![CDATA[%s]]></descricao_objeto>' % \
                self.descricao_objeto
-        xml += '<valor a cobrar>%s</valor a cobrar>' % str(self.valor_a_cobrar)
-        xml += '</nacional>'
+        xml += u'<valor a cobrar>%s</valor a cobrar>' % str(self.valor_a_cobrar)
+        xml += u'</nacional>'
 
         return xml

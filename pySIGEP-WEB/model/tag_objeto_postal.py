@@ -48,28 +48,28 @@ class TagObjetoPostal(TagBase):
 
     def get_xml(self):
 
-        xml = '<objeto_postal>'
-        xml += '<numero_etiqueta>%s</numero_etiqueta>' % \
+        xml = u'<objeto_postal>'
+        xml += u'<numero_etiqueta>%s</numero_etiqueta>' % \
                self.etiquetas.etiqueta_com_dig_verif
-        xml += '<codigo_objeto_cliente/>%s<codigo_objeto_cliente/>' % \
+        xml += u'<codigo_objeto_cliente/>%s<codigo_objeto_cliente/>' % \
                self.codigo_objeto_cliente
-        xml += '<codigo_servico_postagem>%s</codigo_servico_postagem>' % \
+        xml += u'<codigo_servico_postagem>%s</codigo_servico_postagem>' % \
                self.servico_postagem.codigo()
-        xml += '<cubagem>%s</cubagem>' % str(self.cubagem)
-        xml += '<peso>%d</peso>' % self.peso
-        xml += '<rt1/>'
-        xml += '<rt2/>'
+        xml += u'<cubagem>%s</cubagem>' % str(self.cubagem)
+        xml += u'<peso>%d</peso>' % self.peso
+        xml += u'<rt1/>'
+        xml += u'<rt2/>'
         xml += self.destinatario.get_xml()
         xml += self.destino_nacional.get_xml()
         xml += self.servico_adicional.get_xml()
         xml += self.dimensao_objeto.get_xml()
-        xml += '<data_postagem_sara/>'
-        xml += '<status_processamento>%s</status_processamento>' % \
+        xml += u'<data_postagem_sara/>'
+        xml += u'<status_processamento>%s</status_processamento>' % \
                self.status_processamento
-        xml += '<numero_comprovante_postagem>%d</numero_comprovante_postagem' \
-               '>' % self.numero_comprovante_de_postagem
-        xml += '<valor_cobrado>%s<valor_cobrado/>' % str(self.valor_cobrado)
-        xml += '</objeto_postal>'
+        xml += u'<numero_comprovante_postagem>%d</numero_comprovante_postagem' \
+               u'>' % self.numero_comprovante_de_postagem
+        xml += u'<valor_cobrado>%s<valor_cobrado/>' % str(self.valor_cobrado)
+        xml += u'</objeto_postal>'
 
         return xml
 
