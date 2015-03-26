@@ -133,11 +133,13 @@ class ServicoAtendeCliente(InterfaceServico):
 
         return dig_verif_list
 
-    def fecha_plp_varios_servicos(self, xml, id_plp_cliente, 
+    def fecha_plp_varios_servicos(self, xml, id_plp_cliente,
                                   lista_obj_etiquetas):
 
         etiquetas_sem_digito = []
         for etq in lista_obj_etiquetas:
+            # As etiquetas tem de ser enviadas sem o digito verificador
+            # e sem o espaco em branco antes do sufixo da etiqueta
             etiquetas_sem_digito.append(
                 etq.etiqueta_sem_dig_verif.replace(' ', ''))
 

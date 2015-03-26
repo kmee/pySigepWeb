@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
-from model.servico_atende_cliente import ServicoAtendeCliente
-from model.usuario import Usuario
-from model.servico_postagem import ServicoPostagem
+from servico_atende_cliente import ServicoAtendeCliente
+from usuario import Usuario
+from servico_postagem import ServicoPostagem
+
+from tag_correios_log import TagCorreiosLog
+from tag_plp import TagPLP
+from tag_remetente import TagRemetente
+from tag_objeto_postal import TagObjetoPostal
 
 
 def main():
@@ -35,6 +40,10 @@ def main():
     for i in range(len(etiquetas)):
         print etiquetas[i].etiqueta_sem_dig_verif
         print digitos[i]
+
+    # Montando xml do plp
+    obj_tag_plp =
+
 
 if __name__ == '__main__':
     main()
