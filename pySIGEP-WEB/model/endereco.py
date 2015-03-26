@@ -39,3 +39,4 @@ class Endereco(object):
         self.cidade = cidade
         self.uf = uf
         self.complemento = ''
+        self.complemento2 = ''
