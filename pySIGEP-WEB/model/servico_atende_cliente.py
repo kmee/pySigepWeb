@@ -60,7 +60,6 @@ class ServicoAtendeCliente(InterfaceServico):
                 self.obj_usuario.senha)
             return status
         except WebFault as exp:
-            # print self.consulta_status_cartao_postagem.__name__
             print exp.message
             return None
 

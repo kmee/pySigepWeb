@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from base_xml import BaseXML
 
 
 class TipoObjeto(object):
@@ -40,7 +41,7 @@ class Cilindro(TipoObjeto):
         self._diametro = diametro
 
 
-class DimensaoObjeto(object):
+class DimensaoObjeto(BaseXML):
 
     def __init__(self, tipo_objeto):
         self.tipo_objeto = tipo_objeto
@@ -68,3 +69,18 @@ class DimensaoObjeto(object):
     @property
     def diametro(self):
         return self.tipo_objeto.diametro
+
+    def get_xml(self):
+
+        xml = '<dimensao_objeto>'
+        xml += '<tipo_objeto>%d</tipo_objeto>' % self.tipo_objeto.codigo
+        xml += '<dimensao_altura>%d</dimensao_altura>' % self.tipo_objeto.altura
+        xml += '<dimensao_largura>%d</dimensao_largura>' % \
+               self.tipo_objeto.largura
+        xml += '<dimensao_comprimento>%d</dimensao_comprimento>' % \
+               self.tipo_objeto.comprimento
+        xml += '<dimensao_diametro>%d</dimensao_diametro>' % \
+               self.tipo_objeto.diametro
+        xml += '</dimensao_objeto>'
+
+        return xml
