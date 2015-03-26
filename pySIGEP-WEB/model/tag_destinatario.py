@@ -12,12 +12,12 @@ class TagDestinatario(TagBase):
 
         self.nome = nome
         self.endereco = endereco
-        self.telefone = ''
-        self.celular = ''
+        self.telefone = 0
+        self.celular = 0
         self.email = ''
-        self.logradouro = ''
-        self.complemento = ''
-        self.numero_end_destinatario = ''
+        # self.logradouro = endereco.logradouro
+        # self.complemento = endereco.complemento
+        # self.numero_end_destinatario = endereco.numero
 
     @property
     def logradouro(self):
@@ -67,16 +67,23 @@ class TagDestinatario(TagBase):
     def uf(self, valor):
         self.endereco.uf = valor
 
+    @property
+    def complemento(self):
+        return self.endereco.complemento
+
+    @complemento.setter
+    def complemento(self, valor):
+        self.endereco.complemento = valor
+
     def get_xml(self):
 
         xml = u'<destinatario>'
         xml += u'<nome_destinatario><![CDATA[%s]]></nome_destinatario>' % \
                self.nome
         xml += u'<telefone_destinatario><![CDATA[' \
-               u'%s]]></telefone_destinatario>' % \
-               self.telefone
+               u'%s]]></telefone_destinatario>' % str(self.telefone) or ''
         xml += u'<celular_destinatario><![CDATA[%s]]></celular_destinatario>' \
-               % self.celular
+               % str(self.celular) or ''
         xml += u'<email_destinatario><![CDATA[%s]]></email_destinatario>' % \
                self.email
         xml += u'<logradouro_destinatario><![CDATA[' \
@@ -84,7 +91,7 @@ class TagDestinatario(TagBase):
         xml += u'<complemento_destinatario><![CDATA[' \
                u'%s]]><complemento_destinatario>' % self.complemento
         xml += u'<numero_end_destinatario>%s</numero_end_destinatario>' % \
-               self.numero
+               str(self.numero)
         xml += u'</destinatario>'
 
         return xml
