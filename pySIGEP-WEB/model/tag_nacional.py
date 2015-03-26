@@ -24,7 +24,7 @@ class TagNacional(TagBase):
                self.endereco.cidade
         xml += u'<uf_destinatario>%s</uf_destinatario>' % self.endereco.uf
         xml += u'<cep_destinatario><![CDATA[%s]]></cep_destinatario>' % \
-               self.endereco.cep
+               str(self.endereco.cep)
         xml += u'<codigo_usuario_postal>%s</codigo_usuario_postal>' % \
                self.codigo_usuario_postal
         xml += u'<centro_custo_cliente>%s</centro_custo_cliente>' % \
@@ -32,11 +32,12 @@ class TagNacional(TagBase):
         xml += u'<numero_nota_fiscal>%d</numero_nota_fiscal>' % self.num_nfe
         xml += u'<serie_nota_fiscal>%s</serie_nota_fiscal>' % self.serie_nfe
         xml += u'<valor_nota_fiscal>%s</valor_nota_fiscal>' % str(
-            self.valor_nfe)
+            self.valor_nfe) or ''
         xml += u'<natureza_nota_fiscal></natureza_nota_fiscal>'
         xml += u'<descricao_objeto><![CDATA[%s]]></descricao_objeto>' % \
                self.descricao_objeto
-        xml += u'<valor a cobrar>%s</valor a cobrar>' % str(self.valor_a_cobrar)
+        xml += u'<valor a cobrar>%s</valor a cobrar>' % str(
+            self.valor_a_cobrar) or ''
         xml += u'</nacional>'
 
         return xml
