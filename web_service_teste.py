@@ -149,6 +149,7 @@ plps = cliente.service.fechaPlpVariosServicos(
     xml, long(123), sgpkey['cartao'], etq_sem_espaco, sgpkey['usuario'],
     sgpkey['senha'])
 
+print plps
 # plps = cliente.service.fechaPlpVariosServicos(
 #     xml, long(123), sgpkey['cartao'], etiquetas_sem_dig, sgpkey['usuario'],
 #     sgpkey['senha'])
