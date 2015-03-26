@@ -66,8 +66,8 @@ class TagServicoAdicional(TagBase):
     def get_xml(self):
         xml = ''
         for sv in self.lista_tipo_servico_adicional:
-            xml += '<codigo_servico_adicional>%s</codigo_servico_adicional>' \
+            xml += u'<codigo_servico_adicional>%s</codigo_servico_adicional>' \
                    % sv.codigo
-        xml += '<valor_declarado>%s</valor_declarado>' % self.valor_declarado
+        xml += u'<valor_declarado>%s</valor_declarado>' % self.valor_declarado
         return xml
 
