@@ -15,8 +15,8 @@ class TagRemetente(TagBase):
         self.codigo_admin = codigo_admin
         self.endereco = endereco
         self.diretoria = diretoria
-        self.telefone = 999999999999
-        self.fax = 999999999999
+        self.telefone = 00000000000
+        self.fax = 00000000000
         self.email = ''
 
     @property
@@ -87,8 +87,9 @@ class TagRemetente(TagBase):
                self.cidade
         xml += u'<uf_remetente>%s</uf_remetente>' % self.uf
         xml += u'<telefone_remetente><![CDATA[%s]]></telefone_remetente>' % \
-               self.telefone
-        xml += u'<fax_remetente><![CDATA[%s]]></fax_remetente>' % self.fax
+               str(self.telefone) or ''
+        xml += u'<fax_remetente><![CDATA[%s]]></fax_remetente>' % str(
+            self.fax) or ''
         xml += u'<email_remetente><![CDATA[%s]]></email_remetente>' % self.email
         xml += u'</remetente>'
 
