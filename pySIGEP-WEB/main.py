@@ -25,12 +25,12 @@ def main():
     etiquetas = sv.solicita_etiquetas(sv_postagem.servico_postagem_id,
                                       qtd_etiquetas=3)
 
-    etiquetas[0].etiqueta_sem_dig_verif = 'EC21325855 BR'
-    etiquetas[1].etiqueta_sem_dig_verif = 'EC21325856 BR'
-    etiquetas[2].etiqueta_sem_dig_verif = 'EC21325857 BR'
+    # etiquetas[0].etiqueta_sem_dig_verif = 'EC21325855 BR'
+    # etiquetas[1].etiqueta_sem_dig_verif = 'EC21325856 BR'
+    # etiquetas[2].etiqueta_sem_dig_verif = 'EC21325857 BR'
 
-    digitos = sv.gera_digito_verificador_etiquetas(etiquetas,
-                                                   gerador=ServicoAtendeCliente.GERADOR_OFFLINE)
+    digitos = sv.gera_digito_verificador_etiquetas(
+        etiquetas, gerador=ServicoAtendeCliente.GERADOR_OFFLINE)
 
     for i in range(len(etiquetas)):
         print etiquetas[i].etiqueta_sem_dig_verif
