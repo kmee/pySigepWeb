@@ -12,7 +12,7 @@ class TagObjetoPostal(TagBase):
 
     def __init__(self, obj_destinatario, obj_destino_nacional,
                  obj_dimensao_objeto, obj_servico_postagem,
-                 obj_servico_adicional, ob_etiqueta):
+                 obj_servico_adicional, ob_etiqueta, peso, status_processamento):
 
         if not isinstance(obj_destinatario, TagDestinatario):
             raise TypeError
@@ -38,13 +38,15 @@ class TagObjetoPostal(TagBase):
             raise TypeError
         self.etiquetas = ob_etiqueta
 
+        self.codigo_objeto_cliente = ''
         self.cubagem = 0.0
-        self.peso = 0
+        self.peso = peso
         # self.data_postagem = date()
-        self.status_processamento = ''
-        self.valor_cobrado = 0.0
-        self.codigo_objeto_cliente = 0
+        self.status_processamento = status_processamento
         self.numero_comprovante_de_postagem = 0
+        self.valor_cobrado = 0.0
+        self.rt1 = ''
+        self.rt2 = ''
 
     def get_xml(self):
 
@@ -55,10 +57,10 @@ class TagObjetoPostal(TagBase):
                self.codigo_objeto_cliente
         xml += u'<codigo_servico_postagem>%s</codigo_servico_postagem>' % \
                self.servico_postagem.codigo()
-        xml += u'<cubagem>%s</cubagem>' % str(self.cubagem)
+        xml += u'<cubagem>%s</cubagem>' % str(self.cubagem) or ''
         xml += u'<peso>%d</peso>' % self.peso
-        xml += u'<rt1/>'
-        xml += u'<rt2/>'
+        xml += u'<rt1>%s</rt1>' % self.rt1
+        xml += u'<rt2>%s</rt2>' % self.rt2
         xml += self.destinatario.get_xml()
         xml += self.destino_nacional.get_xml()
         xml += self.servico_adicional.get_xml()
@@ -66,9 +68,10 @@ class TagObjetoPostal(TagBase):
         xml += u'<data_postagem_sara/>'
         xml += u'<status_processamento>%s</status_processamento>' % \
                self.status_processamento
-        xml += u'<numero_comprovante_postagem>%d</numero_comprovante_postagem' \
-               u'>' % self.numero_comprovante_de_postagem
-        xml += u'<valor_cobrado>%s<valor_cobrado/>' % str(self.valor_cobrado)
+        xml += u'<numero_comprovante_postagem>%s</numero_comprovante_postagem' \
+               u'>' % str(self.numero_comprovante_de_postagem) or ''
+        xml += u'<valor_cobrado>%s<valor_cobrado/>' % str(self.valor_cobrado)\
+               or ''
         xml += u'</objeto_postal>'
 
         return xml
