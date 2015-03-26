@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from base_xml import BaseXML
+from tag_base import TagBase
 
 
-class CodigoServicoAdicional(BaseXML):
+class CodigoServicoAdicional(TagBase):
 
     def __init__(self, value=None):
         self.valor = value
@@ -13,13 +13,13 @@ class CodigoServicoAdicional(BaseXML):
                self.valor
 
 
-class ValorDeclarado(BaseXML):
+class ValorDeclarado(TagBase):
 
     def xml(self):
         return '<valor_declarado>%s</valor_declarado>' % self.valor
 
 
-class ServicoAdicional(BaseXML):
+class ServicoAdicional(TagBase):
 
     def __init__(self):
         self.codigo_servico_adicional = []

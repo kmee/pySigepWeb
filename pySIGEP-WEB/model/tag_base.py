@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 
-class BaseXML(object):
+class TagBase(object):
 
     def xml(self):
         raise NotImplementedError("Must subclass me")

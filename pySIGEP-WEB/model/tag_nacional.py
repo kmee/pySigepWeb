@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
-from base_xml import BaseXML
+from tag_base import TagBase
 
 
-class Nacional(BaseXML):
+class Nacional(TagBase):
 
     def __init__(self, endereco, numero_nfe, serie_nfe, valor_a_cobrar):
         self.endereco = endereco

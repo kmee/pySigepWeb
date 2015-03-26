@@ -3,7 +3,7 @@ from endereco import Endereco
 from base_xml import BaseXML
 
 
-class Destinatario(BaseXML):
+class TagDestinatario(BaseXML):
 
     def __init__(self, nome, endereco):
 

@@ -12,19 +12,14 @@ class GeradorDigitoVerificador(object):
         if len(numero_etiqueta) != 8:
             dv = 'Erro'
         else:
-
             for i in range(8):
                 soma += int(numero_etiqueta[i:(i+1)]) * multiplicadores[i]
 
             resto = soma % 11
-
             if resto == 0:
                 dv = '5'
             elif resto == 1:
                 dv = '0'
             else:
                 dv = str(11 - resto)
-
-            # numero_etiqueta += dv
-
         return dv
