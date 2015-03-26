@@ -53,7 +53,4 @@ class FabricaAmbiente(object):
 
     @staticmethod
     def get_ambiente(nome_ambiente):
-        try:
             return FabricaAmbiente._ambientes[nome_ambiente]()
-        except KeyError as err:
-            print u'[ERRO] Não existe ambiente com o nome fornecido! ' + err
