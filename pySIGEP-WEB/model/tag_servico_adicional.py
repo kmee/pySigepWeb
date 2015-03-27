@@ -69,6 +69,6 @@ class TagServicoAdicional(TagBase):
             xml += u'<codigo_servico_adicional>%s</codigo_servico_adicional>' \
                    % sv.codigo
         xml += u'<valor_declarado>%s</valor_declarado>' % str(
-            self.valor_declarado) or ''
+            self.valor_declarado) if self.valor_declarado else ''
         return xml
 

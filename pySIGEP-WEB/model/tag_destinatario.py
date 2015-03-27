@@ -6,7 +6,7 @@ from tag_base import TagBase
 class TagDestinatario(TagBase):
 
     def __init__(self, nome, endereco, telefone=False, celular=False,
-                 email=False):
+                 email=''):
         if not isinstance(endereco, Endereco):
             raise TypeError
 
@@ -78,9 +78,10 @@ class TagDestinatario(TagBase):
         xml += u'<nome_destinatario><![CDATA[%s]]></nome_destinatario>' % \
                self.nome
         xml += u'<telefone_destinatario><![CDATA[' \
-               u'%s]]></telefone_destinatario>' % str(self.telefone) or ''
+               u'%s]]></telefone_destinatario>' % str(self.telefone) if \
+            self.telefone else ''
         xml += u'<celular_destinatario><![CDATA[%s]]></celular_destinatario>' \
-               % str(self.celular) or ''
+               % str(self.celular) if self.celular else ''
         xml += u'<email_destinatario><![CDATA[%s]]></email_destinatario>' % \
                self.email
         xml += u'<logradouro_destinatario><![CDATA[' \

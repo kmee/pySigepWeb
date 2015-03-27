@@ -6,7 +6,7 @@ from tag_base import TagBase
 class TagRemetente(TagBase):
 
     def __init__(self, nome, num_contrato, codigo_admin, endereco, diretoria,
-                 telefone=False, fax=False, email=False):
+                 telefone=False, fax=False, email=''):
 
         if not isinstance(endereco, Endereco):
             raise TypeError
@@ -88,9 +88,9 @@ class TagRemetente(TagBase):
                self.cidade
         xml += u'<uf_remetente>%s</uf_remetente>' % self.uf
         xml += u'<telefone_remetente><![CDATA[%s]]></telefone_remetente>' % \
-               str(self.telefone) or ''
+               str(self.telefone) if self.telefone else ''
         xml += u'<fax_remetente><![CDATA[%s]]></fax_remetente>' % str(
-            self.fax) or ''
+            self.fax) if self.fax else ''
         xml += u'<email_remetente><![CDATA[%s]]></email_remetente>' % self.email
         xml += u'</remetente>'
 

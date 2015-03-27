@@ -32,12 +32,12 @@ class TagNacional(TagBase):
         xml += u'<numero_nota_fiscal>%d</numero_nota_fiscal>' % self.num_nfe
         xml += u'<serie_nota_fiscal>%s</serie_nota_fiscal>' % self.serie_nfe
         xml += u'<valor_nota_fiscal>%s</valor_nota_fiscal>' % str(
-            self.valor_nfe) or ''
+            self.valor_nfe) if self.valor_nfe else ''
         xml += u'<natureza_nota_fiscal></natureza_nota_fiscal>'
         xml += u'<descricao_objeto><![CDATA[%s]]></descricao_objeto>' % \
                self.descricao_objeto
         xml += u'<valor a cobrar>%s</valor a cobrar>' % str(
-            self.valor_a_cobrar) or ''
+            self.valor_a_cobrar) if self.valor_a_cobrar else ''
         xml += u'</nacional>'
 
         return xml

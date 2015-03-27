@@ -146,10 +146,3 @@ class ServicoAtendeCliente(InterfaceServico):
             except WebFault as exp:
                 print exp.message
                 return None
-
-
-
-
-
-
-

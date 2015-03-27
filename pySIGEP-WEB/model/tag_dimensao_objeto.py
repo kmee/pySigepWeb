@@ -75,13 +75,15 @@ class TagDimensaoObjeto(TagBase):
         xml = u'<dimensao_objeto>'
         xml += u'<tipo_objeto>%s</tipo_objeto>' % self.tipo_objeto.codigo
         xml += u'<dimensao_altura>%s</dimensao_altura>' % \
-               str(self.tipo_objeto.altura) or ''
+               str(self.tipo_objeto.altura) if self.tipo_objeto.altura else ''
         xml += u'<dimensao_largura>%s</dimensao_largura>' % \
-               str(self.tipo_objeto.largura) or ''
+               str(self.tipo_objeto.largura) if self.tipo_objeto.largura else ''
         xml += u'<dimensao_comprimento>%s</dimensao_comprimento>' % \
-               str(self.tipo_objeto.comprimento) or ''
+               str(self.tipo_objeto.comprimento) if \
+            self.tipo_objeto.comprimento else ''
         xml += u'<dimensao_diametro>%s</dimensao_diametro>' % \
-               str(self.tipo_objeto.diametro) or ''
+               str(self.tipo_objeto.diametro) if self.tipo_objeto.diametro \
+            else ''
         xml += u'</dimensao_objeto>'
 
         return xml
