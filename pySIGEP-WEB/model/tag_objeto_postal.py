@@ -38,7 +38,7 @@ class TagObjetoPostal(TagBase):
 
         if not isinstance(ob_etiqueta, Etiqueta):
             raise TypeError
-        self.etiquetas = ob_etiqueta
+        self.etiqueta = ob_etiqueta
 
         self.codigo_objeto_cliente = codigo_objeto_cliente
         self.cubagem = cubagem
@@ -54,7 +54,7 @@ class TagObjetoPostal(TagBase):
 
         xml = u'<objeto_postal>'
         xml += u'<numero_etiqueta>%s</numero_etiqueta>' % \
-               self.etiquetas.etiqueta_com_dig_verif
+               self.etiqueta.etiqueta_com_dig_verif
         xml += u'<codigo_objeto_cliente/>%s<codigo_objeto_cliente/>' % \
                self.codigo_objeto_cliente
         xml += u'<codigo_servico_postagem>%s</codigo_servico_postagem>' % \

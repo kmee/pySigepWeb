@@ -27,7 +27,7 @@ class TagCorreiosLog(TagBase):
         xml += self.tagPLP.get_xml
         xml += self.tag_remetente.get_xml
         for objeto_postal in self.lista_objeto_postal:
-            xml += objeto_postal.get_xml
+            xml += objeto_postal.get_xml()
         xml += u'</correioslog>'
 
         return xml
