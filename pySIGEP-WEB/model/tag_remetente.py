@@ -6,7 +6,7 @@ from tag_base import TagBase
 class TagRemetente(TagBase):
 
     def __init__(self, nome, num_contrato, codigo_admin, endereco, diretoria,
-                 telefone=0, fax=0, email=''):
+                 telefone=False, fax=False, email=False):
 
         if not isinstance(endereco, Endereco):
             raise TypeError
