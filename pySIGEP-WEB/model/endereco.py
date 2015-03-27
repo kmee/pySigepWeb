@@ -31,12 +31,12 @@ class Endereco(object):
     UF_SAO_PAULO = 'SP'
     UF_TOCANTINS = 'TO'
 
-    def __init__(self, logradouro, numero, bairro, cep, cidade, uf):
+    def __init__(self, logradouro, numero, bairro, cep, cidade, uf,
+                 complemento=''):
         self.logradouro = logradouro
         self.numero = numero
         self.bairro = bairro
         self.cep = cep
         self.cidade = cidade
         self.uf = uf
-        self.complemento = ''
-        self.complemento2 = ''
+        self.complemento = complemento
