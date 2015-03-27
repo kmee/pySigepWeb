@@ -5,7 +5,8 @@ from tag_base import TagBase
 
 class TagRemetente(TagBase):
 
-    def __init__(self, nome, num_contrato, codigo_admin, endereco, diretoria):
+    def __init__(self, nome, num_contrato, codigo_admin, endereco, diretoria,
+                 telefone=0, fax=0, email=''):
 
         if not isinstance(endereco, Endereco):
             raise TypeError
@@ -15,9 +16,9 @@ class TagRemetente(TagBase):
         self.codigo_admin = codigo_admin
         self.endereco = endereco
         self.diretoria = diretoria
-        self.telefone = 00000000000
-        self.fax = 00000000000
-        self.email = ''
+        self.telefone = telefone
+        self.fax = fax
+        self.email = email
 
     @property
     def logradouro(self):
