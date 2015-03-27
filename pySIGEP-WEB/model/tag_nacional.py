@@ -4,7 +4,7 @@ from tag_base import TagBase
 
 class TagNacional(TagBase):
 
-    def __init__(self, endereco, numero_nfe, serie_nfe, valor_a_cobrar,
+    def __init__(self, endereco, numero_nfe, valor_a_cobrar, serie_nfe='',
                  codigo_usuario_postal='', centro_custo_cliente='',
                  valor_nfe=False, natureza_nfe='', descricao_objeto=''):
         self.endereco = endereco
