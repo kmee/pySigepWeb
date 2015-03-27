@@ -1,20 +1,13 @@
 # -*- coding: utf-8 -*-
 from servico_atende_cliente import ServicoAtendeCliente
 from usuario import Usuario
-from servico_postagem import ServicoPostagem
-
 from tag_plp import TagPLP
 from tag_remetente import TagRemetente
-from tag_destinatario import TagDestinatario
-from tag_nacional import TagNacional
-from tag_dimensao_objeto import TagDimensaoObjeto
-from tag_servico_adicional import TagServicoAdicional
-from servico_postagem import ServicoPostagem
-from tag_objeto_postal import TagObjetoPostal
+from tag_dimensao_objeto import *
+from tag_objeto_postal import *
 from tag_correios_log import TagCorreiosLog
 from diretoria import Diretoria
 from endereco import Endereco
-
 
 
 def main():
@@ -49,29 +42,50 @@ def main():
         print etiquetas[i].etiqueta_sem_dig_verif
         print digitos[i]
 
-    usr_endereco = Endereco(logradouro='Avenida Central', numero=2370,
-                            bairro='Centro', cep='70002900',
-                            cidade='Brasilia', uf=Endereco.UF_PARANA,
-                            complemento='sala 1205,12° andar')
+    remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
+                                  bairro='Centro', cep='70002900',
+                                  cidade='Brasilia', uf=Endereco.UF_PARANA,
+                                  complemento=u'sala 1205,12° andar')
+
+    destinatario_endereco = Endereco(logradouro='Avenida Central',
+                                     numero=1065, bairro='Setor Industrial',
+                                     cidade='Goiânia', uf=Endereco.UF_GOIAS,
+                                     cep=74000100, complemento='Qd:102 A Lt:04')
 
     # Montando xml do plp
     obj_tag_plp = TagPLP(usr.num_cartao_postagem)
     obj_remetente = TagRemetente(usr.nome, usr.num_contrato, usr.codigo_admin,
-                                 usr_endereco,
+                                 remetente_endereco,
                                  Diretoria(Diretoria.DIRETORIA_DR_PARANA),
                                  telefone=6112345008, email='cli@mail.com.br')
 
-    obj_destinatario = TagDestinatario('Destino Ltda')
+    obj_destinatario = TagDestinatario('Destino Ltda', destinatario_endereco,
+                                       telefone=6212349644)
 
-    obj_postal = TagObjetoPostal()
+    obj_nacional = TagNacional(endereco=destinatario_endereco,
+                               numero_nfe=102030, valor_a_cobrar=0.0)
 
+    obj_servico_adtagemicional = TagServicoAdicional(99.00)
+    obj_servico_adicional.add_tipo_servico_adicional(
+        TagServicoAdicional.TIPO_AVISO_RECEBIMENTO)
+    obj_servico_adicional.add_tipo_servico_adicional(
+        TagServicoAdicional.TIPO_VALOR_DECLARADO)
 
+    obj_dimensao_objeto = TagDimensaoObjeto(Caixa(20, 30, 38))
 
-     obj_destinatario, obj_destino_nacional,
-                 obj_dimensao_objeto, obj_servico_postagem,
-                 obj_servico_adicional, ob_etiqueta, peso, status_processamento):
+    obj_postal = TagObjetoPostal(obj_destinatario=obj_destinatario,
+                                 obj_nacional=obj_nacional,
+                                 obj_dimensao_objeto=obj_dimensao_objeto,
+                                 obj_servico_adicional=obj_servico_adicional,
+                                 obj_servico_postagem=sv_postagem,
+                                 ob_etiqueta=etiquetas[0],
+                                 peso=200, status_processamento=0)
 
+    obj_correios_log = TagCorreiosLog('2.3', obj_tag_plp, obj_remetente,
+                                      [obj_postal])
 
+    print ServicoAtendeCliente.fecha_plp_varios_servicos(
+        obj_correios_log.get_xml(), 123, etiquetas)
 
 if __name__ == '__main__':
     main()
