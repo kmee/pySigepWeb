@@ -40,10 +40,9 @@ class Registro(TipoServicoAdicional):
 
 class TagServicoAdicional(TagBase):
 
-    def __init__(self, tipo_servico_adicional):
-        if not isinstance(tipo_servico_adicional, TipoServicoAdicional):
-            raise TypeError
+    def __init__(self):
         self.lista_tipo_servico_adicional = []
+        # O Servico Adicional com codigo 025 sempre devera ser informado
         self.lista_tipo_servico_adicional.append(Registro())
 
     def add_tipo_servico_adicional(self, tipo_servico_adicional):
