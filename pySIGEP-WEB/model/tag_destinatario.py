@@ -6,7 +6,6 @@ from tag_base import TagBase
 class TagDestinatario(TagBase):
 
     def __init__(self, nome, endereco):
-
         if not isinstance(endereco, Endereco):
             raise TypeError
 
@@ -15,9 +14,6 @@ class TagDestinatario(TagBase):
         self.telefone = 0
         self.celular = 0
         self.email = ''
-        # self.logradouro = endereco.logradouro
-        # self.complemento = endereco.complemento
-        # self.numero_end_destinatario = endereco.numero
 
     @property
     def logradouro(self):

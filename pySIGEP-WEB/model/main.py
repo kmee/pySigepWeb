@@ -3,14 +3,15 @@ from servico_atende_cliente import ServicoAtendeCliente
 from usuario import Usuario
 from servico_postagem import ServicoPostagem
 
-from tag_correios_log import TagCorreiosLog
 from tag_plp import TagPLP
 from tag_remetente import TagRemetente
 from tag_destinatario import TagDestinatario
 from tag_nacional import TagNacional
 from tag_dimensao_objeto import TagDimensaoObjeto
-from tag_
+from tag_servico_adicional import TagServicoAdicional
+from servico_postagem import ServicoPostagem
 from tag_objeto_postal import TagObjetoPostal
+from tag_correios_log import TagCorreiosLog
 from diretoria import Diretoria
 from endereco import Endereco
 
@@ -59,7 +60,7 @@ def main():
                                  usr_endereco,
                                  Diretoria(Diretoria.DIRETORIA_DR_PARANA))
 
-    obj_destinatario = TagD
+    obj_destinatario = TagDestinatario('Destino Ltda')
 
     obj_postal = TagObjetoPostal()
 
