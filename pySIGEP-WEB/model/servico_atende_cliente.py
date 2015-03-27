@@ -3,7 +3,6 @@ from suds import WebFault
 
 from interface_servico import InterfaceServico
 from ambiente import FabricaAmbiente
-from endereco import Endereco
 from usuario import Usuario
 
 
@@ -41,13 +40,9 @@ class ServicoAtendeCliente(InterfaceServico):
         return res
 
     def consulta_cep(self, cep):
-        if not isinstance(cep, str):
-            raise TypeError
-
         try:
             res = self._service.consultaCEP(cep)
-            return Endereco(res.logradouro, res.id, res.bairro, res.cep,
-                            res.end, res.uf, res.complemento)
+            return res
         except WebFault as exp:
             print exp.message
             return None
@@ -63,13 +58,11 @@ class ServicoAtendeCliente(InterfaceServico):
             return None
 
     def solicita_etiquetas(self, servico_id, qtd_etiquetas=1,
-                           tipo_destinatario="C"):
-
+                           tipo_destinatario='C'):
         try:
             faixa_etiquetas = self._service.solicitaEtiquetas(
                 tipo_destinatario, self.obj_usuario.cnpj, servico_id,
                 qtd_etiquetas, self.obj_usuario.nome, self.obj_usuario.senha)
-
         except WebFault as exp:
             print exp.fault
             print '[ERRO] Em solicita_etiquetas(). ' + exp.message
