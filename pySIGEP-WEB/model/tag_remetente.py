@@ -70,7 +70,7 @@ class TagRemetente(TagBase):
     def get_xml(self):
 
         xml = u'<remetente>'
-        xml += u'<numero_contrato>%s</numero_contrat o>' % self.num_contrato
+        xml += u'<numero_contrato>%s</numero_contrato>' % self.num_contrato
         xml += self.diretoria.xml()
         xml += u'<codigo_administrativo>%s</codigo_administrativo>' % \
                self.codigo_admin

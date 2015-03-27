@@ -10,17 +10,17 @@ from tag_base import TagBase
 
 class TagObjetoPostal(TagBase):
 
-    def __init__(self, obj_destinatario, obj_destino_nacional,
-                 obj_dimensao_objeto, obj_servico_postagem,
-                 obj_servico_adicional, ob_etiqueta, peso, status_processamento):
+    def __init__(self, obj_destinatario, obj_nacional, obj_dimensao_objeto,
+                 obj_servico_postagem, obj_servico_adicional, ob_etiqueta, peso,
+                 status_processamento):
 
         if not isinstance(obj_destinatario, TagDestinatario):
             raise TypeError
         self.destinatario = obj_destinatario
 
-        if not isinstance(obj_destino_nacional, TagNacional):
+        if not isinstance(obj_nacional, TagNacional):
             raise TypeError
-        self.destino_nacional = obj_destino_nacional
+        self.destino_nacional = obj_nacional
 
         if not isinstance(obj_dimensao_objeto, TagDimensaoObjeto):
             raise TypeError
@@ -39,7 +39,7 @@ class TagObjetoPostal(TagBase):
         self.etiquetas = ob_etiqueta
 
         self.codigo_objeto_cliente = ''
-        self.cubagem = 0.0
+        self.cubagem = 0.0000
         self.peso = peso
         # self.data_postagem = date()
         self.status_processamento = status_processamento
