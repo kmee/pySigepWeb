@@ -21,24 +21,24 @@ class TipoObjeto(object):
 class Envelope(TipoObjeto):
 
     def __init__(self):
-        super(TipoObjeto, self).__init__('001')
+        super(Envelope, self).__init__('001')
 
 
 class Caixa(TipoObjeto):
 
     def __init__(self, altura, largura, comprimento):
-        super(TipoObjeto, self).__init__('002')
-        self._altura = altura
-        self._largura = largura
-        self._comprimento = comprimento
+        super(Caixa, self).__init__('002')
+        self.altura = altura
+        self.largura = largura
+        self.comprimento = comprimento
 
 
 class Cilindro(TipoObjeto):
 
     def __init__(self, comprimento, diametro):
-        super(TipoObjeto, self).__init__('003')
-        self._comprimento = comprimento
-        self._diametro = diametro
+        super(Cilindro, self).__init__('003')
+        self.comprimento = comprimento
+        self.diametro = diametro
 
 
 class TagDimensaoObjeto(TagBase):
@@ -74,16 +74,24 @@ class TagDimensaoObjeto(TagBase):
 
         xml = u'<dimensao_objeto>'
         xml += u'<tipo_objeto>%s</tipo_objeto>' % self.tipo_objeto.codigo
-        xml += u'<dimensao_altura>%s</dimensao_altura>' % \
-               str(self.tipo_objeto.altura) if self.tipo_objeto.altura else ''
-        xml += u'<dimensao_largura>%s</dimensao_largura>' % \
-               str(self.tipo_objeto.largura) if self.tipo_objeto.largura else ''
-        xml += u'<dimensao_comprimento>%s</dimensao_comprimento>' % \
-               str(self.tipo_objeto.comprimento) if \
-            self.tipo_objeto.comprimento else ''
-        xml += u'<dimensao_diametro>%s</dimensao_diametro>' % \
-               str(self.tipo_objeto.diametro) if self.tipo_objeto.diametro \
-            else ''
+        xml += u'<dimensao_altura>%d</dimensao_altura>' % \
+               self.tipo_objeto.altura
+        xml += u'<dimensao_largura>%d</dimensao_largura>' % \
+               self.tipo_objeto.largura
+        xml += u'<dimensao_comprimento>%d</dimensao_comprimento>' % \
+               self.tipo_objeto.comprimento
+        xml += u'<dimensao_diametro>%d</dimensao_diametro>' % \
+               self.tipo_objeto.diametro
         xml += u'</dimensao_objeto>'
 
+        TagDimensaoObjeto.validar_xml(xml)
         return xml
+
+    @staticmethod
+    def validar_xml(xml):
+        import plp_xml_validator
+
+        if plp_xml_validator.validate_xml(xml):
+            print u'XML TagDimensaoObjeto validado com sucesso!'
+        else:
+            print u'Validação de XML TagDimensaoObjeto falhou!'
