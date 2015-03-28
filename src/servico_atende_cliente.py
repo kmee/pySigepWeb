@@ -141,9 +141,9 @@ class ServicoAtendeCliente(InterfaceServico):
 
             try:
                 return self._service.fechaPlpVariosServicos(
-                    obj_correios_log.get_xml(), id_plp_cliente, self.obj_usuario.num_cartao_postagem,
-                    etiquetas_sem_digito, self.obj_usuario.nome,
-                    self.obj_usuario.senha)
+                    obj_correios_log.get_xml(), id_plp_cliente,
+                    self.obj_usuario.num_cartao_postagem, etiquetas_sem_digito,
+                    self.obj_usuario.nome, self.obj_usuario.senha)
             except WebFault as exp:
                 print exp.message
                 return None
