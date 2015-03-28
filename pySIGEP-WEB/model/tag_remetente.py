@@ -4,7 +4,6 @@ from tag_base import TagBase
 
 
 class TagRemetente(TagBase):
-
     def __init__(self, nome, num_contrato, codigo_admin, endereco, diretoria,
                  telefone=False, fax=False, email=''):
 
@@ -71,28 +70,41 @@ class TagRemetente(TagBase):
     def get_xml(self):
 
         xml = u'<remetente>'
+
         xml += u'<numero_contrato>%s</numero_contrato>' % self.num_contrato
-        xml += self.diretoria.xml()
+        xml += self.diretoria.get_xml()
         xml += u'<codigo_administrativo>%s</codigo_administrativo>' % \
                self.codigo_admin
         xml += u'<nome_remetente><![CDATA[%s]]></nome_remetente>' % self.nome
         xml += u'<logradouro_remetente><![CDATA[%s]]></logradouro_remetente>' % \
                self.logradouro
         xml += u'<numero_remetente>%d</numero_remetente>' % self.numero
-        xml += u'<complemento_remetente>%s</complemento_remetente>' % \
-               self.endereco.complemento
+        xml += u'<complemento_remetente><![CDATA[%s]]></complemento_remetente>' \
+               % self.endereco.complemento
         xml += u'<bairro_remetente><![CDATA[%s]]></bairro_remetente>' % \
                self.bairro
         xml += u'<cep_remetente><![CDATA[%s]]></cep_remetente>' % self.cep
         xml += u'<cidade_remetente><![CDATA[%s]]></cidade_remetente>' % \
                self.cidade
         xml += u'<uf_remetente>%s</uf_remetente>' % self.uf
-        xml += u'<telefone_remetente><![CDATA[%s]]></telefone_remetente>' % \
-               str(self.telefone) if self.telefone else ''
-        xml += u'<fax_remetente><![CDATA[%s]]></fax_remetente>' % str(
-            self.fax) if self.fax else ''
+
+        aux = str(self.telefone) if self.telefone else ''
+        xml += u'<telefone_remetente><![CDATA[%s]]></telefone_remetente>' % aux
+
+        aux = str(self.fax) if self.fax else ''
+        xml += u'<fax_remetente><![CDATA[%s]]></fax_remetente>' % aux
+
         xml += u'<email_remetente><![CDATA[%s]]></email_remetente>' % self.email
         xml += u'</remetente>'
 
+        TagRemetente.validar_xml(xml)
         return xml
 
+    @staticmethod
+    def validar_xml(xml):
+        import plp_xml_validator
+
+        if plp_xml_validator.validate_xml(xml):
+            print u'XML TagRemetente validado com sucesso!'
+        else:
+            print u'Validação de XML TagRemetente falhou!'
