@@ -22,7 +22,7 @@ class TagObjetoPostal(TagBase):
 
         if not isinstance(obj_nacional, TagNacional):
             raise TypeError
-        self.destino_nacional = obj_nacional
+        self.nacional = obj_nacional
 
         if not isinstance(obj_dimensao_objeto, TagDimensaoObjeto):
             raise TypeError
@@ -55,28 +55,44 @@ class TagObjetoPostal(TagBase):
         xml = u'<objeto_postal>'
         xml += u'<numero_etiqueta>%s</numero_etiqueta>' % \
                self.etiqueta.etiqueta_com_dig_verif
-        xml += u'<codigo_objeto_cliente/>%s<codigo_objeto_cliente/>' % \
+        xml += u'<codigo_objeto_cliente>%s</codigo_objeto_cliente>' % \
                self.codigo_objeto_cliente
         xml += u'<codigo_servico_postagem>%s</codigo_servico_postagem>' % \
-               self.servico_postagem.codigo()
-        xml += u'<cubagem>%s</cubagem>' % str(self.cubagem) if self.cubagem \
-            else ''
+               self.servico_postagem.codigo
+
+        aux = str(self.cubagem) if self.cubagem else ''
+        xml += u'<cubagem>%s</cubagem>' % aux
+
         xml += u'<peso>%d</peso>' % self.peso
         xml += u'<rt1>%s</rt1>' % self.rt1
         xml += u'<rt2>%s</rt2>' % self.rt2
         xml += self.destinatario.get_xml()
-        xml += self.destino_nacional.get_xml()
+        xml += self.nacional.get_xml()
         xml += self.servico_adicional.get_xml()
         xml += self.dimensao_objeto.get_xml()
-        xml += u'<data_postagem_sara/>'
+        xml += u'<data_postagem_sara></data_postagem_sara>'
         xml += u'<status_processamento>%s</status_processamento>' % \
                self.status_processamento
-        xml += u'<numero_comprovante_postagem>%s</numero_comprovante_postagem' \
-               u'>' % str(self.numero_comprovante_de_postagem) if \
+
+        aux = str(self.numero_comprovante_de_postagem) if \
             self.numero_comprovante_de_postagem else ''
-        xml += u'<valor_cobrado>%s<valor_cobrado/>' % str(self.valor_cobrado)\
-            if self.valor_cobrado else ''
+        xml += u'<numero_comprovante_postagem>%s</numero_comprovante_postagem' \
+               u'>' % aux
+
+        aux = str(self.valor_cobrado) if self.valor_cobrado else ''
+        xml += u'<valor_cobrado>%s</valor_cobrado>' % aux
+
         xml += u'</objeto_postal>'
 
+        TagObjetoPostal.validar_xml(xml)
         return xml
+
+    @staticmethod
+    def validar_xml(xml):
+        import plp_xml_validator
+
+        if plp_xml_validator.validate_xml(xml):
+            print u'XML TagObjetoPostal validado com sucesso!'
+        else:
+            print u'Validação de XML TagObjetoPostal falhou!'
 
