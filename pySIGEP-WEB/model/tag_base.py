@@ -3,6 +3,6 @@
 
 class TagBase(object):
 
-    def xml(self):
+    def get_xml(self):
         raise NotImplementedError("Must subclass me")
 
