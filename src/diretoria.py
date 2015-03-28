@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from tag_base import TagBase
+from src.tag_base import TagBase
 
 
 class Diretoria(TagBase):

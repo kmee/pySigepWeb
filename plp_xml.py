@@ -98,7 +98,7 @@ class PlpXML():
         self.xml += u'<codigo_servico_adicional>025</codigo_servico_adicional>'
         self.xml += u'<codigo_servico_adicional>001</codigo_servico_adicional>'
         self.xml += u'<codigo_servico_adicional>019</codigo_servico_adicional>'
-        self.xml += u'<valor_declarado>99,00</valor_declarado>'
+        self.xml += u'<valor_declarado>99.00</valor_declarado>'
         self.xml += u'</servico_adicional>'
 
         self.xml += u'<dimensao_objeto>'

@@ -3,6 +3,7 @@ from suds import WebFault
 
 from interface_servico import InterfaceServico
 from ambiente import FabricaAmbiente
+from src import plp_xml_validator
 from usuario import Usuario
 
 
@@ -68,7 +69,7 @@ class ServicoAtendeCliente(InterfaceServico):
             print '[ERRO] Em solicita_etiquetas(). ' + exp.message
             return None
 
-        from etiqueta import Etiqueta
+        from src.etiqueta import Etiqueta
 
         etiqueta_inicial = faixa_etiquetas.split(',')[0]
         etiqueta_numero = int(etiqueta_inicial[2:10])
@@ -115,7 +116,7 @@ class ServicoAtendeCliente(InterfaceServico):
 
     @staticmethod
     def _gerador_offline(lista_etiquetas):
-        from gerador_digito_verificador import GeradorDigitoVerificador
+        from src.gerador_digito_verificador import GeradorDigitoVerificador
 
         dig_verif_list = []
 
@@ -136,7 +137,6 @@ class ServicoAtendeCliente(InterfaceServico):
             etiquetas_sem_digito.append(
                 lista_obj_etiquetas[i].etiqueta_sem_dig_verif.replace(' ', ''))
 
-        import plp_xml_validator
         if plp_xml_validator.validate_xml(obj_correios_log.get_xml()):
 
             try:

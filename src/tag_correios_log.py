@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from tag_base import TagBase
+from src import plp_xml_validator
+from src.tag_base import TagBase
 
 
 class TagCorreiosLog(TagBase):
@@ -36,7 +37,6 @@ class TagCorreiosLog(TagBase):
 
     @staticmethod
     def validar_xml(xml):
-        import plp_xml_validator
 
         if plp_xml_validator.validate_xml(xml):
             print u'XML TagCorreiosLog validado com sucesso!'

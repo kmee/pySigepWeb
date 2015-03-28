@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from usuario import Usuario
+from src.usuario import Usuario
 
 
 class Ambiente(object):

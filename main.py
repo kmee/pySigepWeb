@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
-from servico_atende_cliente import ServicoAtendeCliente
-from usuario import Usuario
-from tag_plp import TagPLP
-from tag_remetente import TagRemetente
-from tag_dimensao_objeto import *
-from tag_objeto_postal import *
-from tag_correios_log import TagCorreiosLog
-from diretoria import Diretoria
-from endereco import Endereco
+from src.servico_atende_cliente import ServicoAtendeCliente
+from src.usuario import Usuario
+from src.tag_plp import TagPLP
+from src.tag_remetente import TagRemetente
+from src.tag_dimensao_objeto import *
+from src.tag_objeto_postal import *
+from src.tag_correios_log import TagCorreiosLog
+from src.diretoria import Diretoria
+from src.endereco import Endereco
 
 
 def main():

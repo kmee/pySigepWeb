@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from tag_base import TagBase
+from src import plp_xml_validator
+from src.tag_base import TagBase
 
 
 class TagNacional(TagBase):
@@ -51,7 +52,6 @@ class TagNacional(TagBase):
 
     @staticmethod
     def validar_xml(xml):
-        import plp_xml_validator
 
         if plp_xml_validator.validate_xml(xml):
             print u'XML TagNacional validado com sucesso!'
