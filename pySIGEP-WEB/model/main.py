@@ -43,13 +43,13 @@ def main():
         print digitos[i]
 
     remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
-                                  bairro='Centro', cep='70002900',
+                                  bairro='Centro', cep=70002900,
                                   cidade='Brasilia', uf=Endereco.UF_PARANA,
                                   complemento=u'sala 1205,12° andar')
 
     destinatario_endereco = Endereco(logradouro='Avenida Central',
                                      numero=1065, bairro='Setor Industrial',
-                                     cidade='Goiânia', uf=Endereco.UF_GOIAS,
+                                     cidade=u'Goiânia', uf=Endereco.UF_GOIAS,
                                      cep=74000100, complemento='Qd:102 A Lt:04')
 
     # Montando xml do plp
@@ -63,11 +63,14 @@ def main():
                                        telefone=6212349644)
 
     obj_nacional = TagNacional(endereco=destinatario_endereco,
-                               numero_nfe=102030, valor_a_cobrar=0.0)
+                               numero_nfe=102030, valor_a_cobrar=0.00,
+                               serie_nfe='1')
 
-    obj_servico_adtagemicional = TagServicoAdicional(99.00)
+    obj_servico_adicional = TagServicoAdicional(99.00)
+
     obj_servico_adicional.add_tipo_servico_adicional(
         TagServicoAdicional.TIPO_AVISO_RECEBIMENTO)
+
     obj_servico_adicional.add_tipo_servico_adicional(
         TagServicoAdicional.TIPO_VALOR_DECLARADO)
 
@@ -84,8 +87,7 @@ def main():
     obj_correios_log = TagCorreiosLog('2.3', obj_tag_plp, obj_remetente,
                                       [obj_postal])
 
-    print ServicoAtendeCliente.fecha_plp_varios_servicos(
-        obj_correios_log.get_xml(), 123, etiquetas)
+    print sv.fecha_plp_varios_servicos(obj_correios_log, long(123), etiquetas)
 
 if __name__ == '__main__':
     main()

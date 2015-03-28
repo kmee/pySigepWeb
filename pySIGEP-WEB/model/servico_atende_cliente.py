@@ -126,23 +126,24 @@ class ServicoAtendeCliente(InterfaceServico):
 
         return dig_verif_list
 
-    def fecha_plp_varios_servicos(self, xml, id_plp_cliente,
+    def fecha_plp_varios_servicos(self, obj_correios_log, id_plp_cliente,
                                   lista_obj_etiquetas):
 
         etiquetas_sem_digito = []
-        for etq in lista_obj_etiquetas:
+        for i in range(len(obj_correios_log.lista_objeto_postal)):
             # As etiquetas tem de ser enviadas sem o digito verificador
             # e sem o espaco em branco antes do sufixo da etiqueta
             etiquetas_sem_digito.append(
-                etq.etiqueta_sem_dig_verif.replace(' ', ''))
+                lista_obj_etiquetas[i].etiqueta_sem_dig_verif.replace(' ', ''))
 
         import plp_xml_validator
-        if plp_xml_validator.validate_xml(xml):
+        if plp_xml_validator.validate_xml(obj_correios_log.get_xml()):
 
             try:
                 return self._service.fechaPlpVariosServicos(
-                    xml, id_plp_cliente, etiquetas_sem_digito,
-                    self.obj_usuario.nome, self.obj_usuario.senha)
+                    obj_correios_log.get_xml(), id_plp_cliente, self.obj_usuario.num_cartao_postagem,
+                    etiquetas_sem_digito, self.obj_usuario.nome,
+                    self.obj_usuario.senha)
             except WebFault as exp:
                 print exp.message
                 return None
