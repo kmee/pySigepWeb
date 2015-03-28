@@ -77,22 +77,33 @@ class TagDestinatario(TagBase):
         xml = u'<destinatario>'
         xml += u'<nome_destinatario><![CDATA[%s]]></nome_destinatario>' % \
                self.nome
+
+        aux = str(self.telefone) if self.telefone else ''
         xml += u'<telefone_destinatario><![CDATA[' \
-               u'%s]]></telefone_destinatario>' % str(self.telefone) if \
-            self.telefone else ''
+               u'%s]]></telefone_destinatario>' % aux
+
+        aux = str(self.celular) if self.celular else ''
         xml += u'<celular_destinatario><![CDATA[%s]]></celular_destinatario>' \
-               % str(self.celular) if self.celular else ''
+               % aux
+
         xml += u'<email_destinatario><![CDATA[%s]]></email_destinatario>' % \
                self.email
         xml += u'<logradouro_destinatario><![CDATA[' \
                u'%s]]></logradouro_destinatario>' % self.logradouro
         xml += u'<complemento_destinatario><![CDATA[' \
-               u'%s]]><complemento_destinatario>' % self.complemento
+               u'%s]]></complemento_destinatario>' % self.complemento
         xml += u'<numero_end_destinatario>%s</numero_end_destinatario>' % \
                str(self.numero)
         xml += u'</destinatario>'
 
+        TagDestinatario.validar_xml(xml)
         return xml
 
+    @staticmethod
+    def validar_xml(xml):
+        import plp_xml_validator
 
-
+        if plp_xml_validator.validate_xml(xml):
+            print u'XML TagDestinatario validado com sucesso!'
+        else:
+            print u'Validação de XML TagDestinatario falhou!'
