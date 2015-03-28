@@ -20,12 +20,13 @@ class TagNacional(TagBase):
     def get_xml(self):
 
         xml = u'<nacional>'
+
         xml += u'<bairro_destinatario><![CDATA[%s]]></bairro_destinatario>' % \
                self.endereco.bairro
         xml += u'<cidade_destinatario><![CDATA[%s]]></cidade_destinatario>' % \
                self.endereco.cidade
         xml += u'<uf_destinatario>%s</uf_destinatario>' % self.endereco.uf
-        xml += u'<cep_destinatario><![CDATA[%d]]></cep_destinatario>' % \
+        xml += u'<cep_destinatario><![CDATA[%s]]></cep_destinatario>' % \
                self.endereco.cep
         xml += u'<codigo_usuario_postal>%s</codigo_usuario_postal>' % \
                self.codigo_usuario_postal
@@ -33,14 +34,26 @@ class TagNacional(TagBase):
                self.centro_custo_cliente
         xml += u'<numero_nota_fiscal>%d</numero_nota_fiscal>' % self.num_nfe
         xml += u'<serie_nota_fiscal>%s</serie_nota_fiscal>' % self.serie_nfe
-        xml += u'<valor_nota_fiscal>%s</valor_nota_fiscal>' % str(
-            self.valor_nfe) if self.valor_nfe else ''
-        xml += u'<natureza_nota_fiscal>%s</natureza_nota_fiscal>' % \
-               self.natureza_nfe
+
+        aux = str(self.valor_nfe) if self.valor_nfe else ''
+        xml += u'<valor_nota_fiscal>%s</valor_nota_fiscal>' % aux
+
+        xml += u'<natureza_nota_fiscal/>'
         xml += u'<descricao_objeto><![CDATA[%s]]></descricao_objeto>' % \
                self.descricao_objeto
-        xml += u'<valor a cobrar>%s</valor a cobrar>' % str(
-            self.valor_a_cobrar) if self.valor_a_cobrar else ''
+
+        aux = str(self.valor_a_cobrar) if self.valor_a_cobrar else ''
+        xml += u'<valor_a_cobrar>%s</valor_a_cobrar>' % aux
         xml += u'</nacional>'
 
+        TagNacional.validar_xml(xml)
         return xml
+
+    @staticmethod
+    def validar_xml(xml):
+        import plp_xml_validator
+
+        if plp_xml_validator.validate_xml(xml):
+            print u'XML TagNacional validado com sucesso!'
+        else:
+            print u'Validação de XML TagNacional falhou!'
