@@ -71,11 +71,26 @@ class TagServicoAdicional(TagBase):
     #     return self.tipo_servico_adicional.valor_declarado
 
     def get_xml(self):
-        xml = ''
+        xml = u'<servico_adicional>'
         for tipo in self.lista_tipo_servico_adicional:
             xml += u'<codigo_servico_adicional>%s</codigo_servico_adicional>' \
                    % tipo
-        xml += u'<valor_declarado>%s</valor_declarado>' % str(
-            self.valor_declarado) if self.valor_declarado else ''
+        aux = str(self.valor_declarado) if self.valor_declarado else ''
+        xml += u'<valor_declarado>%s</valor_declarado>' % aux
+
+        xml += u'</servico_adicional>'
+
+        TagServicoAdicional.validar_xml(xml)
         return xml
+
+    @staticmethod
+    def validar_xml(xml):
+        import plp_xml_validator
+
+        if plp_xml_validator.validate_xml(xml):
+            print u'XML TagServicoAdicional validado com sucesso!'
+        else:
+            print u'Validação de XML TagServicoAdicional falhou!'
+
+
 
