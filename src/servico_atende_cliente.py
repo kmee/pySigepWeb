@@ -40,6 +40,8 @@ class ServicoAtendeCliente(InterfaceServico):
                 res[sp.nome] = status
             except WebFault as exp:
                 print exp.message
+                print '[ERRO] Em verifica_disponibilidade_servicos(). ' +  \
+                      exp.message
 
         return res
 
@@ -49,6 +51,7 @@ class ServicoAtendeCliente(InterfaceServico):
             return res
         except WebFault as exp:
             print exp.message
+            print '[ERRO] Em consulta_cep(). ' + exp.message
             return None
 
     def consulta_status_cartao_postagem(self):
@@ -59,6 +62,7 @@ class ServicoAtendeCliente(InterfaceServico):
             return status
         except WebFault as exp:
             print exp.message
+            print '[ERRO] Em consulta_status_cartao_postagem(). ' + exp.message
             return None
 
     def solicita_etiquetas(self, servico_id, qtd_etiquetas=1,
@@ -68,7 +72,6 @@ class ServicoAtendeCliente(InterfaceServico):
                 tipo_destinatario, self.obj_usuario.cnpj, servico_id,
                 qtd_etiquetas, self.obj_usuario.nome, self.obj_usuario.senha)
         except WebFault as exp:
-            print exp.fault
             print '[ERRO] Em solicita_etiquetas(). ' + exp.message
             return None
 
@@ -112,7 +115,7 @@ class ServicoAtendeCliente(InterfaceServico):
                 etiquetas_sem_digito, self.obj_usuario.nome,
                 self.obj_usuario.senha)
         except WebFault as exp:
-            print exp.message
+            print '[ERRO] Em _gerador_online(). ' + exp.message
             return []
 
         return dig_verif_list
@@ -148,5 +151,5 @@ class ServicoAtendeCliente(InterfaceServico):
                     self.obj_usuario.num_cartao_postagem, etiquetas_sem_digito,
                     self.obj_usuario.nome, self.obj_usuario.senha)
             except WebFault as exp:
-                print exp.message
+                print '[ERRO] Em fecha_plp_varios_servicos(). ' + exp.message
                 return None

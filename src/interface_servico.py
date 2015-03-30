@@ -1,5 +1,11 @@
 # -*- coding: utf-8 -*-
-from suds import client
+try:
+    from suds import client
+except ImportError as exp:
+    print exp.message
+    print u'Módulo suds não instalado. ' \
+          u'Instale com: sudo pip install suds'
+    exit(-1)
 
 
 class InterfaceServico(object):
@@ -9,6 +15,6 @@ class InterfaceServico(object):
         print '[INFO] Conectando...'
         try:
             self._service = client.Client(url).service
-        except client.TransportError as exp:
-            print exp.message
-            exit(exp.message)
+        except client.TransportError as e:
+            print e.message
+            exit(e.message)
