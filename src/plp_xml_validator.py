@@ -594,25 +594,17 @@ def validate_xml(xml):
     :type xml: strsuro
     """
     try:
-        # tree = etree.fromstring(xml.encode('utf8'))
-        # schema_tree = etree(xsd)
-        # xmlschema = etree.XMLSchema(schema_tree)
-        # xmlschema.assertValid(tree)
         tree = etree.fromstring(xml.encode('utf8'))
 
-        # xsd_r = xsd.replace('\n', '')
-        # tree = etree.XML(unicode(xml.decode('utf-8')))
-        # schema_tree = etree.XML(xsd)
         schema_tree = etree.XML(xsd)
         xmlschema = etree.XMLSchema(schema_tree)
         xmlschema.assertValid(tree)
 
-        # print "XML validado com sucesso!"
         return True
     except etree.XMLSyntaxError as e:
-        print "PARSING ERROR", e
+        print "[ERRO] Erro de parsing no xml", e
         return False
 
     except AssertionError as e:
-        print "INVALID DOCUMENT", e
+        print "[ERRO] Documento Invalido", e
         return False
