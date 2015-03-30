@@ -23,7 +23,7 @@ def main():
     sv = ServicoAtendeCliente(ServicoAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
 
     print
-    print u'[INFO] Verificando disponibilidades dos serviços:'
+    print u'[INFO] Verificando disponibilidade dos serviços:'
     for sp in l:
         print sp.nome
 
@@ -51,13 +51,15 @@ def main():
     print
     sv_postagem = ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)
 
-    print '[INFO] Solicitando etiquetas...'
+    qtd_etiquetas = 3
+    print '[INFO] Solicitando %d etiquetas...' % qtd_etiquetas
     etiquetas = sv.solicita_etiquetas(sv_postagem.servico_postagem_id,
-                                      qtd_etiquetas=3)
+                                      qtd_etiquetas=qtd_etiquetas)
 
     for i in range(len(etiquetas)):
         print etiquetas[i].etiqueta_sem_dig_verif
 
+    print
     print '[INFO] Solicitando digito verificador para etiquetas...'
     print sv.gera_digito_verificador_etiquetas(
         etiquetas, gerador=ServicoAtendeCliente.GERADOR_OFFLINE)
@@ -110,11 +112,13 @@ def main():
                                       [obj_postal])
 
     print
-    print u'[INFO] Fecha plp para varios serviços'
+    print u'[INFO] Fechando pré-lista de postagem para varios serviços'
     print
     plp = sv.fecha_plp_varios_servicos(obj_correios_log, long(123), etiquetas)
     print
+    print '[INFO] Pré-lista de postagem fechada'
     print '[INFO] Novo PLP id: ', plp
+    print
 
 if __name__ == '__main__':
     main()
