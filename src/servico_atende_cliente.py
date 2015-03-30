@@ -30,7 +30,6 @@ class ServicoAtendeCliente(InterfaceServico):
 
     def verifica_disponibilidade_servicos(self, lista_servico_postagem,
                                           cep_origem, cep_destino):
-
         res = {}
         for sp in lista_servico_postagem:
             try:
