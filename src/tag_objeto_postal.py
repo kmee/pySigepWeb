@@ -92,7 +92,7 @@ class TagObjetoPostal(TagBase):
     def validar_xml(xml):
 
         if plp_xml_validator.validate_xml(xml):
-            print u'XML TagObjetoPostal validado com sucesso!'
+            print '[INFO] XML TagObjetoPostal validado com sucesso!'
         else:
-            print u'Validação de XML TagObjetoPostal falhou!'
+            print u'[ERRO] Validação de XML TagObjetoPostal falhou!'
 

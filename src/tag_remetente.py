@@ -105,6 +105,6 @@ class TagRemetente(TagBase):
     def validar_xml(xml):
 
         if plp_xml_validator.validate_xml(xml):
-            print u'XML TagRemetente validado com sucesso!'
+            print '[INFO] XML TagRemetente validado com sucesso!'
         else:
-            print u'Validação de XML TagRemetente falhou!'
+            print u'[ERRO] Validação de XML TagRemetente falhou!'

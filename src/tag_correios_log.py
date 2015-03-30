@@ -41,7 +41,7 @@ class TagCorreiosLog(TagBase):
     def validar_xml(xml):
 
         if plp_xml_validator.validate_xml(xml):
-            print u'XML TagCorreiosLog validado com sucesso!'
+            print '[INFO] XML TagCorreiosLog validado com sucesso!'
         else:
-            print u'Validação de XML TagCorreiosLog falhou!'
+            print u'[ERRO] Validação de XML TagCorreiosLog falhou!'
 

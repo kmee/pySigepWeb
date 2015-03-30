@@ -104,6 +104,6 @@ class TagDestinatario(TagBase):
     def validar_xml(xml):
 
         if plp_xml_validator.validate_xml(xml):
-            print u'XML TagDestinatario validado com sucesso!'
+            print '[INFO] XML TagDestinatario validado com sucesso!'
         else:
-            print u'Validação de XML TagDestinatario falhou!'
+            print u'[ERRO] Validação de XML TagDestinatario falhou!'

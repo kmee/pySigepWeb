@@ -36,6 +36,6 @@ class TagPLP(TagBase):
     def validar_xml(xml):
 
         if plp_xml_validator.validate_xml(xml):
-            print u'XML TagPLP validado com sucesso!'
+            print '[INFO] XML TagPLP validado com sucesso!'
         else:
-            print u'Validação de XML TagPLP falhou!'
+            print u'[ERRO] Validação de XML TagPLP falhou!'

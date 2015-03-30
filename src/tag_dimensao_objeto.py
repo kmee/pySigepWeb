@@ -92,6 +92,6 @@ class TagDimensaoObjeto(TagBase):
     def validar_xml(xml):
 
         if plp_xml_validator.validate_xml(xml):
-            print u'XML TagDimensaoObjeto validado com sucesso!'
+            print '[INFO] XML TagDimensaoObjeto validado com sucesso!'
         else:
-            print u'Validação de XML TagDimensaoObjeto falhou!'
+            print u'[ERRO] Validação de XML TagDimensaoObjeto falhou!'
