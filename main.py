@@ -11,32 +11,56 @@ from src.endereco import Endereco
 
 
 def main():
-    print 'Iniciando'
+
     usr = Usuario('sigep', 'n5f9t8', '34028316000103', '08082650',
                   '9912208555', '0057018901')
 
-    print usr.nome
-    print usr.num_cartao_postagem
+    l = [ServicoPostagem(ServicoPostagem.SERVICO_CARTA_COMERCIAL_A_FATURAR),
+         ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)]
 
-    l = [ServicoPostagem.SERVICO_CARTA_COMERCIAL_A_FATURAR,
-         ServicoPostagem.SERVICO_PAC_41068]
-
+    print
+    print u'[INFO] Iniciando Serviço de Atendimento ao Cliente'
     sv = ServicoAtendeCliente(ServicoAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
 
+    print
+    print u'[INFO] Verificando disponibilidades dos serviços:'
+    for sp in l:
+        print sp.nome
+
+    print
+    print '[INFO] Resultado da consulta para os cep %s (origem) e %s (' \
+          'destino):' % ('70002900', '74000100')
+    print '[INFO] Status da consulta:'
     print sv.verifica_disponibilidade_servicos(l, '70002900', '74000100')
-    print sv.consulta_cep('70002900').bairro
+
+    print
+    print '[INFO] Consulta cep: %s' % '70002900'
+    end_erp = sv.consulta_cep(70002900)
+    print 'Bairro: ', end_erp.bairro
+    print 'CEP:', end_erp.cep
+    print 'Cidade: ', end_erp.cidade
+    print 'Complemento: ', end_erp.complemento
+    print 'Endereco: ', end_erp.end
+    print 'Id:', end_erp.id
+    print 'UF:', end_erp.uf
+
+    print
+    print u'[INFO] Verificando status do cartão de postagem'
     print sv.consulta_status_cartao_postagem()
 
+    print
     sv_postagem = ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)
+
+    print '[INFO] Solicitando etiquetas...'
     etiquetas = sv.solicita_etiquetas(sv_postagem.servico_postagem_id,
                                       qtd_etiquetas=3)
 
-    digitos = sv.gera_digito_verificador_etiquetas(
-        etiquetas, gerador=ServicoAtendeCliente.GERADOR_OFFLINE)
-
     for i in range(len(etiquetas)):
         print etiquetas[i].etiqueta_sem_dig_verif
-        print digitos[i]
+
+    print '[INFO] Solicitando digito verificador para etiquetas...'
+    print sv.gera_digito_verificador_etiquetas(
+        etiquetas, gerador=ServicoAtendeCliente.GERADOR_OFFLINE)
 
     remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
                                   bairro='Centro', cep=70002900,
@@ -49,6 +73,8 @@ def main():
                                      cep=74000100, complemento='Qd:102 A Lt:04')
 
     # Montando xml do plp
+    print
+    print '[INFO] Montando xml'
     obj_tag_plp = TagPLP(usr.num_cartao_postagem)
     obj_remetente = TagRemetente(usr.nome, usr.num_contrato, usr.codigo_admin,
                                  remetente_endereco,
@@ -83,7 +109,12 @@ def main():
     obj_correios_log = TagCorreiosLog('2.3', obj_tag_plp, obj_remetente,
                                       [obj_postal])
 
-    print sv.fecha_plp_varios_servicos(obj_correios_log, long(123), etiquetas)
+    print
+    print u'[INFO] Fecha plp para varios serviços'
+    print
+    plp = sv.fecha_plp_varios_servicos(obj_correios_log, long(123), etiquetas)
+    print
+    print '[INFO] Novo PLP id: ', plp
 
 if __name__ == '__main__':
     main()

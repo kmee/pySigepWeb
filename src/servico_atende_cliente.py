@@ -15,6 +15,11 @@ class ServicoAtendeCliente(InterfaceServico):
     GERADOR_ONLINE = True
     GERADOR_OFFLINE = False
 
+    _disponibilidade = {
+        True: u'Disponível',
+        False: u'Indisponível'
+    }
+
     def __init__(self, nome_ambiente, obj_usuario):
         if not isinstance(obj_usuario, Usuario):
             raise TypeError
@@ -23,18 +28,17 @@ class ServicoAtendeCliente(InterfaceServico):
         amb = FabricaAmbiente.get_ambiente(nome_ambiente)
         super(ServicoAtendeCliente, self).__init__(amb.url)
 
-    def verifica_disponibilidade_servicos(self, lista_codigo_servicos,
+    def verifica_disponibilidade_servicos(self, lista_servico_postagem,
                                           cep_origem, cep_destino):
 
-        if not isinstance(lista_codigo_servicos, list):
-            raise TypeError
-
         res = {}
-        for codigo in lista_codigo_servicos:
+        for sp in lista_servico_postagem:
             try:
-                res[codigo] = self._service.verificaDisponibilidadeServico(
-                    self.obj_usuario.codigo_admin, codigo, cep_origem,
+                status = self._service.verificaDisponibilidadeServico(
+                    self.obj_usuario.codigo_admin, sp.codigo, cep_origem,
                     cep_destino, self.obj_usuario.nome, self.obj_usuario.senha)
+
+                res[sp.nome] = status
             except WebFault as exp:
                 print exp.message
 
