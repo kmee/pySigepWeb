@@ -62,7 +62,7 @@ def main():
     print
     print '[INFO] Solicitando digito verificador para etiquetas...'
     print sv.gera_digito_verificador_etiquetas(
-        etiquetas, gerador=ServicoAtendeCliente.GERADOR_OFFLINE)
+        etiquetas, gerador=ServicoAtendeCliente.GERADOR_ONLINE)
 
     remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
                                   bairro='Centro', cep=70002900,
