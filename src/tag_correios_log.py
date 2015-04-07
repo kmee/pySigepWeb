@@ -44,4 +44,3 @@ class TagCorreiosLog(TagBase):
             print '[INFO] XML TagCorreiosLog validado com sucesso!'
         else:
             print u'[ERRO] Validação de XML TagCorreiosLog falhou!'
-

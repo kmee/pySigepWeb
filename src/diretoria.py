@@ -89,8 +89,3 @@ class Diretoria(TagBase):
 
     def get_xml(self):
         return '<numero_diretoria>%d</numero_diretoria>' % self._codigo
-
-
-
-
-
