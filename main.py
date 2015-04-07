@@ -40,7 +40,7 @@ def main():
     print 'CEP:', end_erp.cep
     print 'Cidade: ', end_erp.cidade
     print 'Complemento: ', end_erp.complemento
-    print 'Endereco: ', end_erp.end
+    print u'Endereço: ', end_erp.end
     print 'Id:', end_erp.id
     print 'UF:', end_erp.uf
 
@@ -66,7 +66,7 @@ def main():
 
     remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
                                   bairro='Centro', cep=70002900,
-                                  cidade='Brasilia', uf=Endereco.UF_PARANA,
+                                  cidade=u'Brasília', uf=Endereco.UF_PARANA,
                                   complemento=u'sala 1205,12° andar')
 
     destinatario_endereco = Endereco(logradouro='Avenida Central',
@@ -116,8 +116,8 @@ def main():
     print
     plp = sv.fecha_plp_varios_servicos(obj_correios_log, long(123), etiquetas)
     print
-    print '[INFO] Pré-lista de postagem fechada'
-    print '[INFO] Novo PLP id: ', plp
+    print u'[INFO] Pré-lista de postagem fechada'
+    print u'[INFO] Novo PLP id: ', plp
     print
 
 if __name__ == '__main__':
