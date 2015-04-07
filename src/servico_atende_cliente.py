@@ -15,11 +15,6 @@ class ServicoAtendeCliente(InterfaceServico):
     GERADOR_ONLINE = True
     GERADOR_OFFLINE = False
 
-    _disponibilidade = {
-        True: u'Disponível',
-        False: u'Indisponível'
-    }
-
     def __init__(self, nome_ambiente, obj_usuario):
         if not isinstance(obj_usuario, Usuario):
             raise TypeError
