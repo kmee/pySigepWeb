@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from src.servico_atende_cliente import ServicoAtendeCliente
+from src.tag_nacional import TagNacionalPAC41068
 from src.usuario import Usuario
 from src.tag_plp import TagPLP
 from src.tag_remetente import TagRemetente
@@ -86,17 +87,16 @@ def main():
     obj_destinatario = TagDestinatario('Destino Ltda', destinatario_endereco,
                                        telefone=6212349644)
 
-    obj_nacional = TagNacional(endereco=destinatario_endereco,
-                               numero_nfe=102030, valor_a_cobrar=0.00,
-                               serie_nfe='1')
+    obj_nacional = TagNacionalPAC41068(destinatario_endereco, 102030, '1')
 
-    obj_servico_adicional = TagServicoAdicional(99.00)
+    obj_nacional.valor_a_cobrar = 23.01
 
-    obj_servico_adicional.add_tipo_servico_adicional(
-        TagServicoAdicional.TIPO_AVISO_RECEBIMENTO)
+    obj_servico_adicional = TagServicoAdicional()
 
     obj_servico_adicional.add_tipo_servico_adicional(
-        TagServicoAdicional.TIPO_VALOR_DECLARADO)
+        TipoServicoAdicionalAvisoRecebimento())
+    obj_servico_adicional.add_tipo_servico_adicional(
+        TipoServicoAdicionalValorDeclarado(99.00))
 
     obj_dimensao_objeto = TagDimensaoObjeto(Caixa(20, 30, 38))
 
