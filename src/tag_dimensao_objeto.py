@@ -51,8 +51,8 @@ class Rolo(Cilindro):
     def __init__(self, comprimento, diametro):
         super(Rolo, self).__init__(comprimento, diametro)
 
-       
-class TagDimensaoObjeto(TagBase):
+
+class Dimensao(object):
 
     def __init__(self, tipo_objeto):
         self.tipo_objeto = tipo_objeto
@@ -80,6 +80,12 @@ class TagDimensaoObjeto(TagBase):
     @property
     def diametro(self):
         return self.tipo_objeto.diametro
+
+
+class TagDimensaoObjeto(Dimensao, TagBase):
+
+    def __init__(self, tipo_objeto):
+        super(TagDimensaoObjeto, self).__init__(tipo_objeto)
 
     def get_xml(self):
 
