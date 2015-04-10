@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from src import plp_xml_validator
 from src.tag_base import TagBase
 from tag_forma_de_pagamento import TagFormaDePagamento
 
@@ -34,13 +33,5 @@ class TagCorreiosLog(TagBase):
             xml += objeto_postal.get_xml()
         xml += u'</correioslog>'
 
-        TagCorreiosLog.validar_xml(xml)
+        self._validar_xml(xml)
         return xml
-
-    @staticmethod
-    def validar_xml(xml):
-
-        if plp_xml_validator.validate_xml(xml):
-            print '[INFO] XML TagCorreiosLog validado com sucesso!'
-        else:
-            print u'[ERRO] Validação de XML TagCorreiosLog falhou!'

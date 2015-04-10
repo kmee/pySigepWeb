@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from src import plp_xml_validator
 from src.tag_destinatario import TagDestinatario
 from src.tag_nacional import TagNacional
 from src.tag_dimensao_objeto import TagDimensaoObjeto
@@ -85,14 +84,5 @@ class TagObjetoPostal(TagBase):
 
         xml += u'</objeto_postal>'
 
-        TagObjetoPostal.validar_xml(xml)
+        self._validar_xml(xml)
         return xml
-
-    @staticmethod
-    def validar_xml(xml):
-
-        if plp_xml_validator.validate_xml(xml):
-            print '[INFO] XML TagObjetoPostal validado com sucesso!'
-        else:
-            print u'[ERRO] Validação de XML TagObjetoPostal falhou!'
-

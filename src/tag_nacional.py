@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from src import plp_xml_validator
 from src.tag_base import TagBase
 
 
@@ -47,13 +46,5 @@ class TagNacional(TagBase):
         xml += u'<valor_a_cobrar>%s</valor_a_cobrar>' % aux
         xml += u'</nacional>'
 
-        TagNacional.validar_xml(xml)
+        self._validar_xml(xml)
         return xml
-
-    @staticmethod
-    def validar_xml(xml):
-
-        if plp_xml_validator.validate_xml(xml):
-            print '[INFO] XML TagNacional validado com sucesso!'
-        else:
-            print u'[ERRO] Validação de XML TagNacional falhou!'

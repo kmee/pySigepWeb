@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-from src import plp_xml_validator
 from src.tag_base import TagBase
 
 #
@@ -81,16 +80,5 @@ class TagServicoAdicional(TagBase):
 
         xml += u'</servico_adicional>'
 
-        TagServicoAdicional.validar_xml(xml)
+        self._validar_xml(xml)
         return xml
-
-    @staticmethod
-    def validar_xml(xml):
-
-        if plp_xml_validator.validate_xml(xml):
-            print '[INFO] XML TagServicoAdicional validado com sucesso!'
-        else:
-            print u'[ERRO] Validação de XML TagServicoAdicional falhou!'
-
-
-
