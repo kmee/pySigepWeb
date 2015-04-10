@@ -4,7 +4,7 @@ from src.tag_nacional import TagNacional
 from src.tag_dimensao_objeto import TagDimensaoObjeto
 from src.etiqueta import Etiqueta
 from src.servico_postagem import ServicoPostagem
-from src.tag_servico_adicional import TagServicoAdicional
+from src.tag_servico_adicional import *
 from src.tag_base import TagBase
 
 
