@@ -33,6 +33,11 @@ class Caixa(TipoObjeto):
         self.comprimento = comprimento
 
 
+class Pacote(Caixa):
+    def __init__(self, altura, largura, comprimento):
+        super(Pacote, self).__init__(altura, largura, comprimento)
+
+
 class Cilindro(TipoObjeto):
 
     def __init__(self, comprimento, diametro):
@@ -41,6 +46,12 @@ class Cilindro(TipoObjeto):
         self.diametro = diametro
 
 
+class Rolo(Cilindro):
+
+    def __init__(self, comprimento, diametro):
+        super(Rolo, self).__init__(comprimento, diametro)
+
+       
 class TagDimensaoObjeto(TagBase):
 
     def __init__(self, tipo_objeto):
