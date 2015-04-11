@@ -94,9 +94,9 @@ def main():
     obj_servico_adicional = TagServicoAdicional()
 
     obj_servico_adicional.add_tipo_servico_adicional(
-        TipoServicoAdicionalAvisoRecebimento())
+        TagServicoAdicional.TIPO_AVISO_RECEBIMENTO)
     obj_servico_adicional.add_tipo_servico_adicional(
-        TipoServicoAdicionalValorDeclarado(99.00))
+        TagServicoAdicional.TIPO_VALOR_DECLARADO, 99.00)
 
     obj_dimensao_objeto = TagDimensaoObjeto(Caixa(20, 30, 38))
 
