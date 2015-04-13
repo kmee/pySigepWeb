@@ -21,7 +21,7 @@ def main():
 
     print
     print u'[INFO] Iniciando Serviço de Atendimento ao  Cliente'
-    sv = WebserviceAtendeCliente(WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
+    sv = WebserviceAtendeCliente('teste', usr)
 
     print
     print u'[INFO] Verificando disponibilidade dos serviços:'
