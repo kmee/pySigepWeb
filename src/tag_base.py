@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from src import plp_xml_validator
+import plp_xml_validator
 
 
 class TagBase(object):

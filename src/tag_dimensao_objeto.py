@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from src.tag_base import TagBase
-from src.dimensao import *
+from tag_base import TagBase
+from dimensao import *
 
 
 class TagDimensaoObjeto(Dimensao, TagBase):

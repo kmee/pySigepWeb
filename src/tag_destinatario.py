@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-from src.endereco import Endereco
-from src.tag_base import TagBase
+from endereco import Endereco
+from tag_base import TagBase
 
 
 class TagDestinatario(TagBase):

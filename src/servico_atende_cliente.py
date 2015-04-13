@@ -3,7 +3,7 @@ from suds import WebFault
 
 from interface_servico import InterfaceServico
 from ambiente import FabricaAmbiente
-from src import plp_xml_validator
+import plp_xml_validator
 from usuario import Usuario
 
 

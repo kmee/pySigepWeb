@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
-from src.tag_destinatario import TagDestinatario
-from src.tag_nacional import TagNacional
-from src.tag_dimensao_objeto import TagDimensaoObjeto
-from src.etiqueta import Etiqueta
-from src.servico_postagem import ServicoPostagem
-from src.tag_servico_adicional import *
-from src.tag_base import TagBase
+from tag_destinatario import TagDestinatario
+from tag_nacional import TagNacional
+from tag_dimensao_objeto import TagDimensaoObjeto
+from etiqueta import Etiqueta
+from servico_postagem import ServicoPostagem
+from tag_servico_adicional import *
+from tag_base import TagBase
 
 
 class TagObjetoPostal(TagBase):

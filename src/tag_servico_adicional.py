@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from src.tag_base import TagBase
+from tag_base import TagBase
 
 
 class TagServicoAdicional(TagBase):
