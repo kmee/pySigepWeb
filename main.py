@@ -20,7 +20,7 @@ def main():
          ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)]
 
     print
-    print u'[INFO] Iniciando Serviço de Atendimento ao Cliente'
+    print u'[INFO] Iniciando Serviço de Atendimento ao  Cliente'
     sv = WebserviceAtendeCliente(WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
 
     print

@@ -10,24 +10,29 @@ class Ambiente(object):
 
 class AmbienteHomologacao(Ambiente):
 
+    _URL_HOMOLOGACAO = 'https://apphom.correios.com.br/' \
+                       + 'SigepMasterJPA/AtendeClienteService/AtendeCliente' \
+                         '?wsdl'
+
     def __init__(self):
         super(AmbienteHomologacao, self).__init__()
 
     @property
     def url(self):
-        return 'https://apphom.correios.com.br/SigepMasterJPA' \
-               '/AtendeClienteService/AtendeCliente?wsdl'
+        return AmbienteHomologacao._URL_HOMOLOGACAO
 
 
 class AmbienteProducao(Ambiente):
+
+    _URL_PRODUCAO = 'https://apps.correios.com.br/SigepMasterJPA' \
+                    '/AtendeClienteService/AtendeCliente?wsdl'
 
     def __init__(self):
         super(AmbienteProducao, self).__init__()
 
     @property
     def url(self):
-        return 'https://apps.correios.com.br/SigepMasterJPA' \
-               '/AtendeClienteService/AtendeCliente?wsdl'
+        return AmbienteProducao._URL_PRODUCAO
 
 
 class FabricaAmbiente(object):
