@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from webservice_interface import WebserviceInterface
+from webservice_interface import *
 from ambiente import FabricaAmbiente
 import plp_xml_validator
 from usuario import Usuario
@@ -31,8 +31,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
                     cep_destino, self.obj_usuario.nome, self.obj_usuario.senha)
 
                 res[sp.nome] = status
-            except WebFault as exp:
-                print exp.message
+            except WebFault as exc:
+                print exc.message
                 print '[ERRO] Em verifica_disponibilidade_servicos(). ' +  \
                       exp.message
 
@@ -42,8 +42,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
         try:
             res = self._service.consultaCEP(cep)
             return res
-        except WebFault as exp:
-            print exp.message
+        except WebFault as exc:
+            print exc.message
             print '[ERRO] Em consulta_cep(). ' + exp.message
             return None
 
@@ -53,8 +53,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
                 self.obj_usuario.num_cartao_postagem, self.obj_usuario.nome,
                 self.obj_usuario.senha)
             return status
-        except WebFault as exp:
-            print exp.message
+        except WebFault as exc:
+            print exc.message
             print '[ERRO] Em consulta_status_cartao_postagem(). ' + exp.message
             return None
 
@@ -64,8 +64,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
             faixa_etiquetas = self._service.solicitaEtiquetas(
                 tipo_destinatario, self.obj_usuario.cnpj, servico_id,
                 qtd_etiquetas, self.obj_usuario.nome, self.obj_usuario.senha)
-        except WebFault as exp:
-            print '[ERRO] Em solicita_etiquetas(). ' + exp.message
+        except WebFault as exc:
+            print '[ERRO] Em solicita_etiquetas(). ' + exc.message
             return None
 
         from src.etiqueta import Etiqueta
@@ -107,8 +107,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
             dig_verif_list = self._service.geraDigitoVerificadorEtiquetas(
                 etiquetas_sem_digito, self.obj_usuario.nome,
                 self.obj_usuario.senha)
-        except WebFault as exp:
-            print '[ERRO] Em _gerador_online(). ' + exp.message
+        except WebFault as exc:
+            print '[ERRO] Em _gerador_online(). ' + exc.message
             return []
 
         return dig_verif_list
@@ -143,6 +143,6 @@ class WebserviceAtendeCliente(WebserviceInterface):
                     obj_correios_log.get_xml(), id_plp_cliente,
                     self.obj_usuario.num_cartao_postagem, etiquetas_sem_digito,
                     self.obj_usuario.nome, self.obj_usuario.senha)
-            except WebFault as exp:
-                print '[ERRO] Em fecha_plp_varios_servicos(). ' + exp.message
+            except WebFault as exc:
+                print '[ERRO] Em fecha_plp_varios_servicos(). ' + exc.message
                 return None
