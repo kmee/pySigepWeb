@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-from suds import WebFault
-
-from interface_servico import InterfaceServico
+from webservice_interface import WebserviceInterface
 from ambiente import FabricaAmbiente
 import plp_xml_validator
 from usuario import Usuario
 
 
-class WebserviceAtendeCliente(InterfaceServico):
+class WebserviceAtendeCliente(WebserviceInterface):
 
     AMBIENTE_PRODUCAO = FabricaAmbiente.AMBIENTE_PRODUCAO
     AMBIENTE_HOMOLOGACAO = FabricaAmbiente.AMBIENTE_HOMOLOGACAO

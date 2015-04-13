@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 try:
-    import suds
+    from suds import client
+    from suds import WebFault
 except ImportError as exp:
     print exp.message
     print u'Módulo suds não instalado. ' \
@@ -8,13 +9,13 @@ except ImportError as exp:
     exit(-1)
 
 
-class InterfaceServico(object):
+class WebserviceInterface(object):
 
     def __init__(self, url):
         self._url = url
         print '[INFO] Conectando...'
         try:
-            self._service = suds.client.Client(url).service
-        except suds.client.TransportError as e:
+            self._service = client.Client(url).service
+        except client.TransportError as e:
             print "[ERRO] Erro em __init__. %s" % e.message
             exit(e.message)
