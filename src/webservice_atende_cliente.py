@@ -7,7 +7,7 @@ import plp_xml_validator
 from usuario import Usuario
 
 
-class ServicoAtendeCliente(InterfaceServico):
+class WebserviceAtendeCliente(InterfaceServico):
 
     AMBIENTE_PRODUCAO = FabricaAmbiente.AMBIENTE_PRODUCAO
     AMBIENTE_HOMOLOGACAO = FabricaAmbiente.AMBIENTE_HOMOLOGACAO
@@ -21,7 +21,7 @@ class ServicoAtendeCliente(InterfaceServico):
 
         self.obj_usuario = obj_usuario
         amb = FabricaAmbiente.get_ambiente(nome_ambiente)
-        super(ServicoAtendeCliente, self).__init__(amb.url)
+        super(WebserviceAtendeCliente, self).__init__(amb.url)
 
     def verifica_disponibilidade_servicos(self, lista_servico_postagem,
                                           cep_origem, cep_destino):
@@ -91,9 +91,9 @@ class ServicoAtendeCliente(InterfaceServico):
     def gera_digito_verificador_etiquetas(self, lista_etiquetas,
                                           gerador=GERADOR_ONLINE):
 
-        if gerador == ServicoAtendeCliente.GERADOR_ONLINE:
+        if gerador == WebserviceAtendeCliente.GERADOR_ONLINE:
             return self._gerador_online(lista_etiquetas)
-        elif gerador == ServicoAtendeCliente.GERADOR_OFFLINE:
+        elif gerador == WebserviceAtendeCliente.GERADOR_OFFLINE:
             return self._gerador_offline(lista_etiquetas)
         else:
             print u'[ERRO] Opção de gerador inválida!'

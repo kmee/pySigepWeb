@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from src.servico_atende_cliente import ServicoAtendeCliente
+from src.webservice_atende_cliente import WebserviceAtendeCliente
 from src.tag_nacional import TagNacionalPAC41068
 from src.usuario import Usuario
 from src.tag_plp import TagPLP
@@ -21,7 +21,7 @@ def main():
 
     print
     print u'[INFO] Iniciando Serviço de Atendimento ao Cliente'
-    sv = ServicoAtendeCliente(ServicoAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
+    sv = WebserviceAtendeCliente(WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
 
     print
     print u'[INFO] Verificando disponibilidade dos serviços:'
@@ -63,7 +63,7 @@ def main():
     print
     print '[INFO] Solicitando digito verificador para etiquetas...'
     print sv.gera_digito_verificador_etiquetas(
-        etiquetas, gerador=ServicoAtendeCliente.GERADOR_ONLINE)
+        etiquetas, gerador=WebserviceAtendeCliente.GERADOR_ONLINE)
 
     remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
                                   bairro='Centro', cep=70002900,

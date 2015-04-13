@@ -36,7 +36,7 @@ class Pacote(TipoObjeto):
         self.altura = altura
         self.largura = largura
         self.comprimento = comprimento
-        
+
 
 class Cilindro(TipoObjeto):
 
