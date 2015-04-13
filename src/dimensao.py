@@ -3,10 +3,8 @@
 
 class TipoObjeto(object):
 
-    _CODIGO = '000'
-
     def __init__(self, codigo):
-        self._CODIGO = codigo
+        self._codigo = codigo
         self.altura = 0
         self.largura = 0
         self.comprimento = 0
@@ -14,7 +12,7 @@ class TipoObjeto(object):
 
     @property
     def codigo(self):
-        return self._CODIGO
+        return self._codigo
 
 
 class Envelope(TipoObjeto):
@@ -32,10 +30,13 @@ class Caixa(TipoObjeto):
         self.comprimento = comprimento
 
 
-class Pacote(Caixa):
+class Pacote(TipoObjeto):
     def __init__(self, altura, largura, comprimento):
-        super(Pacote, self).__init__(altura, largura, comprimento)
-
+        super(Pacote, self).__init__('002')
+        self.altura = altura
+        self.largura = largura
+        self.comprimento = comprimento
+        
 
 class Cilindro(TipoObjeto):
 
@@ -45,10 +46,12 @@ class Cilindro(TipoObjeto):
         self.diametro = diametro
 
 
-class Rolo(Cilindro):
+class Rolo(TipoObjeto):
 
     def __init__(self, comprimento, diametro):
-        super(Rolo, self).__init__(comprimento, diametro)
+        super(Rolo, self).__init__('003')
+        self.comprimento = comprimento
+        self.diametro = diametro
 
 
 class Dimensao(object):
