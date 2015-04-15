@@ -44,18 +44,21 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
     def calcula_preco_prazo(self, obj_servico_postagem, cep_origem,
                             cep_destino, peso, obj_dimensao, usar_mao_propria,
                             valor_declarado, aviso_recebimento):
+
+        ncdservico = WebserviceCalculaPrecoPrazo._nCdFormato[
+            obj_dimensao.tipo_objeto.codigo]
+        scdmaopropria = WebserviceCalculaPrecoPrazo._opcao[usar_mao_propria]
+        scdavisorecebimento = \
+            WebserviceCalculaPrecoPrazo._opcao[aviso_recebimento]
+
+
         try:
             servicos = self._service.CalcPrecoPrazo(
                 self.obj_usuario.codigo_admin, self.obj_usuario.senha,
                 obj_servico_postagem.codigo, cep_origem, cep_destino, peso,
-                WebserviceCalculaPrecoPrazo._nCdFormato[
-                    obj_dimensao.tipo_objeto.codigo],
-                obj_dimensao.comprimento,
-                obj_dimensao.altura, obj_dimensao.largura,
-                obj_dimensao.diametro,
-                WebserviceCalculaPrecoPrazo._opcao[usar_mao_propria],
-                valor_declarado,
-                WebserviceCalculaPrecoPrazo._opcao[aviso_recebimento])
+                ncdservico, obj_dimensao.comprimento, obj_dimensao.altura,
+                obj_dimensao.largura, obj_dimensao.diametro, scdmaopropria,
+                valor_declarado, scdavisorecebimento)
 
             result = []
 
