@@ -50,8 +50,5 @@ class FabricaAmbiente(object):
         try:
             return FabricaAmbiente._ambientes[nome_ambiente]()
         except KeyError as exc:
-            print u'[ERRO] Não existe Ambiente com o nome fornecido: \"%s\"' \
-                  % exc.message
-            print u'[INFO] Retornando Ambinente de Homologação.'
-            return FabricaAmbiente._ambientes[
-                FabricaAmbiente.AMBIENTE_HOMOLOGACAO]()
+            exit(u'[ERRO] Não existe Ambiente com o nome fornecido: \"%s\"' \
+                 % exc.message)
