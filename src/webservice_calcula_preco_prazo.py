@@ -11,6 +11,16 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
         False: 'N'
     }
 
+    _FORMATO_CAIXA_PACOTE = 1
+    _FORMATO_ROLO_PRISMA = 2
+    _FORMATO_ENVELOPE = 3
+
+    _nCdFormato = {
+        '001': _FORMATO_ENVELOPE,
+        '002': _FORMATO_CAIXA_PACOTE,
+        '003': _FORMATO_ROLO_PRISMA,
+    }
+
     _URL = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL'
 
     def __init__(self, obj_usuario):
@@ -38,7 +48,9 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
             servicos = self._service.CalcPrecoPrazo(
                 self.obj_usuario.codigo_admin, self.obj_usuario.senha,
                 obj_servico_postagem.codigo, cep_origem, cep_destino, peso,
-                int(obj_dimensao.tipo_objeto.codigo), obj_dimensao.comprimento,
+                WebserviceCalculaPrecoPrazo._nCdFormato[
+                    obj_dimensao.tipo_objeto.codigo],
+                obj_dimensao.comprimento,
                 obj_dimensao.altura, obj_dimensao.largura,
                 obj_dimensao.diametro,
                 WebserviceCalculaPrecoPrazo._opcao[usar_mao_propria],

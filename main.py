@@ -22,7 +22,8 @@ def main():
 
     print
     print u'[INFO] Iniciando Serviço de Atendimento ao  Cliente'
-    sv = WebserviceAtendeCliente('teste', usr)
+    sv = WebserviceAtendeCliente(WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO,
+                                 usr)
 
     print
     print u'[INFO] Verificando disponibilidade dos serviços:'
@@ -108,7 +109,7 @@ def main():
                                  obj_servico_adicional=obj_servico_adicional,
                                  obj_servico_postagem=sv_postagem,
                                  ob_etiqueta=etiquetas[0],
-                                 peso=200, status_processamento=0)
+                                 peso=2, status_processamento=0)
 
     obj_correios_log = TagCorreiosLog('2.3', obj_tag_plp, obj_remetente,
                                       [obj_postal])
@@ -130,6 +131,7 @@ def main():
                                                    obj_dimensao_objeto, True,
                                                    99.00, True)
 
+    print '[INFO] Retorno do metodo calculo de prazo e preco'
     for ret in retorno:
         print 'Codigo: ', ret.codigo
         print 'Valor: ', ret.valor
