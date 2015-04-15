@@ -127,8 +127,8 @@ def main():
 
     retorno = calc_preco_prazo.calcula_preco_prazo(sv_postagem, '70002900',
                                                    '74000100', obj_postal.peso,
-                                                   obj_dimensao_objeto, 'S',
-                                                   99.00, 'S')
+                                                   obj_dimensao_objeto, True,
+                                                   99.00, True)
 
     for ret in retorno:
         print 'Codigo: ', ret.codigo
