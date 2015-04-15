@@ -6,6 +6,11 @@ from resposta_calcula_preco_prazo import RespostaCalculaPrecoPrazo
 
 class WebserviceCalculaPrecoPrazo(WebserviceInterface):
 
+    _opcao = {
+        True: 'S',
+        False: 'N'
+    }
+
     _URL = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL'
 
     def __init__(self, obj_usuario):
@@ -33,10 +38,12 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
             servicos = self._service.CalcPrecoPrazo(
                 self.obj_usuario.codigo_admin, self.obj_usuario.senha,
                 obj_servico_postagem.codigo, cep_origem, cep_destino, peso,
-                obj_dimensao.tipo_objeto.codigo, obj_dimensao.comprimento,
+                int(obj_dimensao.tipo_objeto.codigo), obj_dimensao.comprimento,
                 obj_dimensao.altura, obj_dimensao.largura,
-                obj_dimensao.diametro, usar_mao_propria, valor_declarado,
-                aviso_recebimento)
+                obj_dimensao.diametro,
+                WebserviceCalculaPrecoPrazo._opcao[usar_mao_propria],
+                valor_declarado,
+                WebserviceCalculaPrecoPrazo._opcao[aviso_recebimento])
 
             result = []
 
