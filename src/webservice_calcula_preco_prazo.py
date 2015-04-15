@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from webservice_interface import *
 from usuario import Usuario
+from resposta_calcula_preco_prazo import RespostaCalculaPrecoPrazo
 
 
 class WebserviceCalculaPrecoPrazo(WebserviceInterface):
@@ -26,16 +27,24 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
         pass
 
     def calcula_preco_prazo(self, obj_servico_postagem, cep_origem,
-                            cep_destino, peso, tipo_objeto, obj_dimensao,
-                            usar_mao_propria, valor_declarado,
-                            aviso_recebimento):
+                            cep_destino, peso, obj_dimensao, usar_mao_propria,
+                            valor_declarado, aviso_recebimento):
         try:
-            result = self._service.CalcPrecoPrazo(
-                self.obj_usuario.nome, self.obj_usuario.senha,
+            servicos = self._service.CalcPrecoPrazo(
+                self.obj_usuario.codigo_admin, self.obj_usuario.senha,
                 obj_servico_postagem.codigo, cep_origem, cep_destino, peso,
-                obj_dimensao, usar_mao_propria, valor_declarado,
+                obj_dimensao.tipo_objeto.codigo, obj_dimensao.comprimento,
+                obj_dimensao.altura, obj_dimensao.largura,
+                obj_dimensao.diametro, usar_mao_propria, valor_declarado,
                 aviso_recebimento)
+
+            result = []
+
+            for servico in servicos.Servicos.cServico:
+                result.append(RespostaCalculaPrecoPrazo(servico))
+
             return result
+
         except WebFault as exc:
             print '[ERRO] Em calcula_preco_prazo(). ' + exc.message
             return None

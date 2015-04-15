@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from src.webservice_atende_cliente import WebserviceAtendeCliente
+from src.webservice_calcula_preco_prazo import WebserviceCalculaPrecoPrazo
 from src.tag_nacional import TagNacionalPAC41068
 from src.usuario import Usuario
 from src.tag_plp import TagPLP
@@ -95,6 +96,7 @@ def main():
 
     obj_servico_adicional.add_tipo_servico_adicional(
         TagServicoAdicional.TIPO_AVISO_RECEBIMENTO)
+
     obj_servico_adicional.add_tipo_servico_adicional(
         TagServicoAdicional.TIPO_VALOR_DECLARADO, 99.00)
 
@@ -119,6 +121,30 @@ def main():
     print u'[INFO] Pré-lista de postagem fechada'
     print u'[INFO] Novo PLP id: ', plp
     print
+
+    print '[INFO] Conectanco com webservice de calculo de prazo e preco'
+    calc_preco_prazo = WebserviceCalculaPrecoPrazo(usr)
+
+    retorno = calc_preco_prazo.calcula_preco_prazo(sv_postagem, '70002900',
+                                                   '74000100', obj_postal.peso,
+                                                   obj_dimensao_objeto, 'S',
+                                                   99.00, 'S')
+
+    for ret in retorno:
+        print ret.codigo
+        print ret.valor
+        print ret.prazo_entrega
+        print ret.valor_mao_propria
+        print ret.valor_aviso_recebimento
+        print ret.valor_declarado
+        print ret.entrega_domiciliar
+        print ret.entrega_sabado
+        print ret.erro
+        print ret.msg_erro
+        print ret.valor_sem_adicionais
+        print ret.obs_fim
+        print
+
 
 if __name__ == '__main__':
     main()
