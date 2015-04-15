@@ -131,18 +131,18 @@ def main():
                                                    99.00, 'S')
 
     for ret in retorno:
-        print ret.codigo
-        print ret.valor
-        print ret.prazo_entrega
-        print ret.valor_mao_propria
-        print ret.valor_aviso_recebimento
-        print ret.valor_declarado
-        print ret.entrega_domiciliar
-        print ret.entrega_sabado
-        print ret.erro
-        print ret.msg_erro
-        print ret.valor_sem_adicionais
-        print ret.obs_fim
+        print 'Codigo: ', ret.codigo
+        print 'Valor: ', ret.valor
+        print 'PrazoEntrega: ', ret.prazo_entrega
+        print 'ValorMaoPropria: ', ret.valor_mao_propria
+        print 'ValorAvisoRecebimento:', ret.valor_aviso_recebimento
+        print 'ValorValorDeclarado: ', ret.valor_declarado
+        print 'EntregaDomiciliar: ', ret.entrega_domiciliar
+        print 'EntregaSabado: ', ret.entrega_sabado
+        print 'Erro: ', ret.erro
+        print 'MsgErro: ', ret.msg_erro
+        print 'ValorSemAdicionais: ', ret.valor_sem_adicionais
+        print 'obsFim: ', ret.obs_fim
         print
 
 
