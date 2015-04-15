@@ -5,7 +5,7 @@ import plp_xml_validator
 class TagBase(object):
 
     def get_xml(self):
-        raise NotImplementedError("Must subclass me")
+        raise NotImplementedError(u"[WARNING]Método deve ser sobreescrito!")
 
     def _validar_xml(self, xml):
 
