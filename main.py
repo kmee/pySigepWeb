@@ -65,7 +65,7 @@ def main():
     print
     print '[INFO] Solicitando digito verificador para etiquetas...'
     print sv.gera_digito_verificador_etiquetas(
-        etiquetas, gerador=WebserviceAtendeCliente.GERADOR_ONLINE)
+        etiquetas, gerador=WebserviceAtendeCliente.GERADOR_OFFLINE)
 
     remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
                                   bairro='Centro', cep=70002900,
@@ -101,7 +101,8 @@ def main():
     obj_servico_adicional.add_tipo_servico_adicional(
         TagServicoAdicional.TIPO_VALOR_DECLARADO, 99.00)
 
-    obj_dimensao_objeto = TagDimensaoObjeto(Caixa(20, 30, 38))
+    # Caixa(20, 30, 38)
+    obj_dimensao_objeto = TagDimensaoObjeto(Cilindro(12, 4))
 
     obj_postal = TagObjetoPostal(obj_destinatario=obj_destinatario,
                                  obj_nacional=obj_nacional,
@@ -109,7 +110,7 @@ def main():
                                  obj_servico_adicional=obj_servico_adicional,
                                  obj_servico_postagem=sv_postagem,
                                  ob_etiqueta=etiquetas[0],
-                                 peso=2, status_processamento=0)
+                                 peso=0.5, status_processamento=0)
 
     obj_correios_log = TagCorreiosLog('2.3', obj_tag_plp, obj_remetente,
                                       [obj_postal])

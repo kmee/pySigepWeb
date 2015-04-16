@@ -584,9 +584,6 @@ xsd = """<?xml version="1.0" encoding="ISO-8859-1"?>
                 </xs:element>
             </xs:schema>""".replace('\n', '')
 
-XSI = "http://www.w3.org/2001/XMLSchema-instance"
-XS = '{http://www.w3.org/2001/XMLSchema}'
-
 
 def validate_xml(xml):
     """Validate an XML file represented as string. Follow all schemaLocations.
@@ -604,6 +601,9 @@ def validate_xml(xml):
     except etree.XMLSyntaxError as e:
         print "[ERRO] Erro de parsing no xml", e
         return False
+
+    except etree.DocumentInvalid as e:
+        print '[ERRO] Erro validação XML fechaPLP', e
 
     except AssertionError as e:
         print "[ERRO] Documento Invalido", e

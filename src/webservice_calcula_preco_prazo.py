@@ -6,9 +6,9 @@ from resposta_calcula_preco_prazo import RespostaCalculaPrecoPrazo
 
 class WebserviceCalculaPrecoPrazo(WebserviceInterface):
 
-    _opcao = {
+    _OPCAO = {
         True: 'S',
-        False: 'N'
+        False: 'N',
     }
 
     _FORMATO_CAIXA_PACOTE = 1
@@ -45,12 +45,19 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
                             cep_destino, peso, obj_dimensao, usar_mao_propria,
                             valor_declarado, aviso_recebimento):
 
+        cep_origem = cep_origem.replace('-', '')
+        cep_destino = cep_destino.replace('-', '')
+
         ncdservico = WebserviceCalculaPrecoPrazo._nCdFormato[
             obj_dimensao.tipo_objeto.codigo]
-        scdmaopropria = WebserviceCalculaPrecoPrazo._opcao[usar_mao_propria]
-        scdavisorecebimento = \
-            WebserviceCalculaPrecoPrazo._opcao[aviso_recebimento]
 
+        if ncdservico == 3 and peso > 1:
+            print u'[AVISO] Para encomendas do tipo Envelope, o peso máximo' \
+                  u'permitido é 1 Kg.'
+
+        scdmaopropria = WebserviceCalculaPrecoPrazo._OPCAO[usar_mao_propria]
+        scdavisorecebimento = \
+            WebserviceCalculaPrecoPrazo._OPCAO[aviso_recebimento]
 
         try:
             servicos = self._service.CalcPrecoPrazo(
@@ -70,3 +77,5 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
         except WebFault as exc:
             print '[ERRO] Em calcula_preco_prazo(). ' + exc.message
             return None
+
+
