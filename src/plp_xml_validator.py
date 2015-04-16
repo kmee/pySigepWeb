@@ -604,6 +604,7 @@ def validate_xml(xml):
 
     except etree.DocumentInvalid as e:
         print '[ERRO] Erro validação XML fechaPLP', e
+        return False
 
     except AssertionError as e:
         print "[ERRO] Documento Invalido", e

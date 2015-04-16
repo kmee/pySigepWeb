@@ -102,7 +102,7 @@ def main():
         TagServicoAdicional.TIPO_VALOR_DECLARADO, 99.00)
 
     # Caixa(20, 30, 38)
-    obj_dimensao_objeto = TagDimensaoObjeto(Cilindro(12, 4))
+    obj_dimensao_objeto = TagDimensaoObjeto(Cilindro(18, 4))
 
     obj_postal = TagObjetoPostal(obj_destinatario=obj_destinatario,
                                  obj_nacional=obj_nacional,
