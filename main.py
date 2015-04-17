@@ -102,7 +102,7 @@ def main():
         TagServicoAdicional.TIPO_VALOR_DECLARADO, 99.00)
 
     # Caixa(20, 30, 38)
-    obj_dimensao_objeto = TagDimensaoObjeto(Cilindro(18, 4))
+    obj_dimensao_objeto = TagDimensaoObjeto(Caixa(18, 11, 20))
 
     obj_postal = TagObjetoPostal(obj_destinatario=obj_destinatario,
                                  obj_nacional=obj_nacional,
@@ -110,7 +110,7 @@ def main():
                                  obj_servico_adicional=obj_servico_adicional,
                                  obj_servico_postagem=sv_postagem,
                                  ob_etiqueta=etiquetas[0],
-                                 peso=0.5, status_processamento=0)
+                                 peso=60, status_processamento=0)
 
     obj_correios_log = TagCorreiosLog('2.3', obj_tag_plp, obj_remetente,
                                       [obj_postal])
@@ -127,7 +127,7 @@ def main():
     print '[INFO] Conectanco com webservice de calculo de prazo e preco'
     calc_preco_prazo = WebserviceCalculaPrecoPrazo(usr)
 
-    retorno = calc_preco_prazo.calcula_preco_prazo(sv_postagem, '70002900',
+    retorno = calc_preco_prazo.calcula_preco_prazo(l, '70002900',
                                                    '74000100', obj_postal.peso,
                                                    obj_dimensao_objeto, True,
                                                    99.00, True)

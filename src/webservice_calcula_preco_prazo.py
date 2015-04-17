@@ -41,7 +41,7 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
     def calcula_preco(self):
         pass
 
-    def calcula_preco_prazo(self, obj_servico_postagem, cep_origem,
+    def calcula_preco_prazo(self, lista_obj_servico_postagem, cep_origem,
                             cep_destino, peso, obj_dimensao, usar_mao_propria,
                             valor_declarado, aviso_recebimento):
 
@@ -59,10 +59,14 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
         scdavisorecebimento = \
             WebserviceCalculaPrecoPrazo._OPCAO[aviso_recebimento]
 
+        cod_servicos = ''
+        for obj_servico in lista_obj_servico_postagem:
+            cod_servicos += obj_servico.codigo + ','
+
         try:
             servicos = self._service.CalcPrecoPrazo(
                 self.obj_usuario.codigo_admin, self.obj_usuario.senha,
-                obj_servico_postagem.codigo, cep_origem, cep_destino, peso,
+                cod_servicos, cep_origem, cep_destino, peso,
                 ncdservico, obj_dimensao.comprimento, obj_dimensao.altura,
                 obj_dimensao.largura, obj_dimensao.diametro, scdmaopropria,
                 valor_declarado, scdavisorecebimento)
