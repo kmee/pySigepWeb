@@ -52,7 +52,7 @@ class Objeto(object):
             self.eventos.append(Evento(evento))
 
 
-class RetornoRastreamento(object):
+class RespostaRastreamento(object):
 
     def __init__(self, xml_retorno, etiquetas, backup_path=''):
 
