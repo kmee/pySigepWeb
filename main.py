@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from src.webservice_atende_cliente import WebserviceAtendeCliente
 from src.webservice_calcula_preco_prazo import WebserviceCalculaPrecoPrazo
+from src.webservice_rastreamento import WebserviceRastreamento
 from src.tag_nacional import TagNacionalPAC41068
 from src.usuario import Usuario
 from src.tag_plp import TagPLP
@@ -60,7 +61,7 @@ def main():
                                       qtd_etiquetas=qtd_etiquetas)
 
     for i in range(len(etiquetas)):
-        print etiquetas[i].etiqueta_sem_dig_verif
+        print etiquetas[i].valor
 
     print
     print '[INFO] Solicitando digito verificador para etiquetas...'
@@ -148,6 +149,42 @@ def main():
         print 'obsFim: ', ret.obs_fim
         print
 
+    print
+    print '[INFO] Rastreamento das etiquetas: ' + \
+          'SS123456789BR; DM524874789BR; DM149692327BR; DG799572796BR'
+
+    etqs = [Etiqueta('SS123456789BR'),
+            Etiqueta('DM524874789BR'),
+            Etiqueta('DM149692327BR'),
+            Etiqueta('DG799572796BR')]
+
+    usr.nome = 'ECT'
+    usr.senha = 'SRO'
+    rastreamento = WebserviceRastreamento(usr)
+    rastreamento.path = '/tmp/'
+
+    resp_rastr = rastreamento.rastrea_objetos(
+        WebserviceRastreamento.TIPO_LISTA_ETIQUETAS,
+        WebserviceRastreamento.RETORNAR_ULTIMO_EVENTO, etqs)
+
+    print
+    print 'Detalhes da etiqueta: ', resp_rastr.objetos['SS123456789BR'].numero
+    print
+
+    for evento in resp_rastr.objetos['SS123456789BR'].eventos:
+        print 'Tipo evento: ', evento.tipo
+        print 'Status evento: ', evento.status
+        print 'Data evento: ', evento.data
+        print 'Hora evento: ', evento.hora
+        print 'Descricao evento: ', evento.descricao
+        print 'Recebedor evento: ', evento.recebedor
+        print 'Documento evento: ', evento.documento
+        print 'comentario evento: ', evento.comentario
+        print 'Local evento: ', evento.local
+        print 'Codigo evento: ', evento.codigo
+        print 'Cidade evento: ', evento.cidade
+        print 'UF evento: ', evento.uf
+        print 'STO: ', evento.sto
 
 if __name__ == '__main__':
     main()
