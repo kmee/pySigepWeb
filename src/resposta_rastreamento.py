@@ -66,7 +66,8 @@ class RespostaRastreamento(object):
         self.qtd = root.find('qtd').text
         self.tipo_pesquisa = root.find('TipoPesquisa').text
         self.tipo_resultado = root.find('TipoResultado').text
-        self.objetos = []
+        self.objetos = {}
 
         for obj in root.findall('objeto'):
-            self.objetos.append(Objeto(obj))
+            aux = Objeto(obj)
+            self.objetos[aux.numero] = aux
