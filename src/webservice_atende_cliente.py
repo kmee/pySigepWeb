@@ -78,11 +78,10 @@ class WebserviceAtendeCliente(WebserviceInterface):
         etiquetas = []
 
         for i in range(qtd_etiquetas):
-            etq = Etiqueta()
-            etq.etiqueta_sem_dig_verif = \
-                etiqueta_prefixo + str(etiqueta_numero + i).zfill(8) +  \
+            valor = etiqueta_prefixo + str(etiqueta_numero + i).zfill(8) + \
                 etiqueta_sufixo
-            etiquetas.append(etq)
+
+            etiquetas.append(Etiqueta(valor))
 
         return etiquetas
 
@@ -101,7 +100,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
         etiquetas_sem_digito = []
 
         for etq in lista_etiquetas:
-            etiquetas_sem_digito.append(etq.etiqueta_sem_dig_verif)
+            etiquetas_sem_digito.append(etq.valor)
 
         try:
             dig_verif_list = self._service.geraDigitoVerificadorEtiquetas(
@@ -121,7 +120,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
         for i in range(len(lista_etiquetas)):
             dv = GeradorDigitoVerificador.gera_digito_verificador(
-                lista_etiquetas[i].etiqueta_sem_dig_verif[2:10])
+                lista_etiquetas[i].numero)
             dig_verif_list.append(dv)
 
         return dig_verif_list
@@ -133,8 +132,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
         for i in range(len(obj_correios_log.lista_objeto_postal)):
             # As etiquetas tem de ser enviadas sem o digito verificador
             # e sem o espaco em branco antes do sufixo da etiqueta
-            etiquetas_sem_digito.append(
-                lista_obj_etiquetas[i].etiqueta_sem_dig_verif.replace(' ', ''))
+            etq = lista_obj_etiquetas[i].valor
+            etiquetas_sem_digito.append(etq.replace(' ', ''))
 
         if plp_xml_validator.validate_xml(obj_correios_log.get_xml()):
 

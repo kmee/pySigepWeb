@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
-from usuario import Usuario
 import urllib
+
+from usuario import Usuario
+from resposta_rastreamento import *
 
 
 class WebserviceRastreamento(object):
@@ -24,23 +26,25 @@ class WebserviceRastreamento(object):
             raise TypeError
 
         self.obj_usuario = obj_usuario
+        self.path = ''
 
     def rastrea_objetos(self, tipo, resultado, lista_etiquetas):
 
         etiquetas = ''
         for etq in lista_etiquetas:
-            etiquetas += etq.etiqueta_com_dig_verif
+            etiquetas += etq.com_digito_verificador()
 
-        params = {"Usuario": self.obj_usuario.nome,
-                  "Senha": self.obj_usuario.senha,
-                  'Tipo': WebserviceRastreamento._constantes[tipo],
-                  'Resultado': WebserviceRastreamento._constantes[resultado],
-                  'Objetos': etiquetas,
-                  }
+        params = {
+            "Usuario": self.obj_usuario.nome,
+            "Senha": self.obj_usuario.senha,
+            'Tipo': WebserviceRastreamento._constantes[tipo],
+            'Resultado': WebserviceRastreamento._constantes[resultado],
+            'Objetos': etiquetas,
+        }
 
         query = urllib.urlencode(params)
         f = urllib.urlopen(WebserviceRastreamento._URL, query)
-        contents = f.read()
+        xml = f.read()
         f.close()
 
-
+        return RespostaRastreamento(xml, etiquetas, self.path)
