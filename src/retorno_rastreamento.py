@@ -1,79 +1,72 @@
 # -*- coding: utf-8 -*-
+from xml.etree.ElementTree import ElementTree, fromstring
 
 
 class Destino(object):
 
-    def __init__(self, local, codigo, cidade, bairro, uf):
-        self.local = local
-        self.codigo = codigo
-        self.cidade = cidade
-        self.bairro = bairro
-        self.uf = uf
+    def __init__(self, root):
+        self.local = root.find('local').text
+        self.codigo = root.find('codigo').text
+        self.cidade = root.find('cidade').text
+        self.bairro = root.find('bairro').text
+        self.uf = root.find('uf').text
 
 
 class Evento(object):
 
-    def __init__(self, tipo, status, data, descricao, local, codigo, cidade,
-                 uf, sto):
-        self.tipo = tipo
-        self.status = status
-        self.data = data
-        self.descricao = descricao
-        self.local = local
-        self.codigo = codigo
-        self.cidade = cidade
-        self.uf = uf
-        self.sto = sto
+    def __init__(self, root):
+
+        self.tipo = root.find('tipo').text
+        self.status = root.find('status').text
+        self.data = root.find('data').text
+        self.hora = root.find('hora').text
+        self.descricao = root.find('descricao').text
+
+        aux = root.find('recebedor')
+        self.recebedor = aux.text if aux is not None else None
+
+        aux = root.find('documento')
+        self.documento = aux.text if aux is not None else None
+
+        aux = root.find('comentario')
+        self.comentario = aux.text if aux is not None else None
+
+        self.local = root.find('local').text
+        self.codigo = root.find('codigo').text
+        self.cidade = root.find('cidade').text
+        self.uf = root.find('uf').text
+        self.sto = root.find('sto').text
+
+        root_destino = root.find('destino')
+        self.destino = Destino(root_destino) if root_destino is not None else\
+            None
 
 
 class Objeto(object):
 
-    def __init__(self, numero):
-        self.numero = numero
+    def __init__(self, root):
+        self.numero = root.find('numero').text
         self.eventos = []
-        self.destino
 
-    def add_evento(self, evento):
-        self.eventos.append(evento)
+        for evento in root.findall('evento'):
+            self.eventos.append(Evento(evento))
 
 
 class RetornoRastreamento(object):
 
-    def __init__(self, xml_retorno):
-        self.xml = xml_retorno
-        self.qtd = 0
-        self.tipo_pesquisa = ''
-        self.tipo_resultado = ''
+    def __init__(self, xml_retorno, etiquetas, backup_path=''):
+
+        # tag raiz do xml
+        root = fromstring(xml_retorno)
+
+        # Cria backup do xml retornado
+        ElementTree(root).write(backup_path + etiquetas + '.xml')
+
+        self.versao = root.find('versao').text
+        self.qtd = root.find('qtd').text
+        self.tipo_pesquisa = root.find('TipoPesquisa').text
+        self.tipo_resultado = root.find('TipoResultado').text
         self.objetos = []
 
-
-
-#
-# <sroxml>
-#    <versao>1.0</versao>
-#    <qtd>1</qtd>
-#    <TipoPesquisa>Lista de Objetos</TipoPesquisa>
-#    <TipoResultado>�ltimo evento</TipoResultado>
-#      <objeto>
-#        <numero>SS123456789BR</numero>
-#        <evento>
-#           <tipo>RO</tipo>
-#           <status>01</status>
-#           <data>09/02/2015</data>
-#           <hora>17:32</hora>
-#           <descricao>Objeto encaminhado</descricao>
-#           <local>AC LUCAS DO RIO VERDE</local>
-#           <codigo>78455970</codigo>
-#           <cidade>Lucas Do Rio Verde</cidade>
-#           <uf>MT</uf>
-#           <sto>24300691</sto>
-#        <destino>
-#           <local>AC SINOP</local>
-#           <codigo>78550970</codigo>
-#           <cidade>Sinop</cidade>
-#           <bairro>Centro</bairro>
-#           <uf>MT</uf>
-#        </destino>
-#       </evento>
-#      </objeto>
-# </sroxml>
+        for obj in root.findall('objeto'):
+            self.objetos.append(Objeto(obj))
