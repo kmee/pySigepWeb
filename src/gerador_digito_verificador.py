@@ -10,7 +10,7 @@ class GeradorDigitoVerificador(object):
         soma = 0
 
         if len(numero_etiqueta) != 8:
-            dv = 'Erro'
+            dv = u'[Erro] Número de digito deve ser 8'
         else:
             for i in range(8):
                 soma += int(numero_etiqueta[i:(i+1)]) * multiplicadores[i]

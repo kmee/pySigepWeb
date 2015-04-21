@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
-from suds import WebFault
-
-from interface_servico import InterfaceServico
+from webservice_interface import *
 from ambiente import FabricaAmbiente
-from src import plp_xml_validator
+import plp_xml_validator
 from usuario import Usuario
 
 
-class ServicoAtendeCliente(InterfaceServico):
+class WebserviceAtendeCliente(WebserviceInterface):
 
     AMBIENTE_PRODUCAO = FabricaAmbiente.AMBIENTE_PRODUCAO
     AMBIENTE_HOMOLOGACAO = FabricaAmbiente.AMBIENTE_HOMOLOGACAO
@@ -15,22 +13,16 @@ class ServicoAtendeCliente(InterfaceServico):
     GERADOR_ONLINE = True
     GERADOR_OFFLINE = False
 
-    _disponibilidade = {
-        True: u'Disponível',
-        False: u'Indisponível'
-    }
-
     def __init__(self, nome_ambiente, obj_usuario):
         if not isinstance(obj_usuario, Usuario):
             raise TypeError
 
         self.obj_usuario = obj_usuario
         amb = FabricaAmbiente.get_ambiente(nome_ambiente)
-        super(ServicoAtendeCliente, self).__init__(amb.url)
+        super(WebserviceAtendeCliente, self).__init__(amb.url)
 
     def verifica_disponibilidade_servicos(self, lista_servico_postagem,
                                           cep_origem, cep_destino):
-
         res = {}
         for sp in lista_servico_postagem:
             try:
@@ -39,8 +31,10 @@ class ServicoAtendeCliente(InterfaceServico):
                     cep_destino, self.obj_usuario.nome, self.obj_usuario.senha)
 
                 res[sp.nome] = status
-            except WebFault as exp:
-                print exp.message
+            except WebFault as exc:
+                print exc.message
+                print '[ERRO] Em verifica_disponibilidade_servicos(). ' +  \
+                      exp.message
 
         return res
 
@@ -48,8 +42,9 @@ class ServicoAtendeCliente(InterfaceServico):
         try:
             res = self._service.consultaCEP(cep)
             return res
-        except WebFault as exp:
-            print exp.message
+        except WebFault as exc:
+            print exc.message
+            print '[ERRO] Em consulta_cep(). ' + exp.message
             return None
 
     def consulta_status_cartao_postagem(self):
@@ -58,8 +53,9 @@ class ServicoAtendeCliente(InterfaceServico):
                 self.obj_usuario.num_cartao_postagem, self.obj_usuario.nome,
                 self.obj_usuario.senha)
             return status
-        except WebFault as exp:
-            print exp.message
+        except WebFault as exc:
+            print exc.message
+            print '[ERRO] Em consulta_status_cartao_postagem(). ' + exp.message
             return None
 
     def solicita_etiquetas(self, servico_id, qtd_etiquetas=1,
@@ -68,9 +64,8 @@ class ServicoAtendeCliente(InterfaceServico):
             faixa_etiquetas = self._service.solicitaEtiquetas(
                 tipo_destinatario, self.obj_usuario.cnpj, servico_id,
                 qtd_etiquetas, self.obj_usuario.nome, self.obj_usuario.senha)
-        except WebFault as exp:
-            print exp.fault
-            print '[ERRO] Em solicita_etiquetas(). ' + exp.message
+        except WebFault as exc:
+            print '[ERRO] Em solicita_etiquetas(). ' + exc.message
             return None
 
         from src.etiqueta import Etiqueta
@@ -83,20 +78,19 @@ class ServicoAtendeCliente(InterfaceServico):
         etiquetas = []
 
         for i in range(qtd_etiquetas):
-            etq = Etiqueta()
-            etq.etiqueta_sem_dig_verif = \
-                etiqueta_prefixo + str(etiqueta_numero + i).zfill(8) +  \
+            valor = etiqueta_prefixo + str(etiqueta_numero + i).zfill(8) + \
                 etiqueta_sufixo
-            etiquetas.append(etq)
+
+            etiquetas.append(Etiqueta(valor))
 
         return etiquetas
 
     def gera_digito_verificador_etiquetas(self, lista_etiquetas,
                                           gerador=GERADOR_ONLINE):
 
-        if gerador == ServicoAtendeCliente.GERADOR_ONLINE:
+        if gerador == WebserviceAtendeCliente.GERADOR_ONLINE:
             return self._gerador_online(lista_etiquetas)
-        elif gerador == ServicoAtendeCliente.GERADOR_OFFLINE:
+        elif gerador == WebserviceAtendeCliente.GERADOR_OFFLINE:
             return self._gerador_offline(lista_etiquetas)
         else:
             print u'[ERRO] Opção de gerador inválida!'
@@ -106,14 +100,14 @@ class ServicoAtendeCliente(InterfaceServico):
         etiquetas_sem_digito = []
 
         for etq in lista_etiquetas:
-            etiquetas_sem_digito.append(etq.etiqueta_sem_dig_verif)
+            etiquetas_sem_digito.append(etq.valor)
 
         try:
             dig_verif_list = self._service.geraDigitoVerificadorEtiquetas(
                 etiquetas_sem_digito, self.obj_usuario.nome,
                 self.obj_usuario.senha)
-        except WebFault as exp:
-            print exp.message
+        except WebFault as exc:
+            print '[ERRO] Em _gerador_online(). ' + exc.message
             return []
 
         return dig_verif_list
@@ -126,7 +120,7 @@ class ServicoAtendeCliente(InterfaceServico):
 
         for i in range(len(lista_etiquetas)):
             dv = GeradorDigitoVerificador.gera_digito_verificador(
-                lista_etiquetas[i].etiqueta_sem_dig_verif[2:10])
+                lista_etiquetas[i].numero)
             dig_verif_list.append(dv)
 
         return dig_verif_list
@@ -138,8 +132,8 @@ class ServicoAtendeCliente(InterfaceServico):
         for i in range(len(obj_correios_log.lista_objeto_postal)):
             # As etiquetas tem de ser enviadas sem o digito verificador
             # e sem o espaco em branco antes do sufixo da etiqueta
-            etiquetas_sem_digito.append(
-                lista_obj_etiquetas[i].etiqueta_sem_dig_verif.replace(' ', ''))
+            etq = lista_obj_etiquetas[i].valor
+            etiquetas_sem_digito.append(etq.replace(' ', ''))
 
         if plp_xml_validator.validate_xml(obj_correios_log.get_xml()):
 
@@ -148,6 +142,6 @@ class ServicoAtendeCliente(InterfaceServico):
                     obj_correios_log.get_xml(), id_plp_cliente,
                     self.obj_usuario.num_cartao_postagem, etiquetas_sem_digito,
                     self.obj_usuario.nome, self.obj_usuario.senha)
-            except WebFault as exp:
-                print exp.message
+            except WebFault as exc:
+                print '[ERRO] Em fecha_plp_varios_servicos(). ' + exc.message
                 return None

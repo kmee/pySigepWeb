@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
-from src.servico_atende_cliente import ServicoAtendeCliente
+from src.webservice_atende_cliente import WebserviceAtendeCliente
+from src.webservice_calcula_preco_prazo import WebserviceCalculaPrecoPrazo
+from src.webservice_rastreamento import WebserviceRastreamento
+from src.tag_nacional import TagNacionalPAC41068
 from src.usuario import Usuario
 from src.tag_plp import TagPLP
 from src.tag_remetente import TagRemetente
@@ -19,8 +22,9 @@ def main():
          ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)]
 
     print
-    print u'[INFO] Iniciando Serviço de Atendimento ao Cliente'
-    sv = ServicoAtendeCliente(ServicoAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
+    print u'[INFO] Iniciando Serviço de Atendimento ao  Cliente'
+    sv = WebserviceAtendeCliente(WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO,
+                                 usr)
 
     print
     print u'[INFO] Verificando disponibilidade dos serviços:'
@@ -40,7 +44,7 @@ def main():
     print 'CEP:', end_erp.cep
     print 'Cidade: ', end_erp.cidade
     print 'Complemento: ', end_erp.complemento
-    print 'Endereco: ', end_erp.end
+    print u'Endereço: ', end_erp.end
     print 'Id:', end_erp.id
     print 'UF:', end_erp.uf
 
@@ -57,16 +61,16 @@ def main():
                                       qtd_etiquetas=qtd_etiquetas)
 
     for i in range(len(etiquetas)):
-        print etiquetas[i].etiqueta_sem_dig_verif
+        print etiquetas[i].valor
 
     print
     print '[INFO] Solicitando digito verificador para etiquetas...'
     print sv.gera_digito_verificador_etiquetas(
-        etiquetas, gerador=ServicoAtendeCliente.GERADOR_OFFLINE)
+        etiquetas, gerador=WebserviceAtendeCliente.GERADOR_OFFLINE)
 
     remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
                                   bairro='Centro', cep=70002900,
-                                  cidade='Brasilia', uf=Endereco.UF_PARANA,
+                                  cidade=u'Brasília', uf=Endereco.UF_PARANA,
                                   complemento=u'sala 1205,12° andar')
 
     destinatario_endereco = Endereco(logradouro='Avenida Central',
@@ -86,19 +90,20 @@ def main():
     obj_destinatario = TagDestinatario('Destino Ltda', destinatario_endereco,
                                        telefone=6212349644)
 
-    obj_nacional = TagNacional(endereco=destinatario_endereco,
-                               numero_nfe=102030, valor_a_cobrar=0.00,
-                               serie_nfe='1')
+    obj_nacional = TagNacionalPAC41068(destinatario_endereco, 102030, '1')
 
-    obj_servico_adicional = TagServicoAdicional(99.00)
+    obj_nacional.valor_a_cobrar = 23.01
+
+    obj_servico_adicional = TagServicoAdicional()
 
     obj_servico_adicional.add_tipo_servico_adicional(
         TagServicoAdicional.TIPO_AVISO_RECEBIMENTO)
 
     obj_servico_adicional.add_tipo_servico_adicional(
-        TagServicoAdicional.TIPO_VALOR_DECLARADO)
+        TagServicoAdicional.TIPO_VALOR_DECLARADO, 99.00)
 
-    obj_dimensao_objeto = TagDimensaoObjeto(Caixa(20, 30, 38))
+    # Caixa(20, 30, 38)
+    obj_dimensao_objeto = TagDimensaoObjeto(Caixa(18, 11, 20))
 
     obj_postal = TagObjetoPostal(obj_destinatario=obj_destinatario,
                                  obj_nacional=obj_nacional,
@@ -106,7 +111,7 @@ def main():
                                  obj_servico_adicional=obj_servico_adicional,
                                  obj_servico_postagem=sv_postagem,
                                  ob_etiqueta=etiquetas[0],
-                                 peso=200, status_processamento=0)
+                                 peso=60, status_processamento=0)
 
     obj_correios_log = TagCorreiosLog('2.3', obj_tag_plp, obj_remetente,
                                       [obj_postal])
@@ -116,9 +121,70 @@ def main():
     print
     plp = sv.fecha_plp_varios_servicos(obj_correios_log, long(123), etiquetas)
     print
-    print '[INFO] Pré-lista de postagem fechada'
-    print '[INFO] Novo PLP id: ', plp
+    print u'[INFO] Pré-lista de postagem fechada'
+    print u'[INFO] Novo PLP id: ', plp
     print
+
+    print '[INFO] Conectanco com webservice de calculo de prazo e preco'
+    calc_preco_prazo = WebserviceCalculaPrecoPrazo(usr)
+
+    retorno = calc_preco_prazo.calcula_preco_prazo(l, '70002900',
+                                                   '74000100', obj_postal.peso,
+                                                   obj_dimensao_objeto, True,
+                                                   99.00, True)
+
+    print '[INFO] Retorno do metodo calculo de prazo e preco'
+    for ret in retorno:
+        print 'Codigo: ', ret.codigo
+        print 'Valor: ', ret.valor
+        print 'PrazoEntrega: ', ret.prazo_entrega
+        print 'ValorMaoPropria: ', ret.valor_mao_propria
+        print 'ValorAvisoRecebimento:', ret.valor_aviso_recebimento
+        print 'ValorValorDeclarado: ', ret.valor_declarado
+        print 'EntregaDomiciliar: ', ret.entrega_domiciliar
+        print 'EntregaSabado: ', ret.entrega_sabado
+        print 'Erro: ', ret.erro
+        print 'MsgErro: ', ret.msg_erro
+        print 'ValorSemAdicionais: ', ret.valor_sem_adicionais
+        print 'obsFim: ', ret.obs_fim
+        print
+
+    print
+    print '[INFO] Rastreamento das etiquetas: ' + \
+          'SS123456789BR; DM524874789BR; DM149692327BR; DG799572796BR'
+
+    etqs = [Etiqueta('SS123456789BR'),
+            Etiqueta('DM524874789BR'),
+            Etiqueta('DM149692327BR'),
+            Etiqueta('DG799572796BR')]
+
+    usr.nome = 'ECT'
+    usr.senha = 'SRO'
+    rastreamento = WebserviceRastreamento(usr)
+    rastreamento.path = '/tmp/'
+
+    resp_rastr = rastreamento.rastrea_objetos(
+        WebserviceRastreamento.TIPO_LISTA_ETIQUETAS,
+        WebserviceRastreamento.RETORNAR_ULTIMO_EVENTO, etqs)
+
+    print
+    print 'Detalhes da etiqueta: ', resp_rastr.objetos['SS123456789BR'].numero
+    print
+
+    for evento in resp_rastr.objetos['SS123456789BR'].eventos:
+        print 'Tipo evento: ', evento.tipo
+        print 'Status evento: ', evento.status
+        print 'Data evento: ', evento.data
+        print 'Hora evento: ', evento.hora
+        print 'Descricao evento: ', evento.descricao
+        print 'Recebedor evento: ', evento.recebedor
+        print 'Documento evento: ', evento.documento
+        print 'comentario evento: ', evento.comentario
+        print 'Local evento: ', evento.local
+        print 'Codigo evento: ', evento.codigo
+        print 'Cidade evento: ', evento.cidade
+        print 'UF evento: ', evento.uf
+        print 'STO: ', evento.sto
 
 if __name__ == '__main__':
     main()

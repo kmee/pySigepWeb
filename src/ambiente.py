@@ -1,44 +1,38 @@
 # -*- coding: utf-8 -*-
-from src.usuario import Usuario
 
 
 class Ambiente(object):
 
-    def __init__(self, dominio, url):
-        self._dominio = dominio
-        self._url = dominio + url
-
     @property
     def url(self):
-        return self._url
-
-    @property
-    def dominio(self):
-        return self._dominio
+        pass
 
 
 class AmbienteHomologacao(Ambiente):
 
-    def __init__(self):
-        super(AmbienteHomologacao, self).__init__(
-            'https://apphom.correios.com.br',
-            '/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl')
+    _URL_HOMOLOGACAO = 'https://apphom.correios.com.br/' \
+                       + 'SigepMasterJPA/AtendeClienteService/AtendeCliente' \
+                         '?wsdl'
 
-        self._usuario_homologacao = Usuario('sigep', 'n5f9t8',
-                                            '34028316000103',  '08082650',
-                                            '9912208555', '0057018901')
+    def __init__(self):
+        super(AmbienteHomologacao, self).__init__()
 
     @property
-    def usuario_homogolacao(self):
-        return self._usuario_homologacao
+    def url(self):
+        return AmbienteHomologacao._URL_HOMOLOGACAO
 
 
 class AmbienteProducao(Ambiente):
 
+    _URL_PRODUCAO = 'https://apps.correios.com.br/SigepMasterJPA' \
+                    '/AtendeClienteService/AtendeCliente?wsdl'
+
     def __init__(self):
-        super(AmbienteProducao, self).__init__(
-            'https://apps.correios.com.br',
-            '/SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl')
+        super(AmbienteProducao, self).__init__()
+
+    @property
+    def url(self):
+        return AmbienteProducao._URL_PRODUCAO
 
 
 class FabricaAmbiente(object):
@@ -53,4 +47,8 @@ class FabricaAmbiente(object):
 
     @staticmethod
     def get_ambiente(nome_ambiente):
+        try:
             return FabricaAmbiente._ambientes[nome_ambiente]()
+        except KeyError as exc:
+            exit(u'[ERRO] Não existe Ambiente com o nome fornecido: \"%s\"' \
+                 % exc.message)

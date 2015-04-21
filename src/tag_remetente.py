@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
-from src import plp_xml_validator
-from src.endereco import Endereco
-from src.tag_base import TagBase
+from endereco import Endereco
+from tag_base import TagBase
 
 
 class TagRemetente(TagBase):
@@ -98,13 +97,5 @@ class TagRemetente(TagBase):
         xml += u'<email_remetente><![CDATA[%s]]></email_remetente>' % self.email
         xml += u'</remetente>'
 
-        TagRemetente.validar_xml(xml)
+        self._validar_xml(xml)
         return xml
-
-    @staticmethod
-    def validar_xml(xml):
-
-        if plp_xml_validator.validate_xml(xml):
-            print '[INFO] XML TagRemetente validado com sucesso!'
-        else:
-            print u'[ERRO] Validação de XML TagRemetente falhou!'

@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-from src import plp_xml_validator
-from src.tag_base import TagBase
+from tag_base import TagBase
 
 
 class TagPLP(TagBase):
@@ -29,13 +28,5 @@ class TagPLP(TagBase):
         xml += u'<cartao_postagem>%s</cartao_postagem>' % self.cartao_postagem
         xml += u'</plp>'
 
-        TagPLP.validar_xml(xml)
+        self._validar_xml(xml)
         return xml
-
-    @staticmethod
-    def validar_xml(xml):
-
-        if plp_xml_validator.validate_xml(xml):
-            print '[INFO] XML TagPLP validado com sucesso!'
-        else:
-            print u'[ERRO] Validação de XML TagPLP falhou!'

@@ -35,4 +35,5 @@ class TagFormaDePagamento(TagBase):
     def get_xml(self):
         aux = str(self.valor) if self.valor[1] else ''
         xml = u'<forma_pagamento>%s</forma_pagamento>' % aux
+        self._validar_xml(xml)
         return xml

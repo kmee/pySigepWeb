@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from src.tag_base import TagBase
+from tag_base import TagBase
 
 
 class Diretoria(TagBase):
@@ -89,8 +89,3 @@ class Diretoria(TagBase):
 
     def get_xml(self):
         return '<numero_diretoria>%d</numero_diretoria>' % self._codigo
-
-
-
-
-
