@@ -67,7 +67,11 @@ class Diretoria(TagBase):
     }
 
     def __init__(self, codigo):
-        self._codigo = codigo
+        if codigo in Diretoria._diretorias:
+            self._codigo = codigo
+        else:
+            print u'[AVISO] O codigo fornecido não é válido! Codigo: ', codigo
+            self._codigo = False
 
     @property
     def descricao(self):
@@ -88,4 +92,4 @@ class Diretoria(TagBase):
         self._codigo = valor
 
     def get_xml(self):
-        return '<numero_diretoria>%d</numero_diretoria>' % self._codigo
+        return '<numero_diretoria>%d</numero_diretoria>' % self.codigo
