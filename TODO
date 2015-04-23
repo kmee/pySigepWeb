@@ -12,3 +12,5 @@ endereços.
  de servico).
 #TODO: Documentacao do modulo python
 #TODO: Implementar instalador
+#TODO: Criar dicionario de dados com significado dos "status do evento"
+retornado pelo rastreamento
