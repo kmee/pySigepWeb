@@ -84,7 +84,7 @@ def main():
     obj_tag_plp = TagPLP(usr.num_cartao_postagem)
     obj_remetente = TagRemetente(usr.nome, usr.num_contrato, usr.codigo_admin,
                                  remetente_endereco,
-                                 Diretoria(Diretoria.DIRETORIA_DR_PARANA),
+                                 Diretoria(100),
                                  telefone=6112345008, email='cli@mail.com.br')
 
     obj_destinatario = TagDestinatario('Destino Ltda', destinatario_endereco,

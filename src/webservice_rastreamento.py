@@ -22,9 +22,6 @@ class WebserviceRastreamento(object):
     }
 
     def __init__(self, obj_usuario):
-        if not isinstance(obj_usuario, Usuario):
-            raise TypeError
-
         self.obj_usuario = obj_usuario
         self.path = ''
 

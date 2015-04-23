@@ -16,30 +16,12 @@ class TagObjetoPostal(TagBase):
                  cubagem=0.0000, numero_comprovante_de_postagem=0,
                  valor_cobrado=0.0, rt1='', rt2=''):
 
-        if not isinstance(obj_destinatario, TagDestinatario):
-            raise TypeError
         self.destinatario = obj_destinatario
-
-        if not isinstance(obj_nacional, TagNacional):
-            raise TypeError
         self.nacional = obj_nacional
-
-        if not isinstance(obj_dimensao_objeto, TagDimensaoObjeto):
-            raise TypeError
         self.dimensao_objeto = obj_dimensao_objeto
-
-        if not isinstance(obj_servico_postagem, ServicoPostagem):
-            raise TypeError
         self.servico_postagem = obj_servico_postagem
-
-        if not isinstance(obj_servico_adicional, TagServicoAdicional):
-            raise TypeError
         self.servico_adicional = obj_servico_adicional
-
-        if not isinstance(ob_etiqueta, Etiqueta):
-            raise TypeError
         self.etiqueta = ob_etiqueta
-
         self.codigo_objeto_cliente = codigo_objeto_cliente
         self.cubagem = cubagem
         self.peso = peso

@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-from endereco import Endereco
 from tag_base import TagBase
 
 
 class TagRemetente(TagBase):
     def __init__(self, nome, num_contrato, codigo_admin, endereco, diretoria,
                  telefone=False, fax=False, email=''):
-
-        if not isinstance(endereco, Endereco):
-            raise TypeError
 
         self.nome = nome
         self.num_contrato = num_contrato

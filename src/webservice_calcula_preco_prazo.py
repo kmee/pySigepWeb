@@ -24,12 +24,9 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
     _URL = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL'
 
     def __init__(self, obj_usuario):
-        if not isinstance(obj_usuario, Usuario):
-            raise TypeError
-
-        self.obj_usuario = obj_usuario
         super(WebserviceCalculaPrecoPrazo, self).__init__(
             WebserviceCalculaPrecoPrazo._URL)
+        self.obj_usuario = obj_usuario
 
     @property
     def url(self):

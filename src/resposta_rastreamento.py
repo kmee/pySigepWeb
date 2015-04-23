@@ -15,7 +15,6 @@ class Destino(object):
 class Evento(object):
 
     def __init__(self, root):
-
         self.tipo = root.find('tipo').text
         self.status = root.find('status').text
         self.data = root.find('data').text

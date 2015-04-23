@@ -14,9 +14,6 @@ class WebserviceAtendeCliente(WebserviceInterface):
     GERADOR_OFFLINE = False
 
     def __init__(self, nome_ambiente, obj_usuario):
-        if not isinstance(obj_usuario, Usuario):
-            raise TypeError
-
         self.obj_usuario = obj_usuario
         amb = FabricaAmbiente.get_ambiente(nome_ambiente)
         super(WebserviceAtendeCliente, self).__init__(amb.url)
