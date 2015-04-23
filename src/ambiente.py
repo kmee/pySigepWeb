@@ -11,8 +11,7 @@ class Ambiente(object):
 class AmbienteHomologacao(Ambiente):
 
     _URL_HOMOLOGACAO = 'https://apphom.correios.com.br/' \
-                       + 'SigepMasterJPA/AtendeClienteService/AtendeCliente' \
-                         '?wsdl'
+                       'SigepMasterJPA/AtendeClienteService/AtendeCliente?wsdl'
 
     def __init__(self):
         super(AmbienteHomologacao, self).__init__()
