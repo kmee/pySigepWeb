@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 from webservice_interface import *
-from usuario import Usuario
 from resposta_calcula_preco_prazo import RespostaCalculaPrecoPrazo
 
 
@@ -76,7 +75,5 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
             return result
 
         except WebFault as exc:
-            print '[ERRO] Em calcula_preco_prazo(). ' + exc.message
-            return None
-
+            raise ErroConexaoComServidor(exc.message)
 

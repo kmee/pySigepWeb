@@ -15,10 +15,10 @@ class WebserviceAtendeCliente(WebserviceInterface):
     def __init__(self, nome_ambiente, obj_usuario):
         self.obj_usuario = obj_usuario
         amb = FabricaAmbiente.get_ambiente(nome_ambiente)
-        url = 'https://github.com/pynocchio'
         super(WebserviceAtendeCliente, self).__init__(amb.url)
 
-    def _formata_cep(self, cep):
+    @staticmethod
+    def _formata_cep(cep):
         return cep.replace('-', '')
 
     def verifica_disponibilidade_servicos(self, lista_servico_postagem,
