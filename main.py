@@ -11,7 +11,7 @@ from src.tag_objeto_postal import *
 from src.tag_correios_log import TagCorreiosLog
 from src.diretoria import Diretoria
 from src.endereco import Endereco
-
+from src.pysigep_exception import *
 
 def main():
 
@@ -21,11 +21,12 @@ def main():
     l = [ServicoPostagem(ServicoPostagem.SERVICO_CARTA_COMERCIAL_A_FATURAR),
          ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)]
 
+    # try:
+    # print u'[INFO] Iniciando Serviço de Atendimento ao  Cliente'
+    sv = WebserviceAtendeCliente(WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
+    # except ErroServidorNaoEncontrado as e:
+    #     print e.message
     print
-    print u'[INFO] Iniciando Serviço de Atendimento ao  Cliente'
-    sv = WebserviceAtendeCliente(WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO,
-                                 usr)
-
     print
     print u'[INFO] Verificando disponibilidade dos serviços:'
     for sp in l:
@@ -33,13 +34,13 @@ def main():
 
     print
     print '[INFO] Resultado da consulta para os cep %s (origem) e %s (' \
-          'destino):' % ('70002900', '74000100')
+          'destino):' % ('70002-900', '74000100')
     print '[INFO] Status da consulta:'
     print sv.verifica_disponibilidade_servicos(l, '70002900', '74000100')
 
     print
     print '[INFO] Consulta cep: %s' % '70002900'
-    end_erp = sv.consulta_cep(70002900)
+    end_erp = sv.consulta_cep('70002900')
     print 'Bairro: ', end_erp.bairro
     print 'CEP:', end_erp.cep
     print 'Cidade: ', end_erp.cidade

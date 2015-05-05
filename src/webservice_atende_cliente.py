@@ -2,7 +2,6 @@
 from webservice_interface import *
 from ambiente import FabricaAmbiente
 import plp_xml_validator
-from usuario import Usuario
 
 
 class WebserviceAtendeCliente(WebserviceInterface):
@@ -16,33 +15,55 @@ class WebserviceAtendeCliente(WebserviceInterface):
     def __init__(self, nome_ambiente, obj_usuario):
         self.obj_usuario = obj_usuario
         amb = FabricaAmbiente.get_ambiente(nome_ambiente)
+        url = 'https://github.com/pynocchio'
         super(WebserviceAtendeCliente, self).__init__(amb.url)
+
+    def _formata_cep(self, cep):
+        return cep.replace('-', '')
 
     def verifica_disponibilidade_servicos(self, lista_servico_postagem,
                                           cep_origem, cep_destino):
+
+        cep_origem_form = self._formata_cep(cep_origem)
+        cep_destino_form = self._formata_cep(cep_destino)
+
+        if len(cep_origem_form) != 8:
+            msg = 'CEP Origem %s com numero incorreto de caracteres. Valor ' \
+                  'correto deve ser 8.' % cep_origem
+            raise ErroTamanhoParamentroIncorreto(msg)
+
+        if len(cep_destino_form) != 8:
+            msg = 'CEP Destino %s com numero incorreto de caracteres. Valor ' \
+                  'correto deve ser 8.' % cep_destino
+            raise ErroTamanhoParamentroIncorreto(msg)
+
         res = {}
         for sp in lista_servico_postagem:
             try:
                 status = self._service.verificaDisponibilidadeServico(
-                    self.obj_usuario.codigo_admin, sp.codigo, cep_origem,
-                    cep_destino, self.obj_usuario.nome, self.obj_usuario.senha)
+                    self.obj_usuario.codigo_admin, sp.codigo, cep_origem_form,
+                    cep_destino_form, self.obj_usuario.nome,
+                    self.obj_usuario.senha)
 
                 res[sp.nome] = status
-            except WebFault as exc:
-                print exc.message
-                print '[ERRO] Em verifica_disponibilidade_servicos(). ' +  \
-                      exp.message
+            except WebFault as e:
+                raise ErroConexaoComServidor(e.message)
 
         return res
 
     def consulta_cep(self, cep):
+
+        if len(cep) != 8:
+            msg = 'CEP fornecido com numero incorreto de digitos. Valor ' \
+                  'correto' \
+                  ' deve ser 8.'
+            raise ErroTamanhoParamentroIncorreto(msg)
+
         try:
             res = self._service.consultaCEP(cep)
             return res
-        except WebFault as exc:
-            print exc.message
-            print '[ERRO] Em consulta_cep(). ' + exp.message
-            return None
+        except WebFault as e:
+            raise ErroConexaoComServidor(e.message)
 
     def consulta_status_cartao_postagem(self):
         try:
@@ -50,10 +71,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
                 self.obj_usuario.num_cartao_postagem, self.obj_usuario.nome,
                 self.obj_usuario.senha)
             return status
-        except WebFault as exc:
-            print exc.message
-            print '[ERRO] Em consulta_status_cartao_postagem(). ' + exp.message
-            return None
+        except WebFault as e:
+            raise ErroConexaoComServidor(e.message)
 
     def solicita_etiquetas(self, servico_id, qtd_etiquetas=1,
                            tipo_destinatario='C'):
@@ -61,9 +80,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
             faixa_etiquetas = self._service.solicitaEtiquetas(
                 tipo_destinatario, self.obj_usuario.cnpj, servico_id,
                 qtd_etiquetas, self.obj_usuario.nome, self.obj_usuario.senha)
-        except WebFault as exc:
-            print '[ERRO] Em solicita_etiquetas(). ' + exc.message
-            return None
+        except WebFault as e:
+            raise ErroConexaoComServidor(e.message)
 
         from src.etiqueta import Etiqueta
 
@@ -104,8 +122,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
                 etiquetas_sem_digito, self.obj_usuario.nome,
                 self.obj_usuario.senha)
         except WebFault as exc:
-            print '[ERRO] Em _gerador_online(). ' + exc.message
-            return []
+            raise ErroConexaoComServidor(exc.message)
 
         return dig_verif_list
 
@@ -140,5 +157,4 @@ class WebserviceAtendeCliente(WebserviceInterface):
                     self.obj_usuario.num_cartao_postagem, etiquetas_sem_digito,
                     self.obj_usuario.nome, self.obj_usuario.senha)
             except WebFault as exc:
-                print '[ERRO] Em fecha_plp_varios_servicos(). ' + exc.message
-                return None
+                raise ErroConexaoComServidor(exc.message)
