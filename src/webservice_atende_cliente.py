@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from webservice_interface import *
 from ambiente import FabricaAmbiente
+from resposta_busca_cliente import *
 import plp_xml_validator
+
 
 
 class WebserviceAtendeCliente(WebserviceInterface):
@@ -50,6 +52,40 @@ class WebserviceAtendeCliente(WebserviceInterface):
                 raise ErroConexaoComServidor(e.message)
 
         return res
+
+    def busca_cliente(self):
+
+        try:
+            result = self._service.buscaCliente(
+                self.obj_usuario.num_contrato,
+                self.obj_usuario.num_cartao_postagem,
+                self.obj_usuario.nome,
+                self.obj_usuario.senha)
+
+            rbc = RespostaBuscaCliente(result.nome,
+                                       result.cnpj,
+                                       result.descricaoStatusCliente)
+
+            for contrato in result.contratos:
+
+                ct = Contrato(contrato.codigoDiretoria)
+
+                for cartao_postagem in contrato.cartoesPostagem:
+
+                    cp = CartaoPostagem(cartao_postagem.statusCartaoPostagem,
+                                        cartao_postagem.codigoAdminstrativo)
+
+                    for servico in cartao_postagem.servicos:
+                        cp.add_servico_postagem(servico.codigo)
+
+                    ct.cartoes_postagem.append(cp)
+
+                rbc.contratos.append(ct)
+
+            return rbc
+
+        except WebFault as e:
+            raise ErroConexaoComServidor(e.message)
 
     def consulta_cep(self, cep):
 
@@ -101,7 +137,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
         return etiquetas
 
     def gera_digito_verificador_etiquetas(self, lista_etiquetas,
-                                          gerador=GERADOR_ONLINE):
+                                          gerador=WebserviceAtendeCliente.GERADOR_ONLINE):
 
         if gerador == WebserviceAtendeCliente.GERADOR_ONLINE:
             return self._gerador_online(lista_etiquetas)
