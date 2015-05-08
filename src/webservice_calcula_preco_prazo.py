@@ -57,7 +57,7 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
 
         cod_servicos = ''
         for obj_servico in lista_obj_servico_postagem:
-            cod_servicos += obj_servico.codigo + ','
+            cod_servicos += str(obj_servico.codigo) + ','
 
         try:
             servicos = self._service.CalcPrecoPrazo(
