@@ -16,7 +16,8 @@ class ResposaFechaPLPVariosServicos(object):
 
         try:
              # Cria backup do xml retornado
-            ElementTree(root).write(path + str(self.id_plp_cliente) + '.xml')
+            ElementTree(root).write(path + 'plp_' + str(self.id_plp_cliente) +
+                                    '.xml')
         except IOError as excp:
             print '[ERROR] ', excp.message
 
