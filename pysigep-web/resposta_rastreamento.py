@@ -58,8 +58,11 @@ class RespostaRastreamento(object):
         # tag raiz do xml
         root = fromstring(xml_retorno)
 
-        # Cria backup do xml retornado
-        ElementTree(root).write(backup_path + etiquetas + '.xml')
+        try:
+             # Cria backup do xml retornado
+            ElementTree(root).write(backup_path + etiquetas + '.xml')
+        except IOError as excp:
+            print '[ERROR] ', excp.message
 
         self.versao = root.find('versao').text
         self.qtd = root.find('qtd').text

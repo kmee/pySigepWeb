@@ -2,6 +2,7 @@
 from webservice_interface import *
 from ambiente import FabricaAmbiente
 from resposta_busca_cliente import *
+from resposta_fecha_plp_varios_servicos import ResposaFechaPLPVariosServicos
 from etiqueta import Etiqueta
 import plp_xml_validator
 
@@ -175,6 +176,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
                                   lista_obj_etiquetas):
 
         etiquetas_sem_digito = []
+
         for i in range(len(obj_correios_log.lista_objeto_postal)):
             # As etiquetas tem de ser enviadas sem o digito verificador
             # e sem o espaco em branco antes do sufixo da etiqueta
@@ -183,10 +185,15 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
         if plp_xml_validator.validate_xml(obj_correios_log.get_xml()):
 
+            xml = obj_correios_log.get_xml()
+
             try:
-                return self._service.fechaPlpVariosServicos(
-                    obj_correios_log.get_xml(), id_plp_cliente,
-                    self.obj_usuario.num_cartao_postagem, etiquetas_sem_digito,
-                    self.obj_usuario.nome, self.obj_usuario.senha)
+                id_plp_cliente = self._service.fechaPlpVariosServicos(
+                    xml, id_plp_cliente, self.obj_usuario.num_cartao_postagem,
+                    etiquetas_sem_digito, self.obj_usuario.nome,
+                    self.obj_usuario.senha)
+
+                return ResposaFechaPLPVariosServicos(xml, id_plp_cliente)
+
             except WebFault as exc:
                 raise ErroConexaoComServidor(exc.message)
