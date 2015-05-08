@@ -2,9 +2,9 @@
 from distutils.core import setup
 
 setup(
-    name='pysigep-web',
+    name='pysigepweb',
     version='Alpha',
-    packages=['pysigep-web'],
+    packages=['pysigepweb'],
     url='',
     license='',
     author='Michell Stuttgart',
