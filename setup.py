@@ -4,7 +4,7 @@ from distutils.core import setup
 setup(
     name='pysigep-web',
     version='Alpha',
-    packages=['src'],
+    packages=['pysigep-web'],
     url='',
     license='',
     author='Michell Stuttgart',
