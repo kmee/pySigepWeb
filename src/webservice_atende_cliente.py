@@ -64,15 +64,19 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
             for contrato in result.contratos:
 
-                ct = Contrato(contrato.codigoDiretoria)
+                ct = Contrato(contrato.codigoDiretoria,
+                              contrato.contratoPK.numero)
 
                 for cartao_postagem in contrato.cartoesPostagem:
 
                     cp = CartaoPostagem(cartao_postagem.statusCartaoPostagem,
-                                        cartao_postagem.codigoAdminstrativo)
+                                        cartao_postagem.codigoAdministrativo,
+                                        cartao_postagem.numero)
 
                     for servico in cartao_postagem.servicos:
-                        cp.add_servico_postagem(servico.codigo)
+                        cp.add_servico_postagem(servico.codigo,
+                                                servico.descricao,
+                                                servico.id)
 
                     ct.cartoes_postagem.append(cp)
 

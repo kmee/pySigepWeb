@@ -18,25 +18,33 @@ def main():
     usr = Usuario('sigep', 'n5f9t8', '34028316000103', '08082650',
                   '9912208555', '0057018901')
 
-    l = [ServicoPostagem(ServicoPostagem.SERVICO_CARTA_COMERCIAL_A_FATURAR),
-         ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)]
+    # l = [ServicoPostagem(ServicoPostagem.SERVICO_CARTA_COMERCIAL_A_FATURAR),
+    #      ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)]
 
     # try:
-    # print u'[INFO] Iniciando Serviço de Atendimento ao  Cliente'
-    sv = WebserviceAtendeCliente(WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
+    print u'[INFO] Iniciando Serviço de Atendimento ao  Cliente'
+    sv = WebserviceAtendeCliente(
+        WebserviceAtendeCliente.AMBIENTE_HOMOLOGACAO, usr)
     # except ErroServidorNaoEncontrado as e:
     #     print e.message
-    print
-    print
-    print u'[INFO] Verificando disponibilidade dos serviços:'
-    for sp in l:
-        print sp.nome
 
     print
+    print 'Cosultando dados do cliente'
+    busca_cliente = sv.busca_cliente()
+
+    print
+    print u'[INFO] Verificando disponibilidade dos serviços:'
     print '[INFO] Resultado da consulta para os cep %s (origem) e %s (' \
           'destino):' % ('70002-900', '74000100')
     print '[INFO] Status da consulta:'
-    print sv.verifica_disponibilidade_servicos(l, '70002900', '74000100')
+    lista_servicos = \
+        busca_cliente.contratos[0].cartoes_postagem[0].servicos_postagem
+    res = sv.verifica_disponibilidade_servicos(lista_servicos,
+                                               '70002900',
+                                               '74000100')
+
+    for serv, status in res.items():
+        print serv, ' ', status
 
     print
     print '[INFO] Consulta cep: %s' % '70002900'
@@ -54,7 +62,9 @@ def main():
     print sv.consulta_status_cartao_postagem()
 
     print
-    sv_postagem = ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)
+    # sv_postagem = ServicoPostagem(ServicoPostagem.SERVICO_PAC_41068)
+    sv_postagem = busca_cliente.contratos[0].cartoes_postagem[
+        0].servicos_postagem[0]
 
     qtd_etiquetas = 3
     print '[INFO] Solicitando %d etiquetas...' % qtd_etiquetas
@@ -67,7 +77,7 @@ def main():
     print
     print '[INFO] Solicitando digito verificador para etiquetas...'
     print sv.gera_digito_verificador_etiquetas(
-        etiquetas, gerador=WebserviceAtendeCliente.GERADOR_OFFLINE)
+        etiquetas, online=False)
 
     remetente_endereco = Endereco(logradouro='Avenida Central', numero=2370,
                                   bairro='Centro', cep=70002900,
@@ -129,7 +139,7 @@ def main():
     print '[INFO] Conectanco com webservice de calculo de prazo e preco'
     calc_preco_prazo = WebserviceCalculaPrecoPrazo(usr)
 
-    retorno = calc_preco_prazo.calcula_preco_prazo(l, '70002900',
+    retorno = calc_preco_prazo.calcula_preco_prazo([sv_postagem], '70002900',
                                                    '74000100', obj_postal.peso,
                                                    obj_dimensao_objeto, True,
                                                    99.00, True)
