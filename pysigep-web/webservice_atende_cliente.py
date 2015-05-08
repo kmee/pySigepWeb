@@ -161,7 +161,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
     @staticmethod
     def _gerador_offline(lista_etiquetas):
-        from src.gerador_digito_verificador import GeradorDigitoVerificador
+        from gerador_digito_verificador import GeradorDigitoVerificador
 
         dig_verif_list = []
 
