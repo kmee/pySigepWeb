@@ -2,6 +2,7 @@
 from webservice_interface import *
 from ambiente import FabricaAmbiente
 from resposta_busca_cliente import *
+from etiqueta import Etiqueta
 import plp_xml_validator
 
 
@@ -118,8 +119,6 @@ class WebserviceAtendeCliente(WebserviceInterface):
                 qtd_etiquetas, self.obj_usuario.nome, self.obj_usuario.senha)
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
-
-        from src.etiqueta import Etiqueta
 
         etiqueta_inicial = faixa_etiquetas.split(',')[0]
         etiqueta_numero = int(etiqueta_inicial[2:10])
