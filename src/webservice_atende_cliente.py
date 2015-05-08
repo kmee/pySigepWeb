@@ -5,14 +5,10 @@ from resposta_busca_cliente import *
 import plp_xml_validator
 
 
-
 class WebserviceAtendeCliente(WebserviceInterface):
 
     AMBIENTE_PRODUCAO = FabricaAmbiente.AMBIENTE_PRODUCAO
     AMBIENTE_HOMOLOGACAO = FabricaAmbiente.AMBIENTE_HOMOLOGACAO
-
-    GERADOR_ONLINE = True
-    GERADOR_OFFLINE = False
 
     def __init__(self, nome_ambiente, obj_usuario):
         self.obj_usuario = obj_usuario
@@ -137,15 +133,12 @@ class WebserviceAtendeCliente(WebserviceInterface):
         return etiquetas
 
     def gera_digito_verificador_etiquetas(self, lista_etiquetas,
-                                          gerador=WebserviceAtendeCliente.GERADOR_ONLINE):
+                                          online=True):
 
-        if gerador == WebserviceAtendeCliente.GERADOR_ONLINE:
+        if online:
             return self._gerador_online(lista_etiquetas)
-        elif gerador == WebserviceAtendeCliente.GERADOR_OFFLINE:
-            return self._gerador_offline(lista_etiquetas)
         else:
-            print u'[ERRO] Opção de gerador inválida!'
-            return []
+            return self._gerador_offline(lista_etiquetas)
 
     def _gerador_online(self, lista_etiquetas):
         etiquetas_sem_digito = []
