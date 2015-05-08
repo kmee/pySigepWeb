@@ -161,13 +161,28 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
     @staticmethod
     def _gerador_offline(lista_etiquetas):
-        from gerador_digito_verificador import GeradorDigitoVerificador
 
         dig_verif_list = []
+        multiplicadores = [8, 6, 4, 2, 3, 5, 9, 7]
 
-        for i in range(len(lista_etiquetas)):
-            dv = GeradorDigitoVerificador.gera_digito_verificador(
-                lista_etiquetas[i].numero)
+        for etq in range(lista_etiquetas):
+
+            soma = 0
+
+            if len(etq.numero) != 8:
+                dv = u'[Erro] Número de digito deve ser 8'
+            else:
+                for i in range(8):
+                    soma += int(etq.numero[i:(i+1)]) * multiplicadores[i]
+
+                resto = soma % 11
+                if resto == 0:
+                    dv = '5'
+                elif resto == 1:
+                    dv = '0'
+                else:
+                    dv = str(11 - resto)
+
             dig_verif_list.append(dv)
 
         return dig_verif_list
