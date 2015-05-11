@@ -4,7 +4,6 @@ from ambiente import FabricaAmbiente
 from resposta_busca_cliente import *
 from resposta_fecha_plp_varios_servicos import ResposaFechaPLPVariosServicos
 from etiqueta import Etiqueta
-import plp_xml_validator
 
 
 class WebserviceAtendeCliente(WebserviceInterface):
@@ -196,10 +195,11 @@ class WebserviceAtendeCliente(WebserviceInterface):
             etq = lista_obj_etiquetas[i].valor
             etiquetas_sem_digito.append(etq.replace(' ', ''))
 
-        if plp_xml_validator.validate_xml(obj_correios_log.get_xml()):
+        # if plp_xml_validator.validate_xml(obj_correios_log.get_xml()):
 
-            xml = obj_correios_log.get_xml()
+        xml = obj_correios_log.get_xml()
 
+        if xml:
             try:
                 id_plp_cliente = self._service.fechaPlpVariosServicos(
                     xml, id_plp_cliente, self.obj_usuario.num_cartao_postagem,

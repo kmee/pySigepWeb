@@ -33,5 +33,7 @@ class TagCorreiosLog(TagBase):
             xml += objeto_postal.get_xml()
         xml += u'</correioslog>'
 
-        self._validar_xml(xml)
-        return xml
+        if self._validar_xml(xml):
+            return xml
+
+        return None
