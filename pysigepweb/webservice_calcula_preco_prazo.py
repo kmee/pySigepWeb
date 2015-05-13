@@ -22,24 +22,18 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
 
     _URL = 'http://ws.correios.com.br/calculador/CalcPrecoPrazo.asmx?WSDL'
 
-    def __init__(self, obj_usuario):
+    def __init__(self):
         super(WebserviceCalculaPrecoPrazo, self).__init__(
             WebserviceCalculaPrecoPrazo._URL)
-        self.obj_usuario = obj_usuario
 
     @property
     def url(self):
         return WebserviceCalculaPrecoPrazo._URL
 
-    def calcula_prazo(self):
-        pass
-
-    def calcula_preco(self):
-        pass
-
     def calcula_preco_prazo(self, lista_obj_servico_postagem, codigo_admin,
-                            cep_origem,  cep_destino, peso, obj_dimensao,
-                            usar_mao_propria, valor_declarado, aviso_recebimento):
+                            cep_origem, cep_destino, peso, obj_dimensao,
+                            usar_mao_propria, valor_declarado,
+                            aviso_recebimento, cliente):
 
         cep_origem = cep_origem.replace('-', '')
         cep_destino = cep_destino.replace('-', '')
@@ -56,15 +50,15 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
             WebserviceCalculaPrecoPrazo._OPCAO[aviso_recebimento]
 
         cod_servicos = ''
-        for obj_servico in lista_obj_servico_postagem:
+        for obj_servico in lista_obj_servico_postagem.values():
             cod_servicos += str(obj_servico.codigo) + ','
 
         try:
             servicos = self._service.CalcPrecoPrazo(
-                codigo_admin, self.obj_usuario.senha,
-                cod_servicos, cep_origem, cep_destino, peso,
-                ncdservico, obj_dimensao.comprimento, obj_dimensao.altura,
-                obj_dimensao.largura, obj_dimensao.diametro, scdmaopropria,
+                codigo_admin, cliente.senha, cod_servicos, cep_origem,
+                cep_destino, peso, ncdservico, obj_dimensao.comprimento,
+                obj_dimensao.altura, obj_dimensao.largura,
+                obj_dimensao.diametro, scdmaopropria,
                 valor_declarado, scdavisorecebimento)
 
             result = []

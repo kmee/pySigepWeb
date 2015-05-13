@@ -58,7 +58,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
     def verifica_disponibilidade_servicos(self, lista_servico_postagem,
                                           codigo_admin, cep_origem,
-                                          cep_destino, login, senha):
+                                          cep_destino, cliente):
 
         cep_origem_form = self._formata_cep(cep_origem)
         cep_destino_form = self._formata_cep(cep_destino)
@@ -79,7 +79,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
             try:
                 status = self._service.verificaDisponibilidadeServico(
                     codigo_admin, sp.codigo, cep_origem_form,
-                    cep_destino_form, login, senha)
+                    cep_destino_form, cliente.login, cliente.senha)
 
                 res[sp.nome] = status
             except WebFault as e:
@@ -100,19 +100,19 @@ class WebserviceAtendeCliente(WebserviceInterface):
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
 
-    def consulta_status_cartao_postagem(self, num_cartao, login, senha):
+    def consulta_status_cartao_postagem(self, num_cartao, cliente):
         try:
             return self._service.getStatusCartaoPostagem(
-                num_cartao, login, senha)
+                num_cartao, cliente.login, cliente.senha)
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
 
-    def solicita_etiquetas(self, servico_id, qtd_etiquetas, cnpj, login,
-                           senha, tipo_destinatario='C'):
+    def solicita_etiquetas(self, servico_id, qtd_etiquetas, cliente,
+                           tipo_destinatario='C'):
         try:
             faixa_etiquetas = self._service.solicitaEtiquetas(
-                tipo_destinatario, cnpj, servico_id, qtd_etiquetas, login,
-                senha)
+                tipo_destinatario, cliente.cnpj, servico_id, qtd_etiquetas,
+                cliente.login, cliente.senha)
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
 
@@ -131,11 +131,11 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
         return etiquetas
 
-    def gera_digito_verificador_etiquetas(self, lista_etiquetas,
-                                          login, senha, online=True):
+    def gera_digito_verificador_etiquetas(self, lista_etiquetas, cliente,
+                                          online=True):
 
         if online:
-            res = self._gerador_online(lista_etiquetas, login, senha)
+            res = self._gerador_online(lista_etiquetas, cliente)
         else:
             res = self._gerador_offline(lista_etiquetas)
 
@@ -144,7 +144,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
         return res
 
-    def _gerador_online(self, lista_etiquetas, login, senha):
+    def _gerador_online(self, lista_etiquetas, cliente):
         etiquetas_sem_digito = []
 
         for etq in lista_etiquetas:
@@ -152,7 +152,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
         try:
             dig_verif_list = self._service.geraDigitoVerificadorEtiquetas(
-                etiquetas_sem_digito, login, senha)
+                etiquetas_sem_digito, cliente.login, cliente.senha)
         except WebFault as exc:
             raise ErroConexaoComServidor(exc.message)
 
@@ -188,7 +188,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
     def fecha_plp_varios_servicos(self, obj_correios_log, id_plp_cliente,
                                   lista_obj_etiquetas, num_cartao_postagem,
-                                  login, senha):
+                                  cliente):
 
         etiquetas_sem_digito = []
 
@@ -206,7 +206,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
             try:
                 id_plp_cliente = self._service.fechaPlpVariosServicos(
                     xml, id_plp_cliente, num_cartao_postagem,
-                    etiquetas_sem_digito, login, senha)
+                    etiquetas_sem_digito, cliente.login, cliente.senha)
 
                 return ResposaFechaPLPVariosServicos(xml, id_plp_cliente)
 

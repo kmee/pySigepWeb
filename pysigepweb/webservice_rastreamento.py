@@ -21,19 +21,19 @@ class WebserviceRastreamento(object):
         RETORNAR_ULTIMO_EVENTO: 'U',
     }
 
-    def __init__(self, obj_usuario):
-        self.obj_usuario = obj_usuario
+    def __init__(self):
+        # self.obj_usuario = obj_usuario
         self.path = ''
 
-    def rastrea_objetos(self, tipo, resultado, lista_etiquetas):
+    def rastrea_objetos(self, tipo, resultado, lista_etiquetas, cliente):
 
         etiquetas = ''
         for etq in lista_etiquetas:
             etiquetas += etq.com_digito_verificador()
 
         params = {
-            "Usuario": self.obj_usuario.nome,
-            "Senha": self.obj_usuario.senha,
+            "Usuario": cliente.login,
+            "Senha": cliente.senha,
             'Tipo': WebserviceRastreamento._constantes[tipo],
             'Resultado': WebserviceRastreamento._constantes[resultado],
             'Objetos': etiquetas,
