@@ -20,7 +20,6 @@ class WebserviceRastreamento(object):
     }
 
     def __init__(self):
-        # self.obj_usuario = obj_usuario
         self.path = ''
 
     def rastrea_objetos(self, tipo, resultado, lista_etiquetas, cliente):
