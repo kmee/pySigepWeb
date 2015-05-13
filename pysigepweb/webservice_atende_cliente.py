@@ -58,17 +58,15 @@ class WebserviceAtendeCliente(WebserviceInterface):
     def busca_cliente(self, num_contrato, num_cartao_postagem, login, senha):
 
         try:
-            result = self._service.buscaCliente('9912208555',
-                                                '0057018901',
-                                                'sigep',
-                                                'n5f9t8')
+            res = self._service.buscaCliente(num_contrato, num_cartao_postagem,
+                                             login, senha)
 
-            rbc = Cliente(
-                self._convert_to_python_string(result.nome),
-                self._convert_to_python_string(result.cnpj),
-                self._convert_to_python_string(result.descricaoStatusCliente))
+            cliente = Cliente(
+                self._convert_to_python_string(res.nome),
+                self._convert_to_python_string(res.cnpj),
+                self._convert_to_python_string(res.descricaoStatusCliente))
 
-            for contrato in result.contratos:
+            for contrato in res.contratos:
 
                 ct = Contrato(
                     self._convert_to_python_string(contrato.codigoDiretoria),
@@ -90,9 +88,9 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
                     ct.cartoes_postagem[cp.numero] = cp
 
-                rbc.contratos[ct.id_contrato] = ct
+                cliente.contratos[ct.id_contrato] = ct
 
-            return rbc
+            return cliente
 
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)

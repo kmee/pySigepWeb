@@ -28,7 +28,7 @@ class Contrato(object):
 
 
 class Cliente(object):
-    
+
     def __init__(self, nome, cnpj, descricao_status_cliente):
         self.nome = nome
         self.cnpj = cnpj
