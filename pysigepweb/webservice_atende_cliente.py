@@ -23,11 +23,9 @@ class WebserviceAtendeCliente(WebserviceInterface):
                                              num_cartao_postagem,
                                              login, senha)
 
-            cliente = Cliente(
-                self._convert_to_python_string(res.nome),
-                self._convert_to_python_string(senha),
-                self._convert_to_python_string(res.cnpj),
-                self._convert_to_python_string(res.descricaoStatusCliente))
+            cliente = Cliente(res.nome, login, senha,
+                              self._convert_to_python_string(res.cnpj),
+                              res.descricaoStatusCliente)
 
             for contrato in res.contratos:
 

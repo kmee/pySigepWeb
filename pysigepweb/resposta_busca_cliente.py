@@ -29,7 +29,8 @@ class Contrato(object):
 
 class Cliente(object):
 
-    def __init__(self, login, senha, cnpj, descricao_status_cliente):
+    def __init__(self, nome, login, senha, cnpj, descricao_status_cliente):
+        self.nome = nome
         self.login = login
         self.cnpj = cnpj
         self.status = descricao_status_cliente
