@@ -25,6 +25,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
             cliente = Cliente(
                 self._convert_to_python_string(res.nome),
+                self._convert_to_python_string(senha),
                 self._convert_to_python_string(res.cnpj),
                 self._convert_to_python_string(res.descricaoStatusCliente))
 

@@ -29,10 +29,11 @@ class Contrato(object):
 
 class Cliente(object):
 
-    def __init__(self, login, cnpj, descricao_status_cliente):
+    def __init__(self, login, senha, cnpj, descricao_status_cliente):
         self.login = login
         self.cnpj = cnpj
         self.status = descricao_status_cliente
+        self.senha = senha
 
         # chave:id do contrato
         self.contratos = {}
