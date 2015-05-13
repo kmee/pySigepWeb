@@ -135,7 +135,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
                                           login, senha, online=True):
 
         if online:
-            res = self._gerador_online(lista_etiquetas)
+            res = self._gerador_online(lista_etiquetas, login, senha)
         else:
             res = self._gerador_offline(lista_etiquetas)
 
