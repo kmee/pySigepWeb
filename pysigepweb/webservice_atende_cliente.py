@@ -137,9 +137,12 @@ class WebserviceAtendeCliente(WebserviceInterface):
                                           online=True):
 
         if online:
-            return self._gerador_online(lista_etiquetas)
+            res = self._gerador_online(lista_etiquetas)
         else:
-            return self._gerador_offline(lista_etiquetas)
+            res = self._gerador_offline(lista_etiquetas)
+
+        for index, digito in enumerate(res):
+            lista_etiquetas[index].digito_verificador = digito
 
     def _gerador_online(self, lista_etiquetas):
         etiquetas_sem_digito = []

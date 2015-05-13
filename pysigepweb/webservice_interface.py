@@ -22,6 +22,6 @@ class WebserviceInterface(object):
         try:
             self._service = client.Client(url).service
         except client.TransportError as e:
-            # print "[ERRO] Erro em __init__. %s" % e.message
+            print "[ERRO] Erro em __init__. %s" % e.message
             # exit(e.message)
             raise ErroConexaoComServidor(e.message)
