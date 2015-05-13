@@ -52,7 +52,7 @@ class Etiqueta(object):
 
     def com_digito_verificador(self):
         etq = self._valor
-        if self._digito_verificador:
-            etq.replace(' ', str(self._digito_verificador))
+        if self.digito_verificador:
+            etq = etq.replace(' ', str(self.digito_verificador))
         return etq
 
