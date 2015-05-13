@@ -1,7 +1,5 @@
 # -*- coding: utf-8 -*-
 import urllib
-
-from usuario import Usuario
 from resposta_rastreamento import *
 
 
