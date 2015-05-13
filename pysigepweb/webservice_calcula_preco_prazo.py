@@ -37,9 +37,9 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
     def calcula_preco(self):
         pass
 
-    def calcula_preco_prazo(self, lista_obj_servico_postagem, cep_origem,
-                            cep_destino, peso, obj_dimensao, usar_mao_propria,
-                            valor_declarado, aviso_recebimento):
+    def calcula_preco_prazo(self, lista_obj_servico_postagem, codigo_admin,
+                            cep_origem,  cep_destino, peso, obj_dimensao,
+                            usar_mao_propria, valor_declarado, aviso_recebimento):
 
         cep_origem = cep_origem.replace('-', '')
         cep_destino = cep_destino.replace('-', '')
@@ -61,7 +61,7 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
 
         try:
             servicos = self._service.CalcPrecoPrazo(
-                self.obj_usuario.codigo_admin, self.obj_usuario.senha,
+                codigo_admin, self.obj_usuario.senha,
                 cod_servicos, cep_origem, cep_destino, peso,
                 ncdservico, obj_dimensao.comprimento, obj_dimensao.altura,
                 obj_dimensao.largura, obj_dimensao.diametro, scdmaopropria,

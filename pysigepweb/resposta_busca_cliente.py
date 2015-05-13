@@ -12,7 +12,6 @@ class CartaoPostagem(object):
         self.servicos_postagem = []
 
     def add_servico_postagem(self, codigo, nome, servico_id):
-        # self.servicos_postagem.append(ServicoPostagem(int(codigo)))
         self.servicos_postagem.append(ServicoPostagem(int(codigo),
                                                       nome,
                                                       servico_id))

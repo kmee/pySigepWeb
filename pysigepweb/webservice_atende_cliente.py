@@ -20,8 +20,13 @@ class WebserviceAtendeCliente(WebserviceInterface):
     def _formata_cep(cep):
         return cep.replace('-', '')
 
+    @staticmethod
+    def _convert_to_python_string(text):
+        return str(text).replace(' ', '')
+
     def verifica_disponibilidade_servicos(self, lista_servico_postagem,
-                                          cep_origem, cep_destino):
+                                          codigo_admin, cep_origem,
+                                          cep_destino):
 
         cep_origem_form = self._formata_cep(cep_origem)
         cep_destino_form = self._formata_cep(cep_destino)
@@ -40,7 +45,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
         for sp in lista_servico_postagem:
             try:
                 status = self._service.verificaDisponibilidadeServico(
-                    self.obj_usuario.codigo_admin, sp.codigo, cep_origem_form,
+                    codigo_admin, sp.codigo, cep_origem_form,
                     cep_destino_form, self.obj_usuario.nome,
                     self.obj_usuario.senha)
 
@@ -59,25 +64,30 @@ class WebserviceAtendeCliente(WebserviceInterface):
                 self.obj_usuario.nome,
                 self.obj_usuario.senha)
 
-            rbc = RespostaBuscaCliente(result.nome,
-                                       result.cnpj,
-                                       result.descricaoStatusCliente)
+            rbc = RespostaBuscaCliente(
+                self._convert_to_python_string(result.nome),
+                self._convert_to_python_string(result.cnpj),
+                self._convert_to_python_string(result.descricaoStatusCliente))
 
             for contrato in result.contratos:
 
-                ct = Contrato(contrato.codigoDiretoria,
-                              contrato.contratoPK.numero)
+                ct = Contrato(
+                    self._convert_to_python_string(contrato.codigoDiretoria),
+                    self._convert_to_python_string(contrato.contratoPK.numero))
 
                 for cartao_postagem in contrato.cartoesPostagem:
 
-                    cp = CartaoPostagem(cartao_postagem.statusCartaoPostagem,
-                                        cartao_postagem.codigoAdministrativo,
-                                        cartao_postagem.numero)
+                    cp = CartaoPostagem(
+                        cartao_postagem.statusCartaoPostagem,
+                        self._convert_to_python_string(
+                            cartao_postagem.codigoAdministrativo),
+                        self._convert_to_python_string(cartao_postagem.numero))
 
                     for servico in cartao_postagem.servicos:
-                        cp.add_servico_postagem(servico.codigo,
-                                                servico.descricao,
-                                                servico.id)
+                        cp.add_servico_postagem(
+                            self._convert_to_python_string(servico.codigo),
+                            self._convert_to_python_string(servico.descricao),
+                            self._convert_to_python_string(servico.id))
 
                     ct.cartoes_postagem.append(cp)
 
@@ -143,6 +153,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
         for index, digito in enumerate(res):
             lista_etiquetas[index].digito_verificador = digito
+
+        return res
 
     def _gerador_online(self, lista_etiquetas):
         etiquetas_sem_digito = []
