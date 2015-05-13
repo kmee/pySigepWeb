@@ -3,8 +3,7 @@
 
 class Usuario(object):
 
-    def __init__(self, nome, senha, cnpj, num_contrato,
-                 num_cartao_postagem):
+    def __init__(self, nome, senha, cnpj, num_contrato, num_cartao_postagem):
         self.nome = nome
         self.senha = senha
         self.num_contrato = num_contrato

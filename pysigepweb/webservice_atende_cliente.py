@@ -42,7 +42,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
             raise ErroTamanhoParamentroIncorreto(msg)
 
         res = {}
-        for sp in lista_servico_postagem:
+        for key, sp in lista_servico_postagem.items():
             try:
                 status = self._service.verificaDisponibilidadeServico(
                     codigo_admin, sp.codigo, cep_origem_form,
@@ -55,16 +55,15 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
         return res
 
-    def busca_cliente(self):
+    def busca_cliente(self, num_contrato, num_cartao_postagem, login, senha):
 
         try:
-            result = self._service.buscaCliente(
-                self.obj_usuario.num_contrato,
-                self.obj_usuario.num_cartao_postagem,
-                self.obj_usuario.nome,
-                self.obj_usuario.senha)
+            result = self._service.buscaCliente('9912208555',
+                                                '0057018901',
+                                                'sigep',
+                                                'n5f9t8')
 
-            rbc = RespostaBuscaCliente(
+            rbc = Cliente(
                 self._convert_to_python_string(result.nome),
                 self._convert_to_python_string(result.cnpj),
                 self._convert_to_python_string(result.descricaoStatusCliente))
@@ -89,9 +88,9 @@ class WebserviceAtendeCliente(WebserviceInterface):
                             self._convert_to_python_string(servico.descricao),
                             self._convert_to_python_string(servico.id))
 
-                    ct.cartoes_postagem.append(cp)
+                    ct.cartoes_postagem[cp.numero] = cp
 
-                rbc.contratos.append(ct)
+                rbc.contratos[ct.id_contrato] = ct
 
             return rbc
 
