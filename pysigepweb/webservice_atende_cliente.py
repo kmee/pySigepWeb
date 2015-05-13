@@ -24,41 +24,11 @@ class WebserviceAtendeCliente(WebserviceInterface):
     def _convert_to_python_string(text):
         return str(text).replace(' ', '')
 
-    def verifica_disponibilidade_servicos(self, lista_servico_postagem,
-                                          codigo_admin, cep_origem,
-                                          cep_destino):
-
-        cep_origem_form = self._formata_cep(cep_origem)
-        cep_destino_form = self._formata_cep(cep_destino)
-
-        if len(cep_origem_form) != 8:
-            msg = 'CEP Origem %s com numero incorreto de caracteres. Valor ' \
-                  'correto deve ser 8.' % cep_origem
-            raise ErroTamanhoParamentroIncorreto(msg)
-
-        if len(cep_destino_form) != 8:
-            msg = 'CEP Destino %s com numero incorreto de caracteres. Valor ' \
-                  'correto deve ser 8.' % cep_destino
-            raise ErroTamanhoParamentroIncorreto(msg)
-
-        res = {}
-        for key, sp in lista_servico_postagem.items():
-            try:
-                status = self._service.verificaDisponibilidadeServico(
-                    codigo_admin, sp.codigo, cep_origem_form,
-                    cep_destino_form, self.obj_usuario.nome,
-                    self.obj_usuario.senha)
-
-                res[sp.nome] = status
-            except WebFault as e:
-                raise ErroConexaoComServidor(e.message)
-
-        return res
-
     def busca_cliente(self, num_contrato, num_cartao_postagem, login, senha):
 
         try:
-            res = self._service.buscaCliente(num_contrato, num_cartao_postagem,
+            res = self._service.buscaCliente(num_contrato,
+                                             num_cartao_postagem,
                                              login, senha)
 
             cliente = Cliente(
@@ -95,6 +65,37 @@ class WebserviceAtendeCliente(WebserviceInterface):
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
 
+    def verifica_disponibilidade_servicos(self, lista_servico_postagem,
+                                          codigo_admin, cep_origem,
+                                          cep_destino):
+
+        cep_origem_form = self._formata_cep(cep_origem)
+        cep_destino_form = self._formata_cep(cep_destino)
+
+        if len(cep_origem_form) != 8:
+            msg = 'CEP Origem %s com numero incorreto de caracteres. Valor ' \
+                  'correto deve ser 8.' % cep_origem
+            raise ErroTamanhoParamentroIncorreto(msg)
+
+        if len(cep_destino_form) != 8:
+            msg = 'CEP Destino %s com numero incorreto de caracteres. Valor ' \
+                  'correto deve ser 8.' % cep_destino
+            raise ErroTamanhoParamentroIncorreto(msg)
+
+        res = {}
+        for key, sp in lista_servico_postagem.items():
+            try:
+                status = self._service.verificaDisponibilidadeServico(
+                    codigo_admin, sp.codigo, cep_origem_form,
+                    cep_destino_form, self.obj_usuario.nome,
+                    self.obj_usuario.senha)
+
+                res[sp.nome] = status
+            except WebFault as e:
+                raise ErroConexaoComServidor(e.message)
+
+        return res
+    
     def consulta_cep(self, cep):
 
         if len(cep) != 8:
