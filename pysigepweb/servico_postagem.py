@@ -55,14 +55,17 @@ class ServicoPostagem(object):
                                              116985),
     }
 
-    def __init__(self, codigo, nome, servico_id):
+    def __init__(self, codigo, descricao, servico_id):
         self._codigo = codigo
 
         if codigo in ServicoPostagem._servicos:
             self._nome = ServicoPostagem._servicos[codigo][0]
         else:
-            self._nome = nome
+            # Caso o servico nao esteja listado em _servicos
+            # usamos a descricao do servico como nome
+            self._nome = descricao
         self._servico_postagem_id = servico_id
+        self._descricao = descricao
 
     @property
     def nome(self):
@@ -76,10 +79,6 @@ class ServicoPostagem(object):
     def codigo(self):
         return self._codigo
 
-    # @codigo.setter
-    # def codigo(self, valor):
-    #     if valor not in self._servicos:
-    #         raise KeyError
-    #     self._codigo = valor
-    #     self._nome = self._servicos[self.codigo][0]
-    #     self._servico_postagem_id = self._servicos[self.codigo][1]
+    @property
+    def descricao(self):
+        return self._descricao
