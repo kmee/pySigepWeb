@@ -12,7 +12,6 @@ class WebserviceAtendeCliente(WebserviceInterface):
     AMBIENTE_HOMOLOGACAO = FabricaAmbiente.AMBIENTE_HOMOLOGACAO
 
     def __init__(self, nome_ambiente):
-        # self.cliente = cliente
         amb = FabricaAmbiente.get_ambiente(nome_ambiente)
         super(WebserviceAtendeCliente, self).__init__(amb.url)
 
@@ -44,7 +43,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
                     for servico in cartao_postagem.servicos:
                         cp.add_servico_postagem(
                             self._convert_to_python_string(servico.codigo),
-                            self._convert_to_python_string(servico.descricao),
+                            servico.descricao,
                             self._convert_to_python_string(servico.id))
 
                     ct.cartoes_postagem[cp.numero] = cp
