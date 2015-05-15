@@ -86,7 +86,7 @@ class ServicoPostagem(object):
             # Caso o servico nao esteja listado em _servicos
             # usamos a descricao do servico como nome
             self._nome = descricao
-        self._servico_postagem_id = servico_id
+        self._identificador = servico_id
         self._descricao = descricao
 
     @property
@@ -94,8 +94,8 @@ class ServicoPostagem(object):
         return self._nome
 
     @property
-    def servico_postagem_id(self):
-        return self._servico_postagem_id
+    def identificador(self):
+        return self._identificador
 
     @property
     def codigo(self):
