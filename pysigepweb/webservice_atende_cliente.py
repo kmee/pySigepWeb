@@ -1,4 +1,27 @@
 # -*- coding: utf-8 -*-
+# #############################################################################
+#
+#    Brazillian Carrier Correios Sigep WEB
+#    Copyright (C) 2015 KMEE (http://www.kmee.com.br)
+#    @author: Michell Stuttgart <michell.stuttgart@kmee.com.br>
+#
+#    Sponsored by Europestar www.europestar.com.br
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU Affero General Public License for more details.
+#
+#    You should have received a copy of the GNU Affero General Public License
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+##############################################################################
+
 from webservice_interface import *
 from ambiente import FabricaAmbiente
 from resposta_busca_cliente import *
@@ -22,9 +45,9 @@ class WebserviceAtendeCliente(WebserviceInterface):
                                              num_cartao_postagem,
                                              login, senha)
 
-            cliente = Cliente(res.nome, login, senha,
+            cliente = Cliente(str(res.nome), login, senha,
                               self._convert_to_python_string(res.cnpj),
-                              res.descricaoStatusCliente)
+                              str(res.descricaoStatusCliente))
 
             for contrato in res.contratos:
 
@@ -43,7 +66,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
                     for servico in cartao_postagem.servicos:
                         cp.add_servico_postagem(
                             self._convert_to_python_string(servico.codigo),
-                            servico.descricao,
+                            str(servico.descricao),
                             self._convert_to_python_string(servico.id))
 
                     ct.cartoes_postagem[cp.numero] = cp
@@ -80,7 +103,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
                     codigo_admin, sp.codigo, cep_origem_form,
                     cep_destino_form, cliente.login, cliente.senha)
 
-                res[sp.nome] = status
+                res[sp.nome] = str(status)
             except WebFault as e:
                 raise ErroConexaoComServidor(e.message)
 
@@ -101,8 +124,9 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
     def consulta_status_cartao_postagem(self, num_cartao, cliente):
         try:
-            return self._service.getStatusCartaoPostagem(
-                num_cartao, cliente.login, cliente.senha)
+            return str(self._service.getStatusCartaoPostagem(num_cartao,
+                                                             cliente.login,
+                                                             cliente.senha))
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
 
