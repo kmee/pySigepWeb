@@ -22,6 +22,8 @@
 #
 ##############################################################################
 
+from pysigep_web.pysigepweb.pysigep_exception import ErroTamanhoParamentroIncorreto
+
 
 class Etiqueta(object):
 
@@ -30,11 +32,11 @@ class Etiqueta(object):
         if len(etiqueta_sem_dig_verif) != 13:
             print '[AVISO] Etiqueta com tamanho incorreto.',
 
-        self._valor = etiqueta_sem_dig_verif
         self._digito_verificador = False
         self._numero = etiqueta_sem_dig_verif[2:10]
         self._prefixo = etiqueta_sem_dig_verif[0:2]
-        self._sufixo = etiqueta_sem_dig_verif[10:]
+        self._sufixo = etiqueta_sem_dig_verif[11:]
+        self._valor = self._prefixo + self._numero + ' ' + self._sufixo
 
     @property
     def valor(self):
@@ -44,13 +46,15 @@ class Etiqueta(object):
     def valor(self, etiqueta_sem_dig_verif):
 
         if len(etiqueta_sem_dig_verif) != 13:
-            print '[AVISO] Etiqueta com tamanho incorreto. ', \
-                etiqueta_sem_dig_verif
+            aux = '[AVISO] Etiqueta com tamanho incorreto: %s' % \
+                  etiqueta_sem_dig_verif
+            raise ErroTamanhoParamentroIncorreto(aux)
 
-        self._valor = etiqueta_sem_dig_verif
+        # self._valor = etiqueta_sem_dig_verif
         self._numero = etiqueta_sem_dig_verif[2:10]
         self._prefixo = etiqueta_sem_dig_verif[0:2]
-        self._sufixo = etiqueta_sem_dig_verif[10:]
+        self._sufixo = etiqueta_sem_dig_verif[11:]
+        self._valor = self._prefixo + self._numero + ' ' + self._sufixo
 
     @property
     def digito_verificador(self):

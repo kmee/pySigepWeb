@@ -81,18 +81,30 @@ class RespostaRastreamento(object):
         # tag raiz do xml
         root = fromstring(xml_retorno)
 
-        try:
-             # Cria backup do xml retornado
-            ElementTree(root).write(backup_path + etiquetas + '.xml')
-        except IOError as excp:
-            print '[ERROR] ', excp.message
+        # try:
+        #      # Cria backup do xml retornado
+        #     ElementTree(root).write(backup_path + etiquetas + '.xml')
+        # except IOError as excp:
+        #     print '[ERROR] ', excp.message
 
+        self.error = ''
         self.versao = root.find('versao').text
-        self.qtd = root.find('qtd').text
-        self.tipo_pesquisa = root.find('TipoPesquisa').text
-        self.tipo_resultado = root.find('TipoResultado').text
+        self.qtd = 0
+        self.tipo_pesquisa = ''
+        self.tipo_resultado = ''
         self.objetos = {}
 
-        for obj in root.findall('objeto'):
-            aux = Objeto(obj)
-            self.objetos[aux.numero] = aux
+        self._parse(root)
+
+    def _parse(self, root):
+
+        self.error = root.find('error')
+
+        if self.error == '0':
+            self.qtd = root.find('qtd').text
+            self.tipo_pesquisa = root.find('TipoPesquisa').text
+            self.tipo_resultado = root.find('TipoResultado').text
+
+            for obj in root.findall('objeto'):
+                aux = Objeto(obj)
+                self.objetos[aux.numero] = aux
