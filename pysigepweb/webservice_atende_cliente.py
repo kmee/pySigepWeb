@@ -130,12 +130,12 @@ class WebserviceAtendeCliente(WebserviceInterface):
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
 
-    def solicita_etiquetas(self, servico_id, qtd_etiquetas, cliente,
+    def solicita_etiquetas(self, servico_postagem, qtd_etiquetas, cliente,
                            tipo_destinatario='C'):
         try:
             faixa_etiquetas = self._service.solicitaEtiquetas(
-                tipo_destinatario, cliente.cnpj, servico_id, qtd_etiquetas,
-                cliente.login, cliente.senha)
+                tipo_destinatario, cliente.cnpj, servico_postagem.identificador,
+                qtd_etiquetas, cliente.login, cliente.senha)
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
 
