@@ -77,17 +77,20 @@ class ServicoPostagem(object):
                                              116985),
     }
 
-    def __init__(self, codigo, descricao, servico_id):
-        self._codigo = codigo
+    def __init__(self, codigo, descricao='', servico_id=000000):
+
+        self._codigo = int(codigo)
 
         if codigo in ServicoPostagem._servicos:
             self._nome = ServicoPostagem._servicos[codigo][0]
+            self._identificador = ServicoPostagem._servicos[codigo][1]
+            self._descricao = ServicoPostagem._servicos[codigo][0]
         else:
             # Caso o servico nao esteja listado em _servicos
             # usamos a descricao do servico como nome
             self._nome = descricao
-        self._identificador = servico_id
-        self._descricao = descricao
+            self._identificador = int(servico_id)
+            self._descricao = descricao
 
     @property
     def nome(self):

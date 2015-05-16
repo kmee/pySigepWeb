@@ -63,7 +63,6 @@ class Cliente(object):
         cnpj = cnpj.replace('-', '')
         self.cnpj = cnpj
 
-
         # chave:id do contrato
         self.contratos = {}
 
