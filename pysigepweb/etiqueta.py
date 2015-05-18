@@ -32,11 +32,15 @@ class Etiqueta(object):
         if len(etiqueta_sem_dig_verif) != 13:
             print '[AVISO] Etiqueta com tamanho incorreto.',
 
-        self._digito_verificador = None
         self._numero = etiqueta_sem_dig_verif[2:10]
         self._prefixo = etiqueta_sem_dig_verif[0:2]
         self._sufixo = etiqueta_sem_dig_verif[11:]
         self._valor = self._prefixo + self._numero + ' ' + self._sufixo
+
+        if etiqueta_sem_dig_verif[10] != ' ':
+            self._digito_verificador = etiqueta_sem_dig_verif[10]
+        else:
+            self._digito_verificador = None
 
     @property
     def valor(self):

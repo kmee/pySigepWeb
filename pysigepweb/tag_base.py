@@ -24,6 +24,7 @@
 
 from lxml import etree
 import os, sys
+from xsd import *
 
 
 class TagBase(object):
@@ -39,7 +40,8 @@ class TagBase(object):
             tree = etree.fromstring(xml.encode('utf8'))
 
             if self.XLM_SCHEMA is None:
-                xsd = open(sys.path[0] +  '/pysigep_web/pysigepweb/data/plp_valid.xsd').read()
+                # xsd = open(sys.path[0] + '/pysigep_web/pysigepweb/data/plp_valid.xsd').read()
+                xsd = get_xsd()
                 schema_tree = etree.fromstring(xsd)
                 self.XLM_SCHEMA = etree.XMLSchema(schema_tree)
 
