@@ -25,7 +25,7 @@
 from webservice_interface import *
 from ambiente import FabricaAmbiente
 from resposta_busca_cliente import *
-from resposta_fecha_plp_varios_servicos import ResposaFechaPLPVariosServicos
+from resposta_fecha_plp_varios_servicos import RespostaFechaPLPVariosServicos
 from etiqueta import Etiqueta
 
 
@@ -221,8 +221,6 @@ class WebserviceAtendeCliente(WebserviceInterface):
             etq = lista_obj_etiquetas[i].valor
             etiquetas_sem_digito.append(etq.replace(' ', ''))
 
-        # if plp_xml_validator.validate_xml(obj_correios_log.get_xml()):
-
         xml = obj_correios_log.get_xml()
 
         if xml:
@@ -231,7 +229,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
                     xml, id_plp_cliente, num_cartao_postagem,
                     etiquetas_sem_digito, cliente.login, cliente.senha)
 
-                return ResposaFechaPLPVariosServicos(xml, id_plp_cliente)
+                return RespostaFechaPLPVariosServicos(xml, id_plp_cliente)
 
             except WebFault as exc:
                 raise ErroConexaoComServidor(exc.message)
