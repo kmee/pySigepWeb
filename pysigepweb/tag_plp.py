@@ -27,9 +27,9 @@ from tag_base import TagBase
 
 class TagPLP(TagBase):
 
-    def __init__(self, cartao_postagem, id_lpl=False, valor_global=0.00,
+    def __init__(self, cartao_postagem, valor_global=0.00,
                  mcu_unidade_postagem='', nome_unidade_postagem=''):
-        self.id_lpl = id_lpl
+        self.id_lpl = False
         self.valor_global = valor_global
         self.mcu_unidade_postagem = mcu_unidade_postagem
         self.nome_unidade_postagem = nome_unidade_postagem
