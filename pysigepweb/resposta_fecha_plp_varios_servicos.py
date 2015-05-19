@@ -23,7 +23,7 @@
 ##############################################################################
 
 
-class ResposaFechaPLPVariosServicos(object):
+class RespostaFechaPLPVariosServicos(object):
 
     def __init__(self, xml, id_plp_cliente):
         self._xml = xml
