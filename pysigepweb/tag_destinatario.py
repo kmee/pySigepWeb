@@ -21,8 +21,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-from endereco import Endereco
 from tag_base import TagBase
 
 
@@ -31,9 +29,16 @@ class TagDestinatario(TagBase):
     def __init__(self, nome, endereco, telefone=False, celular=False, email=''):
         self.nome = nome
         self.endereco = endereco
-        self.telefone = telefone
         self.celular = celular
         self.email = email
+
+        if telefone:
+            telefone = telefone.replace('-', '')
+            telefone = telefone.replace(' ', '')
+            telefone = telefone.replace('(', '')
+            telefone = telefone.replace(')', '')
+
+        self._telefone = telefone
 
     @property
     def logradouro(self):
@@ -90,6 +95,18 @@ class TagDestinatario(TagBase):
     @complemento.setter
     def complemento(self, valor):
         self.endereco.complemento = valor
+
+    @property
+    def telefone(self):
+        return self._telefone
+
+    @telefone.setter
+    def telefone(self, value):
+        value = value.replace('-', '')
+        value = value.replace(' ', '')
+        value = value.replace('(', '')
+        value = value.replace(')', '')
+        self._telefone = value
 
     def get_xml(self):
 
