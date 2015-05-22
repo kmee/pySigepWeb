@@ -52,3 +52,6 @@ class ErroTamanhoParamentroIncorreto(SigepWEBBaseException):
         return repr(self.message)
 
 
+class ErroValidacaoXML(SigepWEBBaseException):
+    def __str__(self):
+        return repr(self.message)
