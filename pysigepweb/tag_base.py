@@ -25,6 +25,7 @@
 from lxml import etree
 import os, sys
 from xsd import *
+from pysigep_exception import ErroValidacaoXML
 
 
 class TagBase(object):
@@ -32,40 +33,26 @@ class TagBase(object):
     XLM_SCHEMA = None
 
     def get_xml(self):
-        raise NotImplementedError(u"[WARNING]Método deve ser sobreescrito!")
+        raise NotImplementedError(u"[WARNING] Método deve ser sobreescrito!")
 
     def _validar_xml(self, xml):
 
-        try:
-            tree = etree.fromstring(xml.encode('utf8'))
+        schema_tree = etree.fromstring(get_xsd())
+        schema = etree.XMLSchema(schema_tree)
 
-            if self.XLM_SCHEMA is None:
-                # xsd = open(sys.path[0] + '/pysigep_web/pysigepweb/data/plp_valid.xsd').read()
-                xsd = get_xsd()
-                schema_tree = etree.fromstring(xsd)
-                self.XLM_SCHEMA = etree.XMLSchema(schema_tree)
+        source = etree.fromstring(xml.encode('utf8'))
 
-            self.XLM_SCHEMA.assertValid(tree)
-
+        if schema.validate(source):
             print '[INFO] XML %s validado com sucesso!' % \
                   self.__class__.__name__
-
             return True
 
-        except etree.XMLSyntaxError as e:
-            print "[ERRO] Erro de parsing no xml", e
-            print u'[ERRO] Validação de XML %s falhou!' % \
-                  self.__class__.__name__
-            return False
+        else:
+            msg = u'[ERRO] Validação de XML %s falhou!' % \
+                  self.__class__.__name__ + '\n'
+            log = schema.error_log
+            for error in iter(log):
+                msg += "\n[ERROR]: " + error.message
 
-        except etree.DocumentInvalid as e:
-            print '[ERRO] Erro validação XML fechaPLP', e
-            print u'[ERRO] Validação de XML %s falhou!' % \
-                  self.__class__.__name__
-            return False
-
-        except AssertionError as e:
-            print "[ERRO] Documento Invalido", e
-            print u'[ERRO] Validação de XML %s falhou!' % \
-                  self.__class__.__name__
-            return False
+            print msg
+            raise ErroValidacaoXML(msg)
