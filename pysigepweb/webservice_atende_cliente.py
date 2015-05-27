@@ -154,6 +154,18 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
         return etiquetas
 
+    def solicita_intervalo_etiquetas(self, servico_postagem, qtd_etiquetas,
+                                     cliente,  tipo_destinatario='C'):
+
+        try:
+            faixa_etiquetas = self._service.solicitaEtiquetas(
+                tipo_destinatario, cliente.cnpj, servico_postagem.identificador,
+                qtd_etiquetas, cliente.login, cliente.senha)
+        except WebFault as e:
+            raise ErroConexaoComServidor(e.message)
+
+        return faixa_etiquetas
+
     def gera_digito_verificador_etiquetas(self, lista_etiquetas, cliente,
                                           online=True):
 
