@@ -85,4 +85,4 @@ class Etiqueta(object):
         if self.digito_verificador is not None:
             etq = etq.replace(' ', str(self.digito_verificador))
         return etq
-
+    

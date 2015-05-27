@@ -25,8 +25,9 @@
 from webservice_interface import *
 from ambiente import FabricaAmbiente
 from resposta_busca_cliente import *
-from resposta_fecha_plp_varios_servicos import RespostaFechaPLPVariosServicos
 from etiqueta import Etiqueta
+from resposta_fecha_plp_varios_servicos import RespostaFechaPLPVariosServicos
+from resposta_solicita_intervalo_etiquetas import RespostaSolicitaIntervaloEtiquetas
 
 
 class WebserviceAtendeCliente(WebserviceInterface):
@@ -164,7 +165,9 @@ class WebserviceAtendeCliente(WebserviceInterface):
         except WebFault as e:
             raise ErroConexaoComServidor(e.message)
 
-        return faixa_etiquetas
+        res = RespostaSolicitaIntervaloEtiquetas(faixa_etiquetas, qtd_etiquetas)
+
+        return res
 
     def gera_digito_verificador_etiquetas(self, lista_etiquetas, cliente,
                                           online=True):
