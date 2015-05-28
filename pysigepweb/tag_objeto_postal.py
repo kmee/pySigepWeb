@@ -34,8 +34,8 @@ from tag_base import TagBase
 class TagObjetoPostal(TagBase):
 
     def __init__(self, obj_destinatario, obj_nacional, obj_dimensao_objeto,
-                 obj_servico_postagem, obj_servico_adicional, ob_etiqueta, peso,
-                 status_processamento, codigo_objeto_cliente='',
+                 obj_servico_postagem, obj_servico_adicional, obj_etiqueta,
+                 peso, status_processamento, codigo_objeto_cliente='',
                  cubagem=0.0000, numero_comprovante_de_postagem=0,
                  valor_cobrado=0.0, rt1='', rt2=''):
 
@@ -44,7 +44,7 @@ class TagObjetoPostal(TagBase):
         self.dimensao_objeto = obj_dimensao_objeto
         self.servico_postagem = obj_servico_postagem
         self.servico_adicional = obj_servico_adicional
-        self.etiqueta = ob_etiqueta
+        self.etiqueta = obj_etiqueta
         self.codigo_objeto_cliente = codigo_objeto_cliente
         self.cubagem = cubagem
         self.peso = peso
