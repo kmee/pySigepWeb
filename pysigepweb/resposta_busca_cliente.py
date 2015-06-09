@@ -42,7 +42,8 @@ class CartaoPostagem(object):
 
 
 class Contrato(object):
-    def __init__(self, codigo_diretoria, id_contrato):
+    def __init__(self, codigo_diretoria, id_contrato, data_inicio):
+        self.data_inicio = data_inicio
         self.id_contrato = id_contrato
         self.diretoria = Diretoria(int(codigo_diretoria))
 

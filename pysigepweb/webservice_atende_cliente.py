@@ -54,7 +54,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
 
                 ct = Contrato(
                     self._convert_to_python_string(contrato.codigoDiretoria),
-                    self._convert_to_python_string(contrato.contratoPK.numero))
+                    self._convert_to_python_string(contrato.contratoPK.numero),
+                    contrato.dataVigenciaInicio)
 
                 for cartao_postagem in contrato.cartoesPostagem:
 
