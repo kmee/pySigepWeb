@@ -70,15 +70,15 @@ class TagServicoAdicional(TagBase):
         return self.lista_tipo_servico_adicional[index]
 
     def get_xml(self):
-        xml = u'<servico_adicional>'
+        xml = u'<servico_adicional>\n'
         for tipo in self.lista_tipo_servico_adicional:
-            xml += u'<codigo_servico_adicional>%s</codigo_servico_adicional>' \
+            xml += u'<codigo_servico_adicional>%s</codigo_servico_adicional>\n' \
                    % tipo
 
-        xml += u'<valor_declarado>%9.2f</valor_declarado>' % \
+        xml += u'<valor_declarado>%9.2f</valor_declarado>\n' % \
                self.valor_declarado
 
-        xml += u'</servico_adicional>'
+        xml += u'</servico_adicional>\n'
 
         self._validar_xml(xml)
         return xml

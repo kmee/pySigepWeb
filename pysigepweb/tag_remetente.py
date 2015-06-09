@@ -88,33 +88,33 @@ class TagRemetente(TagBase):
 
     def get_xml(self):
 
-        xml = u'<remetente>'
+        xml = u'<remetente>\n'
 
-        xml += u'<numero_contrato>%s</numero_contrato>' % self.num_contrato
+        xml += u'<numero_contrato>%s</numero_contrato>\n' % self.num_contrato
         xml += self.diretoria.get_xml()
-        xml += u'<codigo_administrativo>%s</codigo_administrativo>' % \
+        xml += u'<codigo_administrativo>%s</codigo_administrativo>\n' % \
                self.codigo_admin
-        xml += u'<nome_remetente><![CDATA[%s]]></nome_remetente>' % self.nome
-        xml += u'<logradouro_remetente><![CDATA[%s]]></logradouro_remetente>' % \
+        xml += u'<nome_remetente><![CDATA[%s]]></nome_remetente>\n' % self.nome
+        xml += u'<logradouro_remetente><![CDATA[%s]]></logradouro_remetente>\n' % \
                self.logradouro
-        xml += u'<numero_remetente>%d</numero_remetente>' % self.numero
-        xml += u'<complemento_remetente><![CDATA[%s]]></complemento_remetente>' \
+        xml += u'<numero_remetente>%d</numero_remetente>\n' % self.numero
+        xml += u'<complemento_remetente><![CDATA[%s]]></complemento_remetente>\n' \
                % self.endereco.complemento
-        xml += u'<bairro_remetente><![CDATA[%s]]></bairro_remetente>' % \
+        xml += u'<bairro_remetente><![CDATA[%s]]></bairro_remetente>\n' % \
                self.bairro
-        xml += u'<cep_remetente><![CDATA[%s]]></cep_remetente>' % self.cep
-        xml += u'<cidade_remetente><![CDATA[%s]]></cidade_remetente>' % \
+        xml += u'<cep_remetente><![CDATA[%s]]></cep_remetente>\n' % self.cep
+        xml += u'<cidade_remetente><![CDATA[%s]]></cidade_remetente>\n' % \
                self.cidade
-        xml += u'<uf_remetente>%s</uf_remetente>' % self.uf
+        xml += u'<uf_remetente>%s</uf_remetente>\n' % self.uf
 
         aux = str(self.telefone) if self.telefone else ''
-        xml += u'<telefone_remetente><![CDATA[%s]]></telefone_remetente>' % aux
+        xml += u'<telefone_remetente><![CDATA[%s]]></telefone_remetente>\n' % aux
 
         aux = str(self.fax) if self.fax else ''
-        xml += u'<fax_remetente><![CDATA[%s]]></fax_remetente>' % aux
+        xml += u'<fax_remetente><![CDATA[%s]]></fax_remetente>\n' % aux
 
-        xml += u'<email_remetente><![CDATA[%s]]></email_remetente>' % self.email
-        xml += u'</remetente>'
+        xml += u'<email_remetente><![CDATA[%s]]></email_remetente>\n' % self.email
+        xml += u'</remetente>\n'
 
         self._validar_xml(xml)
         return xml

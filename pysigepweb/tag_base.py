@@ -37,6 +37,8 @@ class TagBase(object):
 
     def _validar_xml(self, xml):
 
+        xml = xml.replace('\n', '')
+
         schema_tree = etree.fromstring(get_xsd())
         schema = etree.XMLSchema(schema_tree)
 

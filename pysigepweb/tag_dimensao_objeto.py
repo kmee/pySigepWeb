@@ -33,14 +33,14 @@ class TagDimensaoObjeto(Dimensao, TagBase):
 
     def get_xml(self):
 
-        xml = u'<dimensao_objeto>'
-        xml += u'<tipo_objeto>%s</tipo_objeto>' % self.tipo_objeto.codigo
-        xml += u'<dimensao_altura>%d</dimensao_altura>' % self.altura
-        xml += u'<dimensao_largura>%d</dimensao_largura>' % self.largura
-        xml += u'<dimensao_comprimento>%d</dimensao_comprimento>' % \
+        xml = u'<dimensao_objeto>\n'
+        xml += u'<tipo_objeto>%s</tipo_objeto>\n' % self.tipo_objeto.codigo
+        xml += u'<dimensao_altura>%d</dimensao_altura>\n' % self.altura
+        xml += u'<dimensao_largura>%d</dimensao_largura>\n' % self.largura
+        xml += u'<dimensao_comprimento>%d</dimensao_comprimento>\n' % \
                self.comprimento
-        xml += u'<dimensao_diametro>%d</dimensao_diametro>' % self.diametro
-        xml += u'</dimensao_objeto>'
+        xml += u'<dimensao_diametro>%d</dimensao_diametro>\n' % self.diametro
+        xml += u'</dimensao_objeto>\n'
 
         self._validar_xml(xml)
         return xml

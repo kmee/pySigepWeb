@@ -45,16 +45,16 @@ class TagCorreiosLog(TagBase):
 
     def get_xml(self):
 
-        xml = u'<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>'
-        xml += u'<correioslog>'
-        xml += u'<tipo_arquivo>%s</tipo_arquivo>' % TagCorreiosLog._TIPO_ARQUIVO
-        xml += u'<versao_arquivo>%s</versao_arquivo>' % self.versao
+        xml = u'<?xml version=\"1.0\" encoding=\"ISO-8859-1\" ?>\n'
+        xml += u'<correioslog>\n'
+        xml += u'<tipo_arquivo>%s</tipo_arquivo>\n' % TagCorreiosLog._TIPO_ARQUIVO
+        xml += u'<versao_arquivo>%s</versao_arquivo>\n' % self.versao
         xml += self.tagPLP.get_xml()
         xml += self.tag_remetente.get_xml()
         xml += self.forma_pagamento.get_xml()
         for objeto_postal in self.lista_objeto_postal:
             xml += objeto_postal.get_xml()
-        xml += u'</correioslog>'
+        xml += u'</correioslog>\n'
 
         if self._validar_xml(xml):
             return xml

@@ -21,6 +21,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from xml.etree.ElementTree import ElementTree, fromstring
 
 
 class RespostaFechaPLPVariosServicos(object):
@@ -29,21 +30,14 @@ class RespostaFechaPLPVariosServicos(object):
         self._xml = xml
         self.id_plp_cliente = id_plp_cliente
 
-    def salvar_xml(self, path):
-
-        from xml.etree.ElementTree import ElementTree, fromstring
-
+    def salvar_xml(self, file_name):
         # tag raiz do xml
         root = fromstring(self.xml.encode('utf8'))
+        # Cria backup do xml retornado
+        ElementTree(root).write(file_name + '.xml')
+        return True
 
-        try:
-             # Cria backup do xml retornado
-            ElementTree(root).write(path + 'plp_' + str(self.id_plp_cliente) +
-                                    '.xml')
-        except IOError as excp:
-            print '[ERROR] ', excp.message
 
     @property
     def xml(self):
         return self._xml
-

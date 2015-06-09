@@ -116,4 +116,4 @@ class Diretoria(TagBase):
         self._codigo = valor
 
     def get_xml(self):
-        return '<numero_diretoria>%d</numero_diretoria>' % self.codigo
+        return '<numero_diretoria>%d</numero_diretoria>\n' % self.codigo

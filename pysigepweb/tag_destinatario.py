@@ -110,27 +110,27 @@ class TagDestinatario(TagBase):
 
     def get_xml(self):
 
-        xml = u'<destinatario>'
-        xml += u'<nome_destinatario><![CDATA[%s]]></nome_destinatario>' % \
+        xml = u'<destinatario>\n'
+        xml += u'<nome_destinatario><![CDATA[%s]]></nome_destinatario>\n' % \
                self.nome
 
         aux = str(self.telefone) if self.telefone else ''
         xml += u'<telefone_destinatario><![CDATA[' \
-               u'%s]]></telefone_destinatario>' % aux
+               u'%s]]></telefone_destinatario>\n' % aux
 
         aux = str(self.celular) if self.celular else ''
-        xml += u'<celular_destinatario><![CDATA[%s]]></celular_destinatario>' \
+        xml += u'<celular_destinatario><![CDATA[%s]]></celular_destinatario>\n' \
                % aux
 
-        xml += u'<email_destinatario><![CDATA[%s]]></email_destinatario>' % \
+        xml += u'<email_destinatario><![CDATA[%s]]></email_destinatario>\n' % \
                self.email
         xml += u'<logradouro_destinatario><![CDATA[' \
-               u'%s]]></logradouro_destinatario>' % self.logradouro
+               u'%s]]></logradouro_destinatario>\n' % self.logradouro
         xml += u'<complemento_destinatario><![CDATA[' \
-               u'%s]]></complemento_destinatario>' % self.complemento
-        xml += u'<numero_end_destinatario>%s</numero_end_destinatario>' % \
+               u'%s]]></complemento_destinatario>\n' % self.complemento
+        xml += u'<numero_end_destinatario>%s</numero_end_destinatario>\n' % \
                str(self.numero)
-        xml += u'</destinatario>'
+        xml += u'</destinatario>\n'
 
         self._validar_xml(xml)
         return xml

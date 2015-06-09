@@ -40,36 +40,36 @@ class TagNacional(TagBase):
 
     def get_xml(self):
 
-        xml = u'<nacional>'
+        xml = u'<nacional>\n'
 
-        xml += u'<bairro_destinatario><![CDATA[%s]]></bairro_destinatario>' % \
+        xml += u'<bairro_destinatario><![CDATA[%s]]></bairro_destinatario>\n' % \
                self.endereco.bairro
-        xml += u'<cidade_destinatario><![CDATA[%s]]></cidade_destinatario>' % \
+        xml += u'<cidade_destinatario><![CDATA[%s]]></cidade_destinatario>\n' % \
                self.endereco.cidade
-        xml += u'<uf_destinatario>%s</uf_destinatario>' % self.endereco.uf
-        xml += u'<cep_destinatario><![CDATA[%s]]></cep_destinatario>' % \
+        xml += u'<uf_destinatario>%s</uf_destinatario>\n' % self.endereco.uf
+        xml += u'<cep_destinatario><![CDATA[%s]]></cep_destinatario>\n' % \
                self.endereco.cep
-        xml += u'<codigo_usuario_postal>%s</codigo_usuario_postal>' % \
+        xml += u'<codigo_usuario_postal>%s</codigo_usuario_postal>\n' % \
                self.codigo_usuario_postal
-        xml += u'<centro_custo_cliente>%s</centro_custo_cliente>' % \
+        xml += u'<centro_custo_cliente>%s</centro_custo_cliente>\n' % \
                self.centro_custo_cliente
 
         aux = str(self.num_nfe) if self.num_nfe else ''
-        xml += u'<numero_nota_fiscal>%s</numero_nota_fiscal>' % aux
+        xml += u'<numero_nota_fiscal>%s</numero_nota_fiscal>\n' % aux
 
         aux = str(self.serie_nfe) if self.serie_nfe else ''
-        xml += u'<serie_nota_fiscal>%s</serie_nota_fiscal>' % aux
+        xml += u'<serie_nota_fiscal>%s</serie_nota_fiscal>\n' % aux
 
         aux = str(self.valor_nfe) if self.valor_nfe else ''
-        xml += u'<valor_nota_fiscal>%s</valor_nota_fiscal>' % aux
+        xml += u'<valor_nota_fiscal>%s</valor_nota_fiscal>\n' % aux
 
-        xml += u'<natureza_nota_fiscal/>'
-        xml += u'<descricao_objeto><![CDATA[%s]]></descricao_objeto>' % \
+        xml += u'<natureza_nota_fiscal/>\n'
+        xml += u'<descricao_objeto><![CDATA[%s]]></descricao_objeto>\n' % \
                self.descricao_objeto
 
         # aux = str(self.valor_a_cobrar) if self.valor_a_cobrar else ''
-        xml += u'<valor_a_cobrar>1.2%f</valor_a_cobrar>' % self.valor_a_cobrar
-        xml += u'</nacional>'
+        xml += u'<valor_a_cobrar>1.2%f</valor_a_cobrar>\n' % self.valor_a_cobrar
+        xml += u'</nacional>\n'
 
         self._validar_xml(xml)
         return xml

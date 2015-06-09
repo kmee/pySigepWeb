@@ -228,20 +228,15 @@ class WebserviceAtendeCliente(WebserviceInterface):
                                   lista_obj_etiquetas, num_cartao_postagem,
                                   cliente):
 
-        etiquetas_sem_digito = []
-
-        for i in range(len(obj_correios_log.lista_objeto_postal)):
-            # As etiquetas tem de ser enviadas sem o digito verificador
-            # e sem o espaco em branco antes do sufixo da etiqueta
-            etq = lista_obj_etiquetas[i].valor
-            etiquetas_sem_digito.append(etq.replace(' ', ''))
+        etiquetas_sem_digito = [etq.valor.replace(' ', '') for etq in
+                                lista_obj_etiquetas]
 
         xml = obj_correios_log.get_xml()
 
         if xml:
             try:
                 id_plp_cliente = self._service.fechaPlpVariosServicos(
-                    xml, id_plp_cliente, num_cartao_postagem,
+                    xml.replace('\n',''), id_plp_cliente, num_cartao_postagem,
                     etiquetas_sem_digito, cliente.login, cliente.senha)
 
                 return RespostaFechaPLPVariosServicos(xml, id_plp_cliente)
