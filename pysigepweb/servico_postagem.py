@@ -77,9 +77,10 @@ class ServicoPostagem(object):
                                              116985),
     }
 
-    def __init__(self, codigo, descricao='', servico_id=000000):
+    def __init__(self, codigo, chancela=None, descricao='', servico_id=000000):
 
         self._codigo = int(codigo)
+        self.chancela = chancela
 
         if codigo in ServicoPostagem._servicos:
             self._nome = ServicoPostagem._servicos[codigo][0]

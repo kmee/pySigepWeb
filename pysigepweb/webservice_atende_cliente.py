@@ -28,6 +28,7 @@ from resposta_busca_cliente import *
 from etiqueta import Etiqueta
 from resposta_fecha_plp_varios_servicos import RespostaFechaPLPVariosServicos
 from resposta_solicita_intervalo_etiquetas import RespostaSolicitaIntervaloEtiquetas
+import chancela
 
 
 class WebserviceAtendeCliente(WebserviceInterface):
@@ -66,10 +67,16 @@ class WebserviceAtendeCliente(WebserviceInterface):
                         self._convert_to_python_string(cartao_postagem.numero))
 
                     for servico in cartao_postagem.servicos:
+                        chan = chancela.Chancela(
+                            servico.servicoSigep.chancela.chancela,
+                            servico.servicoSigep.chancela.descricao,
+                            contrato.contratoPK.numero)
+
                         cp.add_servico_postagem(
                             self._convert_to_python_string(servico.codigo),
                             str(servico.descricao),
-                            self._convert_to_python_string(servico.id))
+                            self._convert_to_python_string(servico.id),
+                            chan)
 
                     ct.cartoes_postagem[cp.numero] = cp
 

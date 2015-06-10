@@ -35,8 +35,9 @@ class CartaoPostagem(object):
         # chave:codigo do servico
         self.servicos_postagem = {}
 
-    def add_servico_postagem(self, codigo, nome, servico_id):
+    def add_servico_postagem(self, codigo, nome, servico_id, chancela):
         self.servicos_postagem[codigo] = ServicoPostagem(int(codigo),
+                                                         chancela,
                                                          nome,
                                                          servico_id)
 
