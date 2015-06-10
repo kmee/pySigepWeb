@@ -51,6 +51,7 @@ class Chancela(object):
     def base_64_str_imagem(self):
         return self._base_64_str_imagem
 
+    @property
     def get_image_base64(self):
 
         if self.dr_origem != self.dr_postagem:
@@ -64,30 +65,36 @@ class Chancela(object):
                                        self.dr_origem)
 
         t = base64.decodestring(self._base_64_str_imagem)
-        imagem = Image.open(StringIO(t))
-        img = imagem.convert("RGB")
+        img = Image.open(StringIO(t)).convert("RGB")
         draw = ImageDraw.ImageDraw(img)
 
-        font = ImageFont.truetype(Chancela._TTF_ARIAL, 8)
+        font = ImageFont.truetype(Chancela._TTF_ARIAL, int(img.size[0]*0.07))
         draw.setfont(font)
         tamanho_texto = draw.textsize(texto)
         h_position = (img.size[0] - tamanho_texto[0]) / 2
         v_position = img.size[1] / 2
         draw.text((h_position, v_position), texto, fill=(0, 0, 0))
 
-        font = ImageFont.truetype(Chancela._TTF_ARIAL_N, 11)
+        font = ImageFont.truetype(Chancela._TTF_ARIAL_N, int(img.size[0]*0.09))
         draw.setfont(font)
         tamanho_texto = draw.textsize(self.nome_cliente)
         h_position = (img.size[0] - tamanho_texto[0]) / 2
-        v_position = img.size[1] / 2 + 8
+        v_position = img.size[1] / 2 + int(img.size[0]*0.09)
         draw.text((h_position, v_position), self.nome_cliente, fill=(0, 0, 0))
+
+        size = max(img.size[0], img.size[1])
+        bg = Image.new("RGBA", (size, size), (255, 255, 255))
+        h_position = (bg.size[0] - img.size[0]) / 2
+        v_position = (bg.size[1] - img.size[1]) / 2
+
+        bg.paste(img, box=(h_position, v_position))
 
         # Converte a imagem resultante para base64
         tmp = io.BytesIO()
-        img.save(tmp, 'png')
-        img = base64.b64encode(tmp.getvalue())
+        bg.save(tmp, 'png')
+        bg = base64.b64encode(tmp.getvalue())
 
-        return img
+        return bg
 
     def save_image(self, path):
         with open(path + 'jpg', 'wb') as f:
