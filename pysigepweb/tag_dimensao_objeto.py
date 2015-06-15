@@ -28,13 +28,14 @@ from dimensao import *
 
 class TagDimensaoObjeto(Dimensao, TagBase):
 
-    def __init__(self, tipo_objeto):
-        super(TagDimensaoObjeto, self).__init__(tipo_objeto)
+    def __init__(self, codigo, altura=2, largura=11, comprimento=16, diametro=5):
+        super(TagDimensaoObjeto, self).__init__(codigo, altura, largura,
+                                                comprimento, diametro)
 
     def get_xml(self):
 
         xml = u'<dimensao_objeto>\n'
-        xml += u'<tipo_objeto>%s</tipo_objeto>\n' % self.tipo_objeto.codigo
+        xml += u'<tipo_objeto>%s</tipo_objeto>\n' % self.codigo
         xml += u'<dimensao_altura>%d</dimensao_altura>\n' % self.altura
         xml += u'<dimensao_largura>%d</dimensao_largura>\n' % self.largura
         xml += u'<dimensao_comprimento>%d</dimensao_comprimento>\n' % \

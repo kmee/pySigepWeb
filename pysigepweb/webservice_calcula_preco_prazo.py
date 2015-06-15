@@ -62,7 +62,7 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
         cep_destino = cep_destino.replace('-', '')
 
         ncdservico = WebserviceCalculaPrecoPrazo._nCdFormato[
-            obj_dimensao.tipo_objeto.codigo]
+            obj_dimensao.codigo]
 
         # if ncdservico == 3 and peso > 1:
             # print u'[AVISO] Para encomendas do tipo Envelope, o peso máximo' \
