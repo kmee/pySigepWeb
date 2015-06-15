@@ -64,9 +64,9 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
         ncdservico = WebserviceCalculaPrecoPrazo._nCdFormato[
             obj_dimensao.tipo_objeto.codigo]
 
-        if ncdservico == 3 and peso > 1:
-            print u'[AVISO] Para encomendas do tipo Envelope, o peso máximo' \
-                  u'permitido é 1 Kg.'
+        # if ncdservico == 3 and peso > 1:
+            # print u'[AVISO] Para encomendas do tipo Envelope, o peso máximo' \
+            #       u'permitido é 1 Kg.'
 
         scdmaopropria = WebserviceCalculaPrecoPrazo._OPCAO[usar_mao_propria]
         scdavisorecebimento = \

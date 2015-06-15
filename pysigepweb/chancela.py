@@ -26,6 +26,7 @@ from StringIO import StringIO
 import io
 import base64
 import os
+import textwrap
 
 BASE_DIR = os.path.dirname(__file__)
 
@@ -75,12 +76,22 @@ class Chancela(object):
         v_position = img.size[1] / 2
         draw.text((h_position, v_position), texto, fill=(0, 0, 0))
 
-        font = ImageFont.truetype(Chancela._TTF_ARIAL_N, int(img.size[0]*0.09))
+        list_name = textwrap.wrap(self.nome_cliente, width=20)
+
+        font = ImageFont.truetype(Chancela._TTF_ARIAL_N, int(img.size[0]*0.07))
         draw.setfont(font)
-        tamanho_texto = draw.textsize(self.nome_cliente)
-        h_position = (img.size[0] - tamanho_texto[0]) / 2
-        v_position = img.size[1] / 2 + int(img.size[0]*0.09)
-        draw.text((h_position, v_position), self.nome_cliente, fill=(0, 0, 0))
+        # tamanho_texto = draw.textsize(self.nome_cliente)
+        # h_position = (img.size[0] - tamanho_texto[0]) / 2
+        v_position = img.size[1] / 2 + int(img.size[0]*0.07)
+
+        y_text = v_position
+        for line in list_name:
+            width, height = font.getsize(line)
+            h_position = (img.size[0] - width) / 2
+            draw.text((h_position, y_text), line, fill=(0, 0, 0))
+            y_text += height + 5
+
+        # draw.text((h_position, v_position), self.nome_cliente, fill=(0, 0, 0))
 
         size = max(img.size[0], img.size[1])
         bg = Image.new("RGBA", (size, size), (255, 255, 255))

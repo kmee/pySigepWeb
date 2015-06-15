@@ -48,15 +48,15 @@ class Caixa(TipoObjeto):
     def __init__(self, altura=2, largura=11, comprimento=16):
         super(Caixa, self).__init__('002')
 
-        if altura not in xrange(2, 105):
-            print u'[AVISO] Altura da Caixa deve ser igual ou maior que 2.'
-
-        if largura not in xrange(11, 105):
-            print u'[AVISO] Largura da Caixa deve ser igual ou maior que 11.'
-
-        if comprimento not in xrange(16, 105):
-            print u'[AVISO] Comprimento da Caixa deve ser igual ou maior ' \
-                  u'que 16.'
+        # if altura not in xrange(2, 105):
+        #     print u'[AVISO] Altura da Caixa deve ser igual ou maior que 2.'
+        #
+        # if largura not in xrange(11, 105):
+        #     print u'[AVISO] Largura da Caixa deve ser igual ou maior que 11.'
+        #
+        # if comprimento not in xrange(16, 105):
+        #     print u'[AVISO] Comprimento da Caixa deve ser igual ou maior ' \
+        #           u'que 16.'
 
         self.altura = altura
         self.largura = largura
@@ -67,15 +67,15 @@ class Pacote(TipoObjeto):
     def __init__(self, altura=2, largura=11, comprimento=16):
         super(Pacote, self).__init__('002')
 
-        if altura not in xrange(2, 105):
-            print u'[AVISO] Altura da Pacote deve ser igual ou maior que 2.'
-
-        if largura not in xrange(11, 105):
-            print u'[AVISO] Largura da Pacote deve ser igual ou maior que 11.'
-
-        if comprimento not in xrange(16, 105):
-            print u'[AVISO] Comprimento da Pacote deve ser igual ou maior ' \
-                  u'que 16.'
+        # if altura not in xrange(2, 105):
+        #     print u'[AVISO] Altura da Pacote deve ser igual ou maior que 2.'
+        #
+        # if largura not in xrange(11, 105):
+        #     print u'[AVISO] Largura da Pacote deve ser igual ou maior que 11.'
+        #
+        # if comprimento not in xrange(16, 105):
+        #     print u'[AVISO] Comprimento da Pacote deve ser igual ou maior ' \
+        #           u'que 16.'
 
         self.altura = altura
         self.largura = largura
@@ -87,12 +87,12 @@ class Cilindro(TipoObjeto):
     def __init__(self, comprimento=18, diametro=5):
         super(Cilindro, self).__init__('003')
 
-        if comprimento not in xrange(18, 105):
-            print u'[AVISO] Comprimento da Cilindro deve ser igual ou maior ' \
-                  u'que 18.'
-
-        if diametro not in xrange(5, 105):
-            print u'[AVISO] Diametro da Cilindro deve ser igual ou maior que 5.'
+        # if comprimento not in xrange(18, 105):
+        #     print u'[AVISO] Comprimento da Cilindro deve ser igual ou maior ' \
+        #           u'que 18.'
+        #
+        # if diametro not in xrange(5, 105):
+        #     print u'[AVISO] Diametro da Cilindro deve ser igual ou maior que 5.'
 
         self.comprimento = comprimento
         self.diametro = diametro
@@ -103,11 +103,11 @@ class Rolo(TipoObjeto):
     def __init__(self, comprimento=18, diametro=5):
         super(Rolo, self).__init__('003')
 
-        if comprimento not in xrange(18, 105):
-            print u'[AVISO] Comprimento da Rolo deve ser igual ou maior que 18.'
-
-        if diametro not in xrange(5, 105):
-            print u'[AVISO] Diametro da Rolo deve ser igual ou maior que 5.'
+        # if comprimento not in xrange(18, 105):
+        #     print u'[AVISO] Comprimento da Rolo deve ser igual ou maior que 18.'
+        #
+        # if diametro not in xrange(5, 105):
+        #     print u'[AVISO] Diametro da Rolo deve ser igual ou maior que 5.'
 
         self.comprimento = comprimento
         self.diametro = diametro

@@ -45,12 +45,12 @@ class TagBase(object):
         source = etree.fromstring(xml.encode('utf8'))
 
         if schema.validate(source):
-            print '[INFO] XML %s validado com sucesso!' % \
+            print '[INFO] Validate XML %s sucessfull!' % \
                   self.__class__.__name__
             return True
 
         else:
-            msg = u'[ERRO] Validação de XML %s falhou!' % \
+            msg = '[ERRO] Validation of XML %s not sucessfull!' % \
                   self.__class__.__name__ + '\n'
             log = schema.error_log
             for error in iter(log):
