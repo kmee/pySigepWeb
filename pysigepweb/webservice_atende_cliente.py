@@ -244,7 +244,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
         if xml:
             try:
                 id_plp_cliente = self._service.fechaPlpVariosServicos(
-                    xml.replace('\n',''), id_plp_cliente, num_cartao_postagem,
+                    xml.replace('\n', ''), id_plp_cliente, num_cartao_postagem,
                     etiquetas_sem_digito, cliente.login, cliente.senha)
 
                 return RespostaFechaPLPVariosServicos(xml, id_plp_cliente)

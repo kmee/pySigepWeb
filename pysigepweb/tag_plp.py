@@ -27,10 +27,8 @@ from tag_base import TagBase
 
 class TagPLP(TagBase):
 
-    def __init__(self, cartao_postagem, valor_global=0.00,
-                 mcu_unidade_postagem='', nome_unidade_postagem=''):
-        self.id_lpl = False
-        self.valor_global = valor_global
+    def __init__(self, cartao_postagem, mcu_unidade_postagem='',
+                 nome_unidade_postagem=''):
         self.mcu_unidade_postagem = mcu_unidade_postagem
         self.nome_unidade_postagem = nome_unidade_postagem
         self.cartao_postagem = cartao_postagem
@@ -38,11 +36,8 @@ class TagPLP(TagBase):
     def get_xml(self):
         xml = u'<plp>\n'
 
-        aux = str(self.id_lpl) if self.id_lpl else ''
-        xml += u'<id_plp>%s</id_plp>\n' % aux
-
-        aux = str(self.valor_global) if self.valor_global else ''
-        xml += u'<valor_global>%s</valor_global>\n' % aux
+        xml += u'<id_plp />\n'
+        xml += u'<valor_global></valor_global>\n'
 
         xml += u'<mcu_unidade_postagem>%s</mcu_unidade_postagem>\n' % \
                self.mcu_unidade_postagem
