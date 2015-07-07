@@ -56,5 +56,5 @@ class TagBase(object):
             for error in iter(log):
                 msg += "\n[ERROR]: " + error.message
 
-            print msg
+            print msg.encode('utf8')
             raise ErroValidacaoXML(msg)
