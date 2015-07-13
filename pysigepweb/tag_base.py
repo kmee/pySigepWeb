@@ -33,7 +33,7 @@ class TagBase(object):
     XLM_SCHEMA = None
 
     def get_xml(self):
-        raise NotImplementedError(u"[WARNING] Método deve ser sobreescrito!")
+        raise NotImplementedError("[WARNING] Please, override this method.")
 
     def _validar_xml(self, xml):
 

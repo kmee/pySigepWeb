@@ -21,6 +21,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 from PIL import Image, ImageDraw, ImageFont
 from StringIO import StringIO
 import io
@@ -65,10 +66,14 @@ class Chancela(object):
                                        self.ano_assinatura,
                                        self.dr_origem)
 
+        # A imagem fornecida pelo metodo busca_cliente retorna a imagem em
+        # base64
         t = base64.decodestring(self._base_64_str_imagem)
         img = Image.open(StringIO(t)).convert("RGB")
         draw = ImageDraw.ImageDraw(img)
 
+        # Inicializamos a fonte a ser usada no nome da empresa presente na
+        # chancela
         font = ImageFont.truetype(Chancela._TTF_ARIAL, int(img.size[0]*0.07))
         draw.setfont(font)
         tamanho_texto = draw.textsize(texto)
@@ -76,12 +81,12 @@ class Chancela(object):
         v_position = img.size[1] / 2
         draw.text((h_position, v_position), texto, fill=(0, 0, 0))
 
+        # Dividimos o nome da empresa em partes para que seja possivel usar
+        # quebra de linha
         list_name = textwrap.wrap(self.nome_cliente, width=20)
 
         font = ImageFont.truetype(Chancela._TTF_ARIAL_N, int(img.size[0]*0.07))
         draw.setfont(font)
-        # tamanho_texto = draw.textsize(self.nome_cliente)
-        # h_position = (img.size[0] - tamanho_texto[0]) / 2
         v_position = img.size[1] / 2 + int(img.size[0]*0.07)
 
         y_text = v_position
@@ -90,8 +95,6 @@ class Chancela(object):
             h_position = (img.size[0] - width) / 2
             draw.text((h_position, y_text), line, fill=(0, 0, 0))
             y_text += height + 5
-
-        # draw.text((h_position, v_position), self.nome_cliente, fill=(0, 0, 0))
 
         size = max(img.size[0], img.size[1])
         bg = Image.new("RGBA", (size, size), (255, 255, 255))
@@ -110,4 +113,3 @@ class Chancela(object):
     def save_image(self, path):
         with open(path + 'jpg', 'wb') as f:
             f.write(base64.decodestring(self._base_64_str_imagem))
-

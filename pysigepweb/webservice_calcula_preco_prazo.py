@@ -61,12 +61,9 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
         cep_origem = cep_origem.replace('-', '')
         cep_destino = cep_destino.replace('-', '')
 
+        # Para ncdservico = 3 (Envelope), o peso maximo permitido e 1 kg
         ncdservico = WebserviceCalculaPrecoPrazo._nCdFormato[
             obj_dimensao.codigo]
-
-        # if ncdservico == 3 and peso > 1:
-            # print u'[AVISO] Para encomendas do tipo Envelope, o peso máximo' \
-            #       u'permitido é 1 Kg.'
 
         scdmaopropria = WebserviceCalculaPrecoPrazo._OPCAO[usar_mao_propria]
         scdavisorecebimento = \
@@ -93,4 +90,3 @@ class WebserviceCalculaPrecoPrazo(WebserviceInterface):
 
         except WebFault as exc:
             raise ErroConexaoComServidor(exc.message)
-

@@ -93,8 +93,6 @@ class Diretoria(TagBase):
         if codigo in Diretoria._diretorias:
             self._codigo = codigo
         else:
-            # print u'[AVISO] O codigo de diretoria fornecido não é válido! ' \
-            #       u'Codigo: ', codigo
             self._codigo = False
 
     @property

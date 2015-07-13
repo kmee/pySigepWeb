@@ -37,7 +37,6 @@ class RespostaFechaPLPVariosServicos(object):
         ElementTree(root).write(file_name + '.xml')
         return True
 
-
     @property
     def xml(self):
         return self._xml

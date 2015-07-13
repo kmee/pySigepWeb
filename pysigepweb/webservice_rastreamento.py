@@ -51,6 +51,7 @@ class WebserviceRastreamento(object):
         for etq in lista_etiquetas:
             etiquetas += etq.com_digito_verificador()
 
+        # header para ser enviado ao webservice de rastreamento
         params = {
             "Usuario": cliente.login,
             "Senha": cliente.senha,
@@ -59,6 +60,7 @@ class WebserviceRastreamento(object):
             'Objetos': etiquetas,
         }
 
+        # Realizamos o rastreamento das etiquetas fornecidas
         query = urllib.urlencode(params)
         f = urllib.urlopen(WebserviceRastreamento._URL, query)
         xml = f.read()

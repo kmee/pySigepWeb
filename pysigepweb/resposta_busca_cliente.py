@@ -85,6 +85,3 @@ class Cliente(object):
     def get_lista_servico_postagem(self, id_contrato, numero_cartao):
         return self.contratos[id_contrato].cartoes_postagem[
             numero_cartao].servicos_postagem
-
-
-

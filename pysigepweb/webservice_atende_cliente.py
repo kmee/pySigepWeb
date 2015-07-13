@@ -156,8 +156,8 @@ class WebserviceAtendeCliente(WebserviceInterface):
         etiquetas = []
 
         for i in range(qtd_etiquetas):
-            valor = etiqueta_prefixo + str(etiqueta_numero + i).zfill(8) + ' ' \
-                                                                        + etiqueta_sufixo
+            valor = etiqueta_prefixo + str(etiqueta_numero + i).zfill(8) \
+                + ' ' + etiqueta_sufixo
 
             etiquetas.append(Etiqueta(valor))
 
@@ -215,7 +215,7 @@ class WebserviceAtendeCliente(WebserviceInterface):
             soma = 0
 
             if len(etq.numero) != 8:
-                dv = u'[Erro] Número de digito deve ser 8'
+                dv = '[Erro] Numero de digitos deve ser 8'
             else:
                 for i in range(8):
                     soma += int(etq.numero[i:(i+1)]) * multiplicadores[i]

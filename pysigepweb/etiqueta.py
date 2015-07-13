@@ -29,9 +29,6 @@ class Etiqueta(object):
 
     def __init__(self, etiqueta_sem_dig_verif):
 
-        # if len(etiqueta_sem_dig_verif) != 13:
-        #     print '[AVISO] Etiqueta com tamanho incorreto.',
-
         self._numero = etiqueta_sem_dig_verif[2:10]
         self._prefixo = etiqueta_sem_dig_verif[0:2]
         self._sufixo = etiqueta_sem_dig_verif[11:]
@@ -54,7 +51,6 @@ class Etiqueta(object):
                   etiqueta_sem_dig_verif
             raise ErroTamanhoParamentroIncorreto(aux)
 
-        # self._valor = etiqueta_sem_dig_verif
         self._numero = etiqueta_sem_dig_verif[2:10]
         self._prefixo = etiqueta_sem_dig_verif[0:2]
         self._sufixo = etiqueta_sem_dig_verif[11:]

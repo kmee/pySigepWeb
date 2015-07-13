@@ -39,4 +39,3 @@ class RespostaCalculaPrecoPrazo(object):
         self.msg_erro = returno_suds.MsgErro
         self.valor_sem_adicionais = returno_suds.ValorSemAdicionais
         self.obs_fim = returno_suds.obsFim
-

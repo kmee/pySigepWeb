@@ -51,8 +51,8 @@ class RespostaSolicitaIntervaloEtiquetas(object):
         etiquetas = []
 
         for i in range(self._qtd_etiquetas):
-            valor = etiqueta_prefixo + str(etiqueta_numero + i).zfill(8) + ' ' \
-                                                                        + etiqueta_sufixo
+            valor = etiqueta_prefixo + str(etiqueta_numero + i).zfill(8) \
+                + ' ' + etiqueta_sufixo
 
             etiquetas.append(Etiqueta(valor))
 

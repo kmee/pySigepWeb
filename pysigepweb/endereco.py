@@ -65,18 +65,18 @@ class Endereco(object):
 
     @staticmethod
     def digito_validador_cep(cep):
-        '''
-        Subtrai-se o resultado da soma do múltiplo de 10, imediatamente superior ao resultado.
+        """
+        Subtrai-se o resultado da soma do múltiplo de 10, imediatamente superior
+         ao resultado.
         Ex: CEP: 71010050  7+1+0+1+0+0+5+0 = 14
         Subtrai-se 14 e 20.
         O validador do CEP do exemplo é 6.
         :param cep: string de números do cep
         :return: inteiro com o número validador do cep
-        '''
+        """
         sum = 0
         for i in cep:
             sum += int(i)
 
         digito = 10 - (sum % 10)
-
         return digito

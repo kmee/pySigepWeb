@@ -32,10 +32,10 @@ class SigepWEBBaseException(Exception):
         return repr(self.message)
 
 
-class ErroSemConecaoComInternet(SigepWEBBaseException):
+class ErroSemConexaoComInternet(SigepWEBBaseException):
 
     def __init__(self, msg, *args):
-        self.message = u'Falha na conexão com a Internet'
+        self.message = 'No Internet conection.'
 
     def __str__(self):
         return repr(self.message)

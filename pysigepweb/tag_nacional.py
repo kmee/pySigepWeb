@@ -67,7 +67,6 @@ class TagNacional(TagBase):
         xml += u'<descricao_objeto><![CDATA[%s]]></descricao_objeto>\n' % \
                self.descricao_objeto
 
-        # aux = str(self.valor_a_cobrar) if self.valor_a_cobrar else ''
         xml += u'<valor_a_cobrar>1.2%f</valor_a_cobrar>\n' % self.valor_a_cobrar
         xml += u'</nacional>\n'
 

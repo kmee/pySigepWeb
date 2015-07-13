@@ -48,7 +48,6 @@ class TagObjetoPostal(TagBase):
         self.codigo_objeto_cliente = codigo_objeto_cliente
         self.cubagem = cubagem
         self.peso = peso
-        # self.data_postagem = date()
         self.status_processamento = status_processamento
         self.numero_comprovante_de_postagem = numero_comprovante_de_postagem
         self.valor_cobrado = valor_cobrado
