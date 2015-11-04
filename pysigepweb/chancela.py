@@ -53,7 +53,6 @@ class Chancela(object):
     def base_64_str_imagem(self):
         return self._base_64_str_imagem
 
-    @property
     def get_image_base64(self):
 
         if self.dr_origem != self.dr_postagem:
