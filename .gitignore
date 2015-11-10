@@ -1,5 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Python template
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -39,9 +37,17 @@ pip-delete-this-directory.txt
 htmlcov/
 .tox/
 .coverage
+<<<<<<< HEAD
 .cache
 nosetests.xml
 coverage.xml
+=======
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*,cover
+>>>>>>> 4baaa1a0bbe394b0f08670919696d3e945142a9c
 
 # Translations
 *.mo
@@ -54,10 +60,5 @@ coverage.xml
 docs/_build/
 
 # PyBuilder
-target/
-
-# Project
+target/ 
 .ideafiles
-files/
-.idea
-php-sigep/
