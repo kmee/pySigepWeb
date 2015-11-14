@@ -8,14 +8,14 @@ Recursos
 ---
 Esta API pode:
 * Calcular preços e prazos de entrega da encomenda.   
-* TODO: Obter os dados de rastreamento das encomendas.   
+* Obter os dados de rastreamento das encomendas.   
 * Verificar se um tipo de serviço (Sedex, PAC, ...) é permitido entre dois endereços.   
 * Gerar e enviar o XML da pre-lista de postagem (PLP) para o Correios.   
 * Gerar novos números de etiquetas de postagem.
 * Criar e/ou verificar validade do dígito verificador das etiquetas (através do web service ou não).   
 * TODO: Gerar o relatório da PLP no formato PDF.   
 * TODO: Gerar as etiquetas de postagem no formato PDF.
-* TODO: Gerar em PDF as chancelas para cada tipo de serviço (logo de cada tipo de servico). 
+* Gerar as chancelas para cada tipo de serviço (logo de cada tipo de servico). 
 
 Requisitos
 ---
