@@ -45,13 +45,13 @@ class Evento(object):
         self.descricao = root.find('descricao').text
 
         aux = root.find('recebedor')
-        self.recebedor = aux.text if aux is not None else None
+        self.recebedor = aux.text if aux else None
 
         aux = root.find('documento')
-        self.documento = aux.text if aux is not None else None
+        self.documento = aux.text if aux else None
 
         aux = root.find('comentario')
-        self.comentario = aux.text if aux is not None else None
+        self.comentario = aux.text if aux else None
 
         self.local = root.find('local').text
         self.codigo = root.find('codigo').text
@@ -60,8 +60,7 @@ class Evento(object):
         self.sto = root.find('sto').text
 
         root_destino = root.find('destino')
-        self.destino = Destino(root_destino) if root_destino is not None else\
-            None
+        self.destino = Destino(root_destino) if len(root_destino) else None
 
 
 class Objeto(object):
@@ -94,7 +93,7 @@ class RespostaRastreamento(object):
 
         self.error = root.find('error')
 
-        if self.error == '0':
+        if self.error == None:
             self.qtd = root.find('qtd').text
             self.tipo_pesquisa = root.find('TipoPesquisa').text
             self.tipo_resultado = root.find('TipoResultado').text
