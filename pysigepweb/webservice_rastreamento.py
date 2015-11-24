@@ -45,7 +45,7 @@ class WebserviceRastreamento(object):
     def __init__(self):
         self.path = ''
 
-    def rastrea_objetos(self, tipo, resultado, lista_etiquetas, cliente):
+    def rastrea_objetos(self, tipo, resultado, lista_etiquetas, login, senha):
 
         etiquetas = ''
         for etq in lista_etiquetas:
@@ -53,8 +53,8 @@ class WebserviceRastreamento(object):
 
         # header para ser enviado ao webservice de rastreamento
         params = {
-            "Usuario": cliente.login,
-            "Senha": cliente.senha,
+            "Usuario": login,
+            "Senha": senha,
             'Tipo': WebserviceRastreamento._constantes[tipo],
             'Resultado': WebserviceRastreamento._constantes[resultado],
             'Objetos': etiquetas,
