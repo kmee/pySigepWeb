@@ -1,0 +1,10 @@
+language: python
+python:
+- '2.7'
+install:
+  - pip install six
+  - pip install pytest
+#  - pip install coveralls
+script:
+#  - coverage run --source=sped setup.py test
+  - python test/pysegepweb_test.py
